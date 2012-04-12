@@ -1,0 +1,47 @@
+.students li {
+	list-style-type: none;
+}
+
+#unassignedStudents {
+	padding: 12px 0px 12px 0px;
+}
+
+.draggable {
+	z-index: 1000;
+	cursor: move;
+}
+
+.group {
+	float: left;
+	background: #bbb;
+	padding: 6px 8px 8px 8px;
+	margin: 0px 0px 10px 10px;
+	position: relative;
+	border-radius: 6px 0px 6px 6px;
+}
+
+.group .deleteButton {
+	position: absolute;
+	right: -6px;
+	top: -6px;
+	cursor: pointer
+}
+
+.group .teamname {
+	font-size: 12px;
+	font-weight: bold;
+	padding-bottom: 4px;
+}
+
+.group ul.students {
+	padding: 2px;
+	min-height: 24px;
+	min-width: 80px;
+	background-color: #eee;
+	border-radius: 4px;
+}
+
+#groupArea {
+	float: left;
+	width: 360px;
+}
