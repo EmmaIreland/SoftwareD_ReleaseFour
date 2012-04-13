@@ -6,7 +6,7 @@ class HomePage extends Page {
     static url = ""
     
     static at = {
-        title.endsWith("Cevin's Cyqulists")
+        title.endsWith("TwentyFourEyes")
     }
     
     static content = { 
