@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><g:layoutTitle default="Cevin's Cyqulists" /></title>
+        <title><g:layoutTitle default="TwentyFourEyes" /></title>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'trinkets.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.png')}" type="image/x-icon" />
@@ -16,9 +16,9 @@
     </head>
     <body>
         <div id="sideBarNav">
-        	<div><a href="${createLink(uri: '/')}"><img id="appLogo" src="${resource(dir:'images',file:'Cevin_logo.png')}" alt="Grails" border="0" /></a></div>
+        	<div><a href="${createLink(uri: '/')}"><img id="appLogo" src="${resource(dir:'images',file:'24eyes.png')}" alt="Grails" border="0" /></a></div>
         	<br>
-        	<div id="appName"><a href="${createLink(uri: '/')}">Cevin's Cyqulists</a></div>
+        	<div id="appName"><a href="${createLink(uri: '/')}">TwentyFourEyes</a></div>
         	<div id="controllers">
         		<div id="title">View</div>
         		<div id="list">

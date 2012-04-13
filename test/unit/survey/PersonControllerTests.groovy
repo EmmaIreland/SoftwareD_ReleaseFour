@@ -61,7 +61,6 @@ class PersonControllerTests extends ControllerUnitTestCase {
         controller.params.id = 1
         def results = controller.delete()
         assertEquals Person.list().size(), 1
-        println results
         controller.params.id = 100
         controller.delete()
         assertEquals controller.redirectArgs.action, controller.listString
