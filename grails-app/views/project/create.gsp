@@ -1,5 +1,3 @@
-
-
 <%@ page import="survey.Project" %>
 <html>
     <head>
@@ -36,7 +34,7 @@
                 <g:renderErrors bean="${projectInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form name="addProject" eaction="save" >
+            <g:form name="addProject" action="save" >
                 <div class="dialog">
                     <table>
                         <tbody>

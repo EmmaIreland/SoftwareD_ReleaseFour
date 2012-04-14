@@ -59,19 +59,13 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="project"><g:message code="survey.project.label" default="Project" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: surveyInstance, field: 'project', 'errors')}">
-                                    <g:select name="project.id" from="${survey.Project.list()}" optionKey="id" value="${surveyInstance?.project?.id}" />
-                                </td>
-                            </tr>
+                          
                         
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
+                	<g:hiddenField name="project.id" value="${surveyInstance?.project?.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
