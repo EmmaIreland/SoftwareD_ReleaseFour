@@ -58,14 +58,13 @@
                                     <g:datePicker name="dueDate" precision="day" value="${surveyInstance?.dueDate}"  />
                                 </td>
                             </tr>
-                        
-                          
-                        
+                            
+                            <g:hiddenField name="project.id" value="${surveyInstance?.project?.id}" />
+                            
                         </tbody>
                     </table>
                 </div>
                 <div class="buttons">
-                	<g:hiddenField name="project.id" value="${surveyInstance?.project?.id}" />
                     <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
