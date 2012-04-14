@@ -7,6 +7,19 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'project.label', default: 'Project')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <g:javascript>
+		$(function() {
+			$("[name='addProject']").validate({
+				errorPlacement: function(error, element) {
+					error.insertAfter(element);  // default jquery.validation action.
+				}, submitHandler: function(form) {
+					form.submit();
+				}
+			
+			});
+		});
+	</g:javascript>
+        
     </head>
     <body>
         <div class="nav">
@@ -23,7 +36,7 @@
                 <g:renderErrors bean="${projectInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form name="addProject" eaction="save" >
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -33,7 +46,8 @@
                                     <label for="name"><g:message code="project.name.label" default="Name" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'name', 'errors')}">
-                                    <g:textField name="name" value="${projectInstance?.name}" />
+                                	<label for="name" class="error" style="display:none;">Please enter a name for this project.<br></label>
+                                    <g:textField class="required" name="name" value="${projectInstance?.name}" />
                                 </td>
                             </tr>
                             

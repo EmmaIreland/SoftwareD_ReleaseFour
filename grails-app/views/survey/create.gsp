@@ -7,6 +7,18 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'survey.label', default: 'Survey')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <g:javascript>
+        $(function() {
+			$("[name='addSurvey']").validate({
+				errorPlacement: function(error, element) {
+					error.insertAfter(element);  // default jquery.validation action.
+				}, submitHandler: function(form) {
+					form.submit();
+				}
+			
+			});
+		});
+	</g:javascript>
     </head>
     <body>
         <div class="nav">
@@ -23,7 +35,7 @@
                 <g:renderErrors bean="${surveyInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form name="addSurvey" action="save" >
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -33,7 +45,8 @@
                                     <label for="title"><g:message code="survey.title.label" default="Title" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: surveyInstance, field: 'title', 'errors')}">
-                                    <g:textField name="title" value="${surveyInstance?.title}" />
+                                	<label for="title" class="error" style="display:none;">Please enter a title for this survey.<br></label>
+                                    <g:textField class="required" name="title" value="${surveyInstance?.title}" />
                                 </td>
                             </tr>
                         
