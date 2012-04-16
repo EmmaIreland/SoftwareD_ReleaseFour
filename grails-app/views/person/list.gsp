@@ -1,4 +1,3 @@
-
 <%@ page import="survey.Person" %>
 <html>
     <head>
@@ -6,6 +5,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <link rel="stylesheet" href="${resource(dir:'css',file:'personlist.css')}" />
     </head>
     <body>
         <div class="nav">
@@ -18,56 +18,57 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
-                <table>
-                    
-                    <tbody>
-                    <g:each in="${personInstanceList}" status="i" var="personInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        	<trinkets:collapsibleDiv title="${personInstance.name}">
+	        	<g:each in="${personInstanceList}" status="i" var="personInstance">
+                	<trinkets:collapsibleDiv title="${personInstance.name}">
                         		
-                        		Email: ${fieldValue(bean: personInstance, field: "email")}
-
-                            	<div id="${personInstance.enrollments.course}">
-                            		<br>
-                            		<h4>Enrollments</h4>
-                            			<g:each in="${personInstance.enrollments.course}" var="e">
-                              		      	<ul>
-                             		       		<ul>
-                              		      			<li><g:link controller="course" action="show" id="${e.id}">${e?.encodeAsHTML()}</g:link></li>
-                              		      		</ul>
-                                  		  	</ul>
-                                		</g:each>
-                                </div>
+						<div id="email${personInstance.id}">
+							<h4>Email:</h4>
+							<g:link controller="person" action="show" id="${personInstance.id}">
+								${fieldValue(bean: personInstance, field: "email")}
+							</g:link>
+						</div>
    
-   								<div id="${personInstance.memberships.team}">
-   									<br>
-                                		<h4>Memberships</h4>
-                                			<g:each in="${personInstance.memberships.team}" var="m">
-                                				<ul>
-                             		       			<ul>
-                              		      				<li><g:link controller="project" action="show" id="${m.project.id}">${m?.encodeAsHTML()}</g:link></li>
-                              		      			</ul>
-                              		      		</ul>
-                                			</g:each>
-                                </div>
+						<div id="${personInstance.enrollments.course}">
+							<h4>Enrollments</h4>
+							<g:each in="${personInstance.enrollments.course}" var="e">
+								<ul>
+									<li>
+										<g:link controller="course" action="show" id="${e.id}">
+											${e?.encodeAsHTML()}
+										</g:link>
+									</li>
+								</ul>
+							</g:each>
+						</div>
+
+						<div id="${personInstance.memberships.team}">
+							<h4>Memberships</h4>
+							<g:each in="${personInstance.memberships.team}" var="m">
+								<ul>
+									<li>
+										<g:link controller="project" action="show" id="${m.project.id}">
+											${m?.encodeAsHTML()}
+										</g:link>
+									</li>
+								</ul>
+							</g:each>
+						</div>
+
+						<div id="${personInstance.ownedCourses}">
+							<h4>Owned Courses</h4>
+							<g:each in="${personInstance.ownedCourses}" var="o">
+								<ul>
+									<li>
+										<g:link controller="course" action="show" id="${o.id}">
+											${o?.encodeAsHTML()}
+										</g:link>
+									</li>
+								</ul>
+							</g:each>
+						</div>
                                 
-                                <div id="${personInstance.ownedCourses}">
-   									<br>
-                                		<h4>Owned Courses</h4>
-                                			<g:each in="${personInstance.ownedCourses}" var="o">
-                                				<ul>
-                             		       			<ul>
-                              		      				<li><g:link controller="course" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link></li>
-                              		      			</ul>
-                              		      		</ul>
-                                			</g:each>
-                                </div>
-                                
-                        	</trinkets:collapsibleDiv>
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
+                	</trinkets:collapsibleDiv>
+            	</g:each>
             </div>
             <div class="paginateButtons">
                 <g:paginate total="${personInstanceTotal}" />

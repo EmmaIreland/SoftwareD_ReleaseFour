@@ -12,7 +12,7 @@ class Person {
     static constraints = {
         name(blank: false)
         email(email: true, blank:false, unique: true)
-	password(blank: false, size: 5..15) // TODO make blank false and size constraint, true now for tests
+	password(blank: false, size: 5..15)
     }
     
     String toString() {
@@ -20,14 +20,12 @@ class Person {
     }
     
     def beforeInsert() {
-        // TODO fix
         if (this.password) {
             this.password = authenticationService.hashPassword(this.password)
         }
     }
     
     def beforeUpdate() {
-        // TODO fix
         if (this.password) {
             this.password = authenticationService.hashPassword(this.password)
         }

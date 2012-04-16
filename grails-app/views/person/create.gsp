@@ -1,24 +1,26 @@
-
-
 <%@ page import="survey.Person"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="layout" content="main" />
 <g:set var="entityName"
-	value="${message(code: 'person.label', default: 'Person')}" />
-
-<title><g:message code="default.create.label"
-		args="[entityName]" /></title>
+	   value="${message(code: 'person.label', default: 'Person')}" />
+<title>
+	<g:message code="default.create.label" args="[entityName]" />
+</title>
 </head>
 <body>
 	<div class="nav">
-		<span class="menuButton"><a class="home"
-			href="${createLink(uri: '/')}"><g:message
-					code="default.home.label" /> </a> </span> <span class="menuButton"><g:link
-				class="list" action="list">
+		<span class="menuButton">
+			<a class="home" href="${createLink(uri: '/')}">
+				<g:message code="default.home.label" />
+			</a>
+		</span>
+		<span class="menuButton">
+			<g:link class="list" action="list">
 				<g:message code="default.list.label" args="[entityName]" />
-			</g:link> </span>
+			</g:link>
+		</span>
 	</div>
 	<div class="body">
 		<h1>
@@ -40,8 +42,10 @@
 					<tbody>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="name"><g:message
-										code="person.name.label" default="Name" /> </label>
+							<td valign="top" class="name">
+								<label for="name">
+									<g:message code="person.name.label" default="Name" />
+								</label>
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'name', 'errors')}">
@@ -50,8 +54,10 @@
 						</tr>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="email"><g:message
-										code="person.email.label" default="Email" /> </label>
+							<td valign="top" class="name">
+								<label for="email">
+									<g:message code="person.email.label" default="Email" />
+								</label>
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'email', 'errors')}">
@@ -60,33 +66,40 @@
 						</tr>
 
 						<tr class="prop">
-							<td valign="top" class="name"><label for="password"><g:message
-										code="person.password.label" default="Password" /> </label>
+							<td valign="top" class="name">
+								<label for="password">
+									<g:message code="person.password.label" default="Password" />
+								</label>
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'password')}">
 								<g:passwordField name="password"
-									value="${personInstance?.password}" />
+								                 value="${personInstance?.password}" />
 							</td>
 						</tr>
+						
 						<tr class="prop">
-							<td valign="top" class="name"><label for="password">
+							<td valign="top" class="name">
+								<label for="password">
 									<g:message code="person.password.label"
-										default="Re-Enter Password" />
-							</label>
+									 		   default="Re-Enter Password" />
+								</label>
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'password', 'errors')}">
 								<g:passwordField name="password2"
-									value="${personInstance?.password}" /></td>
+												 value="${personInstance?.password}" />
+							</td>
 						</tr>
+					
 					</tbody>
 				</table>
 			</div>
 			<div class="buttons">
-				<span class="button"><g:submitButton name="create"
-						class="save"
-						value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				<span class="button">
+					<g:submitButton name="create"
+						            class="save"
+									value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</span>
 			</div>
 		</g:form>
