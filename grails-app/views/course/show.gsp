@@ -16,7 +16,7 @@
         <div class="body">
             <h1>${courseInstance.name}</h1>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+            	<div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
                 <table>
@@ -75,60 +75,60 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>
             </div>
-            
-            <br></br>
-         <h1>${courseInstance.toString()} Projects</h1>
-		<div class="list">
-			<table>
-				<thead>
-					<tr>
-
-						<g:sortableColumn property="name"
-							title="${message(code: 'course.project.label', default: 'Projects')}" />
-
-						<th><g:message code="course.project.description.label"
-								default="Project Description" /></th>
-								
-						<th><g:message code="course.project.groups.label"
-								default="Groups Assigned to Project" /></th>
-								
-					</tr>
-				</thead>
-				<tbody>
-					<g:each in="${courseInstance.projects}" status="i" var="k">
-						<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-							<td><g:link controller="project" action="show" id="${k.id}">
-									${k?.encodeAsHTML()}
-								</g:link>
-							</td>
-							
-							<td valign="top" class="value">
-								${fieldValue(bean: k, field: "description")}
-							</td>
-
-							<td valign="top" style="text-align: left;" class="value">
-								<ul>
-									<g:each in="${k.teams}" var="s">
-
-										<li>${s.name}</li>
-									</g:each>
-								</ul>
-							</td>			
+            <br/>
+	        <h1>${courseInstance.toString()} Projects</h1>
+			<div class="list">
+				<table>
+					<thead>
+						<tr>
+	
+							<g:sortableColumn property="name"
+								title="${message(code: 'course.project.label', default: 'Projects')}" />
+	
+							<th><g:message code="course.project.description.label"
+									default="Project Description" /></th>
+									
+							<th><g:message code="course.project.groups.label"
+									default="Groups Assigned to Project" /></th>
+									
 						</tr>
-					</g:each>
-				</tbody>
-			</table>
-			<div class="buttons">
-				<g:form>
-                    <span class="button">
-                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
-                    		<input class="add" value="Add Projects"/>
-                    	</g:link>
-                    </span>
-                </g:form>
-			</div>
-            
+					</thead>
+					<tbody>
+						<g:each in="${courseInstance.projects}" status="i" var="k">
+							<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+	
+								<td><g:link controller="project" action="show" id="${k.id}">
+										${k?.encodeAsHTML()}
+									</g:link>
+								</td>
+								
+								<td valign="top" class="value">
+									${fieldValue(bean: k, field: "description")}
+								</td>
+	
+								<td valign="top" style="text-align: left;" class="value">
+									<ul>
+										<g:each in="${k.teams}" var="s">
+	
+											<li>${s.name}</li>
+										</g:each>
+									</ul>
+								</td>			
+							</tr>
+						</g:each>
+					</tbody>
+				</table>
+				<div class="buttons">
+					<g:form>
+	                    <span class="button">
+	                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
+	                    		<input class="add" value="Add Projects"/>
+	                    	</g:link>
+	                    </span>
+	                </g:form>
+				</div>
+	            
+	        </div>
         </div>
     </body>
 </html>
