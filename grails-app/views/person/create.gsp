@@ -77,7 +77,7 @@
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'password', 'errors')}">
-								<g:passwordField name="password"
+								<g:passwordField name="password2"
 									value="${personInstance?.password}" /></td>
 						</tr>
 					</tbody>
