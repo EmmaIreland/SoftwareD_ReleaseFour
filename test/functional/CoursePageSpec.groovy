@@ -6,18 +6,19 @@ import pages.CourseCreatePage
 import pages.CourseEditPage
 import pages.CourseListPage
 import pages.ProjectCreatePage
+import pages.EnrollmentCreatePage
 
 class CoursePageSpec extends GebReportingSpec {
 
     def setup() {
-		setup:
+        setup:
         to LoginPage
         loginEmailField.value('sid@anderson.net')
         loginPasswordField.value('shiboleet')
-        loginButton.click()
-	}
-	
-	def "home button on course list page should go to home page"() {
+        loginButton.click()     
+    }
+
+    def "home button on course list page should go to home page"() {
         when:
         to CourseListPage
         homeButton.click()
@@ -54,7 +55,7 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at CourseCreatePage
     }
-    
+
     def "course list button on course show page should go to course list"() {
         when:
         to CourseCreatePage
@@ -65,5 +66,14 @@ class CoursePageSpec extends GebReportingSpec {
 
         then:
         at CourseListPage
+    }
+    
+    def "Add or remove a student button on course show page should go to course create"() {
+        when:
+        to CourseShowPage
+        addOrRemoveAStudent.click()
+
+        then:
+        at EnrollmentCreatePage
     }
 }

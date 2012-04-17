@@ -3,7 +3,7 @@ package pages
 import geb.Page
 
 class CourseShowPage extends Page {
-    static url = "course/show"
+    static url = "course/show/1"
 
     static at = {
         title =~ /Show Course/
@@ -16,5 +16,6 @@ class CourseShowPage extends Page {
         courseEditButton(to: CourseEditPage) { $('a', text:'Edit') }
         courseDeleteButton() { $('a', text:'Delete') }
         addProjectButton(to: ProjectCreatePage) { $("a", value: "Questions")}
+        addOrRemoveAStudent() { $('a', text:'Add or remove a student') }
     }
 }
