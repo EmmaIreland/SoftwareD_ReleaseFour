@@ -9,7 +9,15 @@ import pages.ProjectCreatePage
 
 class CoursePageSpec extends GebReportingSpec {
 
-    def "home button on course list page should go to home page"() {
+    def setup() {
+		setup:
+        to LoginPage
+        loginEmailField.value('sid@anderson.net')
+        loginPasswordField.value('shiboleet')
+        loginButton.click()
+	}
+	
+	def "home button on course list page should go to home page"() {
         when:
         to CourseListPage
         homeButton.click()

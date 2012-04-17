@@ -13,5 +13,6 @@
 			<div style="background: #ddd; border-radius: 6px; margin-top: 8px; padding: 8px;">
 				<h2>Home</h2>
 			</div>
+		</div>
     </body>
 </html>

@@ -9,6 +9,14 @@ import pages.LoginPage
 
 class HomePageSpec extends GebReportingSpec {
 
+	def setup() {
+		setup:
+        to LoginPage
+        loginEmailField.value('sid@anderson.net')
+        loginPasswordField.value('shiboleet')
+        loginButton.click()
+	}
+	
     def "can reach the home page"() {
 	when:
 	to HomePage
@@ -58,6 +66,8 @@ class HomePageSpec extends GebReportingSpec {
     def "can reach the login page"(){
         when:
         to HomePage
+		logoutButton().click()
+		to HomePage
         loginButton().click()
         
         then:

@@ -1,3 +1,6 @@
+<g:if test="${!session['user']}">
+	<g:redirectToLogin currentURL="${request.forwardURI}" />
+</g:if>
 <%@ page import="survey.Person"%>
 <!DOCTYPE html>
 <html>

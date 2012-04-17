@@ -15,5 +15,6 @@ class HomePage extends Page {
 		peopleButton() { $("a", text: "People") }
 		surveysButton() { $("a", text: "Surveys")}
                 loginButton() { $("a", text: "Login")}
+                logoutButton() { $("a", text: "Logout")}
     }
 }
