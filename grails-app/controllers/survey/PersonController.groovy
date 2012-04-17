@@ -99,6 +99,9 @@ class PersonController {
     def delete = {
         def personInstance = Person.get(params.id)
         if (personInstance) {
+			if ( session['user'] == personInstance.id ) {
+				authenticationService.logout()
+			}
             try {
                 personInstance.delete(flush)
                 flash.message = makeMessage('default.deleted.message', personInstance.toString())
