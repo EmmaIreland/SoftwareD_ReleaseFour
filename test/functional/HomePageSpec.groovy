@@ -5,6 +5,7 @@ import pages.HomePage
 import pages.CourseCreatePage
 import pages.CourseListPage
 import pages.PersonListPage
+import pages.LoginPage
 
 class HomePageSpec extends GebReportingSpec {
 
@@ -52,5 +53,14 @@ class HomePageSpec extends GebReportingSpec {
 	
 	then:
 	at ProjectListPage
+    }
+    
+    def "can reach the login page"(){
+        when:
+        to HomePage
+        loginButton().click()
+        
+        then:
+        at LoginPage
     }
 }
