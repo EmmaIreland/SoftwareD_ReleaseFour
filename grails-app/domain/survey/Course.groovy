@@ -6,8 +6,7 @@ class Course {
     String term
     int year
     SortedSet enrollments
-    private static final String cYear = new Date().format('yyyy')
-    private static final int currentYear = Integer.parseInt(cYear)
+    private static final int CURRENT_YEAR = Integer.parseInt(new Date().format('yyyy'))
     
     static hasMany = [enrollments:Enrollment, projects:Project]
     static belongsTo = [owner:Person]
@@ -16,10 +15,19 @@ class Course {
         abbreviation blank: false
         name blank: false
         term(blank: false, inList: [ 'Fall', 'Spring', 'May', 'Summer I', 'Summer II' ] )
-	year(blank: false, inList: [ currentYear, currentYear + 1 ] )
+	year(blank: false, inList: [ CURRENT_YEAR, CURRENT_YEAR + 1 ] )
     }
     
     String toString() {
         name
     }
+    
+    boolean equals(Object other) {
+        id == other.id
+    }
+
+    int hashCode() {
+        id.hashCode()
+    }
+    
 }

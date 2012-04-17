@@ -59,7 +59,9 @@
 		                                    <label for="name"><g:message code="question.type.label" default="Select a Question" /></label>
 		                                </td>
 		                                <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'name', 'errors')}">
-		                                    <g:select style="max-width: 240px" name="questionid" from="${existingQuestions.unique()}" optionKey="id"/>
+		                                    <g:select style="max-width: 240px" name="questionid" from="${existingQuestions.unique { it.prompt }}" optionKey="id"/>
+	                                    <!--  TODO Fix the above dropdown so questions with duplicate prompts but different questions are not considered unique.
+	                                    Not sure how to handle this though...? -->
 		                                </td>
 		                            </tr>
 		                            
