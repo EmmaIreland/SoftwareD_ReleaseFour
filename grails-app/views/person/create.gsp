@@ -8,6 +8,7 @@
 <title>
 	<g:message code="default.create.label" args="[entityName]" />
 </title>
+
 </head>
 <body>
 	<div class="nav">
@@ -87,7 +88,7 @@
 							</td>
 							<td valign="top"
 								class="value ${hasErrors(bean: personInstance, field: 'password', 'errors')}">
-								<g:passwordField name="password2"
+								<g:passwordField name="confirm_password"
 												 value="${personInstance?.password}" />
 							</td>
 						</tr>

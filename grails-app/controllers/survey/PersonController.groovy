@@ -31,18 +31,12 @@ class PersonController {
 
     def save = {
         def personInstance = new Person(params)
-        if(params.password == params.password2){
             if (personInstance.save(flush)) {
                 flash.message = makeMessage('default.created.message', personInstance.name)
                 redirect(action: showString, id: personInstance.id)
             } else {
                 render(view: createString, model: [personInstance: personInstance])
             }
-        } else {
-            personInstance.password = null
-            personInstance.errors.rejectValue('password', 'default.passwordMismatch.message')
-            render(view: createString, model: [personInstance: personInstance])
-        }
     }
 
     def show = {

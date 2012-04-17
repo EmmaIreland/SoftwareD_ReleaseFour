@@ -3,6 +3,7 @@ import spock.lang.*
 import pages.*
 import pages.CourseShowPage
 import pages.CourseCreatePage
+import pages.ProjectCreatePage
 
 class CoursePageSpec extends GebReportingSpec {
     

@@ -10,7 +10,7 @@ class CourseShowPage extends Page {
     }
     
     static content = {
-	
+	addProjectButton(to: ProjectCreatePage) { $("a", value: "Questions")}
     }
 
 }

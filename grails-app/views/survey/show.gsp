@@ -143,6 +143,7 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                     <span class="button"><g:actionSubmit class="preview" action="preview" value="${message(code: 'default.button.preview.label', default: 'Preview')}"/></span>
                     <span class="button"><g:actionSubmit class="take" action="take" value="${message(code: 'default.button.take.label', default: 'Take')}"/></span>
+                    <span class="button"><g:actionSubmit class="assign" action="assign" value="${message(code: 'default.button.assign.label', default: 'Assign')}"/></span>
                 </g:form>
             </div>
         </div>
