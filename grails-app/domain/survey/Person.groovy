@@ -26,9 +26,5 @@ class Person {
         }
     }
     
-    def beforeUpdate() {
-        if (this.password) {
-            this.password = authenticationService.hashPassword(this.password)
-        }
-    }
+
 }

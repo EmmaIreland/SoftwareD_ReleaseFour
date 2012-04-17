@@ -31,12 +31,14 @@ class PersonController {
 
     def save = {
         def personInstance = new Person(params)
+        if(params.password == params.confirm_password){
             if (personInstance.save(flush)) {
                 flash.message = makeMessage('default.created.message', personInstance.name)
                 redirect(action: showString, id: personInstance.id)
             } else {
                 render(view: createString, model: [personInstance: personInstance])
             }
+        }
     }
 
     def show = {
@@ -75,7 +77,9 @@ class PersonController {
                     return
                 }
             }
-            personInstance.properties = params
+            personInstance.name = params.name
+            personInstance.email = params.email
+            
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', personInstance.toString())
                 redirect(action: showString, id: personInstance.id)
@@ -132,6 +136,18 @@ class PersonController {
     def logout = {
         authenticationService.logout()
         redirect(action: login, params: [loginStatus: 'loggedOut'])
+    }
+    
+    def changePassword = {
+        def personInstance = Person.get(params.id)
+        if (personInstance) {
+            return [personInstance: personInstance]
+        }
+        else {
+            flash.message = makeMessage(defaultNotFoundMessage, params.id)
+            redirect(action: listString)
+            
+        }
     }
 
     private makeMessage(code, personId) {
