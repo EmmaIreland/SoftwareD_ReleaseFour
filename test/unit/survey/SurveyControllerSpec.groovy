@@ -45,7 +45,7 @@ class SurveyControllerSpec extends ControllerSpec {
         controller.params.personid = 1
         controller.submit()
         then:
-        controller.redirectArgs.controller == 'person'
+        controller.redirectArgs != null
 
         when:
         controller.params.id = null
