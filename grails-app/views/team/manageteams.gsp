@@ -101,7 +101,7 @@
 									There are no comments for this group.	
 								</g:if>
 								<g:else>
-									${team.comments}
+									<trinkets:makeHTMLNewlines text="${team.comments}" />
 								</g:else>
 							</trinkets:collapsibleDiv>
 	 						

@@ -1,5 +1,3 @@
-
-
 <%@ page import="survey.Survey" %>
 <html>
     <head>
@@ -39,6 +37,20 @@
                 <div class="dialog">
                     <table>
                         <tbody>
+                        
+                        	<tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="existingSurvey"><g:message code="survey.title.label" default="Template" /></label>
+                                </td>
+                                <td valign="top" class="value">
+                                	<select name="existingSurvey">
+                                		<option value="new">Create New Survey</option>
+                                		<g:each in="${Survey.list()}" var="prevSurvey">
+                                			<option value="${prevSurvey.id}">${prevSurvey}</option>
+                                		</g:each> 
+                                	</select>
+                                </td>
+                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">

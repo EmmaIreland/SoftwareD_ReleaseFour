@@ -32,7 +32,17 @@ class SurveyController {
 	}
 
 	def save = {
-		def surveyInstance = new Survey(params)
+            def surveyInstance = new Survey(params)
+            if (params.existingSurvey != 'new') {
+                def oldSurvey = Survey.get(params.existingSurvey)
+                surveyInstance.questions = []
+                
+                oldSurvey.questions.each { question ->
+                    surveyInstance.questions.add(question.copyQuestion())
+                }
+                
+            }
+            
 		if (surveyInstance.save(flush)) {
 			flash.message = makeMessage('default.created.message', surveyInstance.title)
 			redirect(action: showString, id: surveyInstance.id)
