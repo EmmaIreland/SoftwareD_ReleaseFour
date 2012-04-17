@@ -15,4 +15,8 @@ class CheckboxQuestion extends Question implements QuestionInterface {
         def newQuestion = new CheckboxQuestion(prompt: prompt, choices: copyList(choices)).save(failOnError: true)
         newQuestion
     }
+    
+    String toString() {
+        prompt
+    }
 }

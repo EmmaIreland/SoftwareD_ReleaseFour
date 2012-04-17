@@ -68,7 +68,10 @@ class ProjectController {
 		def version = params.version.toLong()
 		if (projectInstance.version > version) {
 
-		    projectInstance.errors.rejectValue('version', 'default.optimistic.locking.failure', [message(code: 'project.label', default: 'Project')] as Object[], 'Another user has updated this Project while you were editing')
+		    projectInstance.errors.rejectValue('version', 'default.optimistic.locking.failure', \
+                        [message(code: 'project.label', default: 'Project')] as Object[], \
+                        'Another user has updated this Project while you were editing')
+            
 		    render(view: editString, model: [projectInstance: projectInstance])
 		    return
 		}

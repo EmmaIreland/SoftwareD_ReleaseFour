@@ -20,5 +20,9 @@ class ShortTextQuestion extends Question implements QuestionInterface {
         def newQuestion = new ShortTextQuestion(prompt: prompt).save(failOnError: true)
         newQuestion
     }
+    
+    String toString() {
+        prompt
+    }
 
 }

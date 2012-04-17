@@ -37,9 +37,9 @@ class MembershipSpec extends UnitSpec {
         
         when: mockDomain(Membership, [mattInOne, imInvalid])
         
-        then: imInvalid.compareTo(mattInOne) == 0
-              mattInOne.compareTo(compareMe) == -10
-              compareMe.compareTo(mattInOne) == 10
+        then: imInvalid <=> mattInOne == 0
+              mattInOne  <=> compareMe == -1
+              compareMe  <=> mattInOne == 1
         
     }
     def 'Test toString'() {

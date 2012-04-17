@@ -90,10 +90,12 @@ class BootStrap {
                 new Membership(team: teamHumble, member: softwareDesignPeople[i]).save(failOnError)
             } // TODO: make these for loops w/o duplication
                         
-	    ShortTextQuestion whatStoriesFinished = new ShortTextQuestion(prompt:'What stories did you complete?').save(failOnError)
+	    ShortTextQuestion whatStoriesFinished = new ShortTextQuestion(prompt:'What stories did you complete?')
+            whatStoriesFinished.save(failOnError)
 	    MultipleChoiceQuestion teamGrade = new MultipleChoiceQuestion(prompt:'What grade would you give your group?',
 				 choices:['A', 'B', 'C', 'D', 'F']).save(failOnError)
-	    LongTextQuestion desribeExperience = new LongTextQuestion(prompt:'Describe your group experience:').save(failOnError)
+	    LongTextQuestion describeExperience = new LongTextQuestion(prompt:'Describe your group experience:')
+            describeExperience.save(failOnError)
 		
            
             def scootsSurveyQuestions = [
@@ -101,7 +103,7 @@ class BootStrap {
                 new CheckboxQuestion(prompt: 'Are you a boy or a girl?', choices: ['Boy', 'Girl', 'Other']),
                 new LongTextQuestion(prompt: 'And how d\'you feel \'bout that?'),
                 new ShortTextQuestion(prompt: 'If you were an animal, what animal would you be?'),
-                new MultipleChoiceQuestion(prompt: 'What\'s your favorite range in the visible light spectrum? (Choices are given by wavelength in nm.)',
+                new MultipleChoiceQuestion(prompt: 'What\'s your favorite range in the visible light spectrum?',
                     choices: ['380-450 (violet)', '450-475 (blue)', '476-495 (cyan)', '495-570 (green)',
 						'570-590 (yellow)', '590-620 (orange)', '620-750 (red)', '760+ (infrared)']),
                 new ShortTextQuestion(prompt: 'What is your favorite vowel-less word?'),
@@ -110,7 +112,7 @@ class BootStrap {
             ]
 			
 			Survey surveyReleaseOne = new Survey(title: 'Survey for Release One', dueDate: new Date().next(),
-				questions: [whatStoriesFinished, teamGrade, desribeExperience], project: releaseOne)
+				questions: [whatStoriesFinished, teamGrade, describeExperience], project: releaseOne)
 			Survey scootsSurvey = new Survey(title: 'Scoot\'s Finest Survey', dueDate: new Date().next(),
 				questions: scootsSurveyQuestions, project: releaseOne)
 			

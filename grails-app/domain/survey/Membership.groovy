@@ -15,6 +15,6 @@ class Membership implements Comparable {
     
     @Override
     public int compareTo(Object o) {
-	member.name.compareTo(o.member.name)
+	member.name <=> o.member.name
     }
 }

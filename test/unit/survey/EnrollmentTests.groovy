@@ -29,8 +29,8 @@ class EnrollmentTests extends GrailsUnitTestCase {
         Enrollment kkInIntro = new Enrollment(course: introToComputing, person: kkLamberty)
         Enrollment billInLlamas = new Enrollment(course: introToLlamas, person: bill)
         
-        assertEquals billInLlamas.compareTo(billInLlamas), 0
-        assertEquals billInLlamas.compareTo(kkInIntro), 23
-        assertEquals kkInIntro.compareTo(billInLlamas), -23
+        assertEquals billInLlamas <=> billInLlamas, 0
+        assertEquals billInLlamas <=> kkInIntro, 1
+        assertEquals kkInIntro <=> billInLlamas, -1
     }
 }

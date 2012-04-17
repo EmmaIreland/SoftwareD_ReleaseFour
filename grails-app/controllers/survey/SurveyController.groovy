@@ -126,7 +126,7 @@ class SurveyController {
 
 
 		questions.each { question ->
-			def serverResponse = params['' + question.id]
+			def serverResponse = params[question.id.toString()]
 			if (serverResponse == null) {
 				createAnswer(question, personInstance, [])
 			} else {

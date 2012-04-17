@@ -17,4 +17,8 @@ class MultipleChoiceQuestion extends Question implements QuestionInterface{
         def newQuestion = new MultipleChoiceQuestion(prompt: prompt, choices: copyList(choices)).save(failOnError: true)
         newQuestion
     }
+    
+    String toString() {
+        prompt
+    }
 }

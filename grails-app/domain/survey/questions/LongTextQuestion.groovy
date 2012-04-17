@@ -19,4 +19,8 @@ class LongTextQuestion extends Question implements QuestionInterface{
         def newQuestion = new LongTextQuestion(prompt: prompt).save(failOnError: true)
         newQuestion
     }
+    
+    String toString() {
+        prompt
+    }
 }

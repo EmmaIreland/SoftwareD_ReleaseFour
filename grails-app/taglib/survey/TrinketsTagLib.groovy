@@ -18,7 +18,8 @@ class TrinketsTagLib {
        def title = ifNullBlank( attrs['title'] )
        def onclick = ifNullBlank( attrs['onclick'] )
        
-       def divTagStart = '<div class="addButton" id=\'' + id + '\' name=\'' + name + '\' onclick=\'' + onclick + '\' title=\'' + title + '\' style=\'width: ' + attrs['width'] + '\'>'
+       def divTagStart = "<div class='addButton' id='${id}' name='${name}' onclick='${onclick}' " + \
+           "title='${title}' style='width: ${attrs['width']}'>"
        def buttonImg = '<img alt="add icon" src="' + resource(dir:'images', file:'add.png') + '"//>'
        out << divTagStart << buttonImg << '<span>' << body() << '</span>' << '</div>'
    }
