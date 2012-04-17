@@ -81,7 +81,7 @@ class CourseController {
             courseInstance.properties = params
             if (!courseInstance.hasErrors() && courseInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', params.name)
-                redirect(action: listString, id: courseInstance.id)
+                redirect(action: showString, id: courseInstance.id)
             }
             else {
                 render(view: editString, model: courseMap(courseInstance))
