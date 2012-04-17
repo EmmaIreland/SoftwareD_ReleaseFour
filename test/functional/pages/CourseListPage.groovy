@@ -11,6 +11,6 @@ class CourseListPage extends Page {
 	
 	static content = {
 		newCourseButton() { $("a", text: "New Course") }
-		
+		homeButton() { $("a", text: "Home") }
 	}
 }
