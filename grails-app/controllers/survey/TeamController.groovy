@@ -11,6 +11,7 @@ class TeamController {
 	def defaultNotFoundMessage = 'default.not.found.message'
 	def flush = [flush: true]
 	def failOnError = [failOnError: true]
+        def flushAndFailOnError = [*:flush, *:failOnError]
 
     static allowedMethods = [save: post, update: post, delete: post, changeMember: post]
 
@@ -157,7 +158,7 @@ class TeamController {
         if (params.o_id?.isNumber() && params.o_id != '0') {
             def oldTeam = Team.get(params.o_id)
             def oldMembership = Membership.findByTeamAndMember(oldTeam, personInstance)
-            oldMembership.delete(flush, failOnError)
+            oldMembership.delete(flushAndFailOnError)
         }
         
         if (teamInstance) { 

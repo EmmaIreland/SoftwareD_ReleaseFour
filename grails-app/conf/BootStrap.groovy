@@ -11,7 +11,10 @@ class BootStrap {
 			def springString = 'Spring'			
 			
             Person admin = new Person(name: 'Sid Anderson', password: 'shiboleet',
-				email: 'sid@anderson.net', isAdmin: true).save(failOnError)
+				email: 'sid@anderson.net', isAdmin: true)
+            //Dropping this to a newline to make Sonar happy
+            admin.save(failOnError)
+            
             Person nic = new Person(name: 'Nic McPhee', password: 'thomas', 
 				email: 'mcphee@morris.umn.edu').save(failOnError)
             Person kkLamberty = new Person(name: 'KK Lamberty', password: 'spencer',
