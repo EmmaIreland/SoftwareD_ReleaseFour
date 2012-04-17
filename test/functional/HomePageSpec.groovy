@@ -24,15 +24,6 @@ class HomePageSpec extends GebReportingSpec {
 	then:
 	at CourseListPage
     }
-
-    def "can reach course create page"() {
-	when:
-	to HomePage
-	courseCreateLink.click() 
-	
-	then:
-	at CourseCreatePage
-	}
     
     def "can reach the person list page"(){
 	when:
