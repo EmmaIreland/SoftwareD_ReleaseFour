@@ -12,7 +12,7 @@ class Person {
     static constraints = {
         name(blank: false)
         email(email: true, blank:false, unique: true)
-	password(blank: false, size: 5..15)
+	password(blank: false, size: 5..100)
     }
     
     String toString() {
