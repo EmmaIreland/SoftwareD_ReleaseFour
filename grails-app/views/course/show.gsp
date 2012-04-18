@@ -84,12 +84,9 @@
 	
 							<g:sortableColumn property="name"
 								title="${message(code: 'course.project.label', default: 'Projects')}" />
-	
-							<th><g:message code="course.project.description.label"
-									default="Project Description" /></th>
 									
 							<th><g:message code="course.project.groups.label"
-									default="Groups Assigned to Project" /></th>
+									default="No. of Groups" /></th>
 									
 						</tr>
 					</thead>
@@ -97,22 +94,14 @@
 						<g:each in="${courseInstance.projects}" status="i" var="k">
 							<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 	
-								<td><g:link controller="project" action="show" id="${k.id}">
+								<td>
+									<g:link controller="project" action="show" id="${k.id}">
 										${k?.encodeAsHTML()}
 									</g:link>
 								</td>
-								
-								<td valign="top" class="value">
-									${fieldValue(bean: k, field: "description")}
-								</td>
 	
 								<td valign="top" style="text-align: left;" class="value">
-									<ul>
-										<g:each in="${k.teams}" var="s">
-	
-											<li>${s.name}</li>
-										</g:each>
-									</ul>
+									${k.teams.size()}
 								</td>			
 							</tr>
 						</g:each>
