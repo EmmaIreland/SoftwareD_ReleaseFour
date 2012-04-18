@@ -1,18 +1,33 @@
-<%@ page import="survey.Course" %>
+<%@ page import="survey.Person" %>
 <html>
     <head>
         <title>TwentyFourEyes</title>
         <meta name="layout" content="main" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'home.css')}" />
     </head>
     <body>
  
         <div class="body">
-            <h1>Welcome to The TwentyFourEyes Survey Tool</h1>
-            <p>Below are links to story implementations.  Note: This is the development home page only.</p>
-
-			<div style="background: #ddd; border-radius: 6px; margin-top: 8px; padding: 8px;">
-				<h2>Home</h2>
-			</div>
+			<g:set var="person" value="${Person.get(session['user'])}" />
+            
+            <g:if test="${person}">
+	            <div id="welcome-message">
+		            <h1>Hello ${person.name}!</h1>
+		            <p>Welcome to the TwentyFourEyes' Survey Tool!</p>
+	            </div>
+	
+				<g:if test="${!person.enrollments.isEmpty()}">
+					<g:render template="myCourseBlock"
+							  model="['header':'My Enrollments',
+							  		  'courseList':(person.enrollments.sort { it.course.name }).collect({it.course})]" />
+				</g:if>
+				
+				<g:if test="${!person.ownedCourses.isEmpty()}">
+					<g:render template="myCourseBlock"
+							  model="['header':'My Courses',
+							  		  'courseList':person.ownedCourses.sort { it.name }]" />
+				</g:if>
+			</g:if>
 		</div>
     </body>
 </html>
