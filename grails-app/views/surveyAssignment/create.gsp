@@ -45,7 +45,7 @@
                         
                      <div class="demo">
 					
-						<g:each in="${Survey.get(params.surveyid).project.teams.sort{it.name}}" var="team">
+						<g:each in="${Survey.get(params.survey.id).project.teams.sort{it.name}}" var="team">
 							<trinkets:collapsibleDiv title="${team.name}">
 							<div id="${team.id}">
 								<h2>Members:</h2>
