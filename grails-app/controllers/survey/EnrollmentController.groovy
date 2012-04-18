@@ -2,13 +2,13 @@ package survey
 
 class EnrollmentController {
 
-	def defaultNotFoundMessage = 'default.not.found.message'
+    def defaultNotFoundMessage = 'default.not.found.message'
     def listString = 'list'
     def editString = 'edit'
     def createString = 'create'
-	static post = 'POST'
+    static post = 'POST'
     def showString = 'show'
-	def flush = [flush: true]
+    def flush = [flush: true]
 	
     static allowedMethods = [save: post, update: post, delete: post]
 
@@ -85,7 +85,7 @@ class EnrollmentController {
                 if (enrollmentInstance.version > version) {
 
                     enrollmentInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-						 [message(code: 'enrollment.label', default: 'Enrollment')] as Object[],
+						 [makeMessage('enrollment.label', enrollmentInstance.id)] as Object[],
 						  'Another user has updated this Enrollment while you were editing')
                     render(view: editString, model: [enrollmentInstance: enrollmentInstance])
                     return

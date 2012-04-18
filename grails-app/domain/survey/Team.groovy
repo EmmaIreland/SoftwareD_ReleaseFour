@@ -6,11 +6,12 @@ class Team {
     SortedSet memberships
     static hasMany = [memberships: Membership]
     static belongsTo = [project: Project]
+    static final NULLABLE = [nullable: true]
 
     static constraints = {
         name(nullable: true, blank: false)      
-        project(nullable: true)
-	comments(nullable: true)
+        project(NULLABLE)
+	comments(NULLABLE)
         memberships()
     }
     

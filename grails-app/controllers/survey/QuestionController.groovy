@@ -51,7 +51,7 @@ class QuestionController {
                 if (questionInstance.version > version) {
                     
                     questionInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-						 [message(code: 'question.label', default: 'Question')] as Object[],
+						 [makeMessage('question.label', questionInstance.id)] as Object[],
 						  'Another user has updated this Question while you were editing')
                     render(view: editString, model: [questionInstance: questionInstance])
                     return

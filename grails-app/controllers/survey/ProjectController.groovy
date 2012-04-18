@@ -69,7 +69,7 @@ class ProjectController {
 		if (projectInstance.version > version) {
 
 		    projectInstance.errors.rejectValue('version', 'default.optimistic.locking.failure', \
-                        [message(code: 'project.label', default: 'Project')] as Object[], \
+                        [makeMessage('project.label', projectInstance.id)] as Object[], \
                         'Another user has updated this Project while you were editing')
             
 		    render(view: editString, model: [projectInstance: projectInstance])

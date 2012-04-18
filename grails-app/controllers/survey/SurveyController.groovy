@@ -201,7 +201,7 @@ class SurveyController {
 				if (surveyInstance.version > version) {
 
 					surveyInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-						 [message(code: 'survey.label', default: 'Survey')]
+						 [makeMessage('survey.label', surveyInstance.id)]
 					as Object[], 'Another user has updated this Survey while you were editing')
 					render(view: editString, model: [surveyInstance: surveyInstance])
 					return
