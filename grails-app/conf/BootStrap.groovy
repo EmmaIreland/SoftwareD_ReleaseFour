@@ -10,6 +10,8 @@ class BootStrap {
             def failOnError = [failOnError: true]
             def springString = 'Spring'
 
+            // People -------------------------------------
+            
             new Person(name: 'Sid Anderson',
                        password: 'shiboleet',
                        email: 'sid@anderson.net',
@@ -107,6 +109,8 @@ class BootStrap {
             intermediateFrenchIIPeople.each { it.save(failOnError) }
             intermediateFrenchIIPeople.each { enrollPerson it, intermediateFrenchII }
 
+            // Projects -----------------------------------
+            
             Project releaseOne = new Project(name: 'Release One', description: 'Students do cool things',
                     course: softwareDesign, dueDate: new Date().next()).save(failOnError)
             Team teamAwesome = new Team(name: 'Team Awesome', project: releaseOne).save(failOnError)
@@ -126,7 +130,6 @@ class BootStrap {
                 new LongTextQuestion(prompt:'Describe your group experience:')
             ]
 
-
             def scootsSurveyQuestions = [
                 new LongTextQuestion(prompt: 'So, tell me \'bout yerself.'),
                 new CheckboxQuestion(prompt: 'Are you a boy or a girl?', choices: ['Boy', 'Girl', 'Other']),
@@ -136,7 +139,7 @@ class BootStrap {
                 choices: ['380-450 (violet)', '450-475 (blue)', '476-495 (cyan)', '495-570 (green)',
                     '570-590 (yellow)', '590-620 (orange)', '620-750 (red)', '760+ (infrared)']),
                 new ShortTextQuestion(prompt: 'What is your favorite vowel-less word?'),
-                new LongTextQuestion(prompt: 'Tell me a story.'),
+                new LongTextQuestion(prompt: 'Tell me softwareDesigna story.'),
                 new CheckboxQuestion(prompt: 'Do you love me?', choices: ['Yes', 'More than yes (wink, wink)'])
             ]
 
@@ -147,6 +150,19 @@ class BootStrap {
 
             surveyReleaseOne.save(failOnError)
             scootsSurvey.save(failOnError)
+            
+            Project examenOral = new Project(name: 'Un Examen Oral',
+                                           description: 'Vous et un(e) partenaire préparerez une présantation où vous discuterez le sujet du chapitre.',
+                                           course: intermediateFrenchII,
+                                           dueDate: new Date().next()).save(failOnError)
+            
+            for (i in 1..3) {
+                Team oralExamPair = new Team(name: 'Équipe ' + i, project: examenOral).save(failOnError)
+                for ( j in (i-1)*2 ) {
+                    new Membership(team: oralExamPair, member: intermediateFrenchIIPeople[j]).save(failOnError)
+                    new Membership(team: oralExamPair, member: intermediateFrenchIIPeople[j+1]).save(failOnError)
+                }
+            }
         }
     }
 
