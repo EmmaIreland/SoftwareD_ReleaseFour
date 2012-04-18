@@ -72,6 +72,7 @@ class BootStrap {
             ].each { person -> softwareDesignPeople.add(buildPerson(person)) }
             softwareDesignPeople.each { it.save(failOnError) }
             softwareDesignPeople.each { enrollPerson it, softwareDesign }
+            enrollPerson joeB, softwareDesign
 
             def introToComputingPeople = []
             [
