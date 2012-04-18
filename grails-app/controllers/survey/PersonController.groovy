@@ -78,7 +78,11 @@ class PersonController {
             }
             personInstance.name = params.name
             personInstance.email = params.email
-            
+            if(params.old_password){                
+                if((authenticationService.hashPassword(params.old_password) == personInstance.password) && (params.password == params.confirm_password)){
+                    personInstance.password = authenticationService.hashPassword(params.password)                    
+                }
+            }
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', personInstance.toString())
                 redirect(action: showString, id: personInstance.id)
