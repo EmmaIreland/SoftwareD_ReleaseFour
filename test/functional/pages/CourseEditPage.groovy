@@ -3,7 +3,7 @@ package pages
 import geb.Page
 
 class CourseEditPage extends Page {
-    static url = "course/index"
+    static url = "course/edit/1"
 
     static at = { title =~ /Edit Course/ }
 

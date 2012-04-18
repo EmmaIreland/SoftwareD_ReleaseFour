@@ -46,6 +46,17 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at CourseShowPage
     }
+    
+    def "course edit should go to course show"() {
+        when:
+        to CourseEditPage
+        courseAbbreviationBox.value("CSCI 3601")
+        courseNameBox.value("Software Design")
+        courseUpdateButton.click()
+
+        then:
+        at CourseShowPage
+    }
 
     def "new course button on course show page should go to course create"() {
         when:
