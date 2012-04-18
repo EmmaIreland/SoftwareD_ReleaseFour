@@ -67,11 +67,23 @@
                                     <label for="dueDate"><g:message code="survey.dueDate.label" default="Due Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: surveyInstance, field: 'dueDate', 'errors')}">
-                                    <g:datePicker name="dueDate" precision="day" value="${surveyInstance?.dueDate}"  />
+                                    <g:datePicker name="dueDate" precision="hour" value="${surveyInstance?.dueDate}"  />
                                 </td>
                             </tr>
                             
-                            <g:hiddenField name="project.id" value="${surveyInstance?.project?.id}" />
+                            <g:if test="${surveyInstance.project == null}">
+                            	<tr class="prop">
+                                	<td valign="top" class="name">
+                                    	<label for="project"><g:message code="survey.project.label" default="Project" /></label>
+                               	 	</td>
+                                	<td valign="top" class="value ${hasErrors(bean: surveyInstance, field: 'project', 'errors')}">
+                                  	  <g:select name="project.id" from="${survey.Project.list()}" optionKey="id" value="${surveyInstance?.project?.id}" />
+                                	</td>
+                            	</tr>
+                            </g:if>
+                            <g:else>
+                            	<g:hiddenField name="project.id" value="${surveyInstance?.project?.id}" />
+                            </g:else>
                             
                         </tbody>
                     </table>

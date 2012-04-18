@@ -45,7 +45,7 @@
                                   <label for="dueDate"><g:message code="survey.dueDate.label" default="Due Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: surveyInstance, field: 'dueDate', 'errors')}">
-                                    <g:datePicker name="dueDate" precision="day" value="${surveyInstance?.dueDate}"  />
+                                    <g:datePicker name="dueDate" precision="hour" value="${surveyInstance?.dueDate}"  />
                                 </td>
                             </tr>
                         

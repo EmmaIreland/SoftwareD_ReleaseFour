@@ -52,7 +52,7 @@
                         <tr class="prop">
                         	<td valign="top" class="name"><g:message code="project.dueDate.label" default="Due Date" /></td>
                         	
-                        	<td valign="top" class="value"><g:formatDate date="${projectInstance?.dueDate}" format="MMMMM d, yyyy" /></td>
+                        	<td valign="top" class="value"><g:formatDate date="${projectInstance?.dueDate}" format="MMMMM d, yyyy, h a" /></td>
                         	
                         </tr>                 
                        
