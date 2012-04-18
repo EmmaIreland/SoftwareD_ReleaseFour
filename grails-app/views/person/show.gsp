@@ -73,6 +73,19 @@
                             </td>
                             
                         </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="person.surveyAssigments.label" default="Assigned Surveys to Take" /></td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:each in="${personInstance.surveyAssignment}" var="o">
+                                    <li><g:link controller="survey" action="show" id="${o.survey.id}">${o?.survey.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
+                            
+                        </tr>
                     
                     </tbody>
                 </table>

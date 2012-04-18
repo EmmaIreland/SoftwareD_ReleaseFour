@@ -27,7 +27,7 @@
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
-            <h1>Assign ${Survey.get(params.survey.id)}</h1>
+            <h1>Assign Survey</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -45,13 +45,13 @@
                         
                      <div class="demo">
 					
-						<g:each in="${Survey.get(params.survey.id).project.teams.sort{it.name}}" var="team">
+						<g:each in="${Survey.get(params.surveyid).project.teams.sort{it.name}}" var="team">
 							<trinkets:collapsibleDiv title="${team.name}">
 							<div id="${team.id}">
 								<h2>Members:</h2>
 								<g:each in="${team.memberships.member}" var="student">
-									<input type="checkbox" name="student" value="${student.id}" />
-									<g:link controller="person" action="show" id="${student.id}">${student?.encodeAsHTML()}</g:link>
+									<input type="checkbox" name="student" value="${student}" />
+									<g:link controller="person" action="show" id="${student}">${student?.encodeAsHTML()}</g:link>
 									<br>
 								</g:each>
 							</div>
@@ -63,7 +63,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button"><g:submitButton name="create" class="save" action="assign" params="${[surveyid: Survey.get(params.surveyid)]}" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
         </div>
