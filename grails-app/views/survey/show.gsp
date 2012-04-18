@@ -134,13 +134,6 @@
                           	</g:each></td>
                         </tr>
                         
-                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="survey.project.label" default="Project" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="project" action="show" id="${surveyInstance?.project?.id}">${surveyInstance?.project?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
                     </tbody>
                 </table>
             </div>
