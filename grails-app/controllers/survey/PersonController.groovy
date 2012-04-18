@@ -79,7 +79,7 @@ class PersonController {
             personInstance.name = params.name
             personInstance.email = params.email
             if(params.old_password){                
-                if((authenticationService.hashPassword(params.old_password) == personInstance.password) && (params.password == params.confirm_password)){
+                if((authenticationService.hashPassword(params.old_password) == personInstance.password)){
                     personInstance.password = authenticationService.hashPassword(params.password)                    
                 }
             }

@@ -7,6 +7,43 @@
 	value="Change Password" />
 <title><g:message code="default.edit.label" args="[entityName]" />
 </title>
+
+<script type="text/javascript">
+$().ready(function() {
+	// validate signup form on keyup and submit
+	$("#signupForm").validate({
+		rules: {
+			old_password: {
+				required: true
+			},
+			password: {
+				required: true,
+				minlength: 5,
+				equalTo: "#old_password"
+			},
+			confirm_password: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			},
+		},
+		messages: {
+			old_password: {
+				required: "Enter your current password"
+			},
+			password: {
+				required: "Enter a new password",
+				minlength: "Your password must be at least 5 characters long"
+			},
+			confirm_password: {
+				required: "Re-Enter your new password.",
+				minlength: "Your password must be at least 5 characters long",
+				equalTo: "Please enter the same password as above"
+			},
+		}
+	});
+});
+</script>
 </head>
 <body>
 	<div class="nav">
@@ -27,7 +64,7 @@
 				<g:renderErrors bean="${personInstance}" as="list" />
 			</div>
 		</g:hasErrors>
-		<g:form method="post">
+		<form class="cmxform" id="signupForm" method="post" action="">
 			<g:hiddenField name="id" value="${personInstance?.id}" />
 			<g:hiddenField name="version" value="${personInstance?.version}" />
 			<g:hiddenField name="name" value="${personInstance?.name}" />
@@ -85,7 +122,7 @@
 									);" />
 				</span>
 			</div>
-		</g:form>
+		</form>
 	</div>
 </body>
 </html>
