@@ -39,4 +39,17 @@ class LoginSpec extends GebReportingSpec {
         at LoginPage
     }
     
+    def "logging out goes to LoginPage"() {
+        when:
+        to LoginPage
+        loginEmailField.value('mcphee@morris.umn.edu')
+        loginPasswordField.value('thomas')
+        loginButton.click()
+        to HomePage
+        logoutButton.click()
+        
+        then:
+        at LoginPage
+    }
+    
 }

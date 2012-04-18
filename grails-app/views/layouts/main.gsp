@@ -33,8 +33,8 @@
                     </ul>
                 </div>
         	</div>
-        	<div id="login">
-        		<g:if test="${session['user']}">
+       		<g:if test="${session['user']}">
+	        	<div id="login">
         			<g:set var='loggedInUser' value="${Person.get(session['user'])}" />
         			You are logged in as:
         			<br/>
@@ -44,11 +44,8 @@
         			</g:link>
         			<br/><br/>
         			<g:link controller='person' action='logout'>Logout</g:link>
-        		</g:if>
-        		<g:else>
-        			<g:link controller='person' action='login'>Login</g:link>
-        		</g:else>
-        	</div>
+	        	</div>
+       		</g:if>
         </div>
         <div style="float: left">
         	<g:layoutBody />

@@ -63,12 +63,11 @@ class HomePageSpec extends GebReportingSpec {
 	at ProjectListPage
     }
     
-    def "can reach the login page"(){
+    def "redirect to Login page"(){
         when:
         to HomePage
-		logoutButton().click()
-		to HomePage
-        loginButton().click()
+	logoutButton().click()
+        to HomePage
         
         then:
         at LoginPage
