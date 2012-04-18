@@ -15,15 +15,31 @@ class BootStrap {
                        email: 'sid@anderson.net',
                        isAdmin: true).save(failOnError)
 
-            Person nic = new Person(name: 'Nic McPhee',password: 'thomas',
-                    email: 'mcphee@morris.umn.edu').save(failOnError)
-            Person kkLamberty = new Person(name: 'KK Lamberty', password: 'spencer',
-                    email: 'lamberty@morris.umn.edu').save(failOnError)
+            Person nic = new Person(name: 'Nic McPhee',
+                                    password: 'thomas',
+                                    email: 'mcphee@morris.umn.edu',
+                                    isAdmin: true).save(failOnError)
+            Person kkLamberty = new Person(name: 'KK Lamberty',
+                                           password: 'spencer',
+                                           email: 'lamberty@morris.umn.edu',
+                                           isAdmin: true).save(failOnError)
+            Person sarah = new Person(name: 'Sarah Buchanan',
+                                      password: 'paris',
+                                      email: 'buchansb@morris.umn.edu',
+                                      isAdmin: true).save(failOnError)
+            Person joeB = new Person(name: 'Joseph Beaver',
+                                     password: 'rcjh!',
+                                     email: 'jbeaver@morris.umn.edu',
+                                     isAdmin: true).save(failOnError)
 
             Course softwareDesign = new Course(abbreviation:'CSCI 3601', name:'Software Design',
                     term: springString,year: 2012, owner: nic).save(failOnError)
             Course introToComputing = new Course(abbreviation:'CSCI 1001', name:'Intro to the Computing World',
                     term: springString,year: 2013, owner: kkLamberty).save(failOnError)
+            Course intermediateFrenchII = new Course(abbreviation:'FREN 2002', name: 'Intermediate French II',
+                    term: springString, year: 2012, owner: sarah).save(failOnError)
+            Course dataStructures = new Course(abbreviation:'CSCI 2101', name: 'Data Structures',
+                    term: 'Fall', year: 2012, owner: joeB).save(failOnError)
 
             def defaultPassword = 'password'
             def buildPerson = { person -> new Person(name: person[0] + ' ' + person[1],
@@ -77,6 +93,19 @@ class BootStrap {
             ].each { person -> introToComputingPeople.add(buildPerson(person)) }
             introToComputingPeople.each { it.save(failOnError) }
             introToComputingPeople.each { enrollPerson it, introToComputing }
+            
+            def intermediateFrenchIIPeople = []
+            [
+                ['Tim', 'Snyder', 'tim@snyder.me'],
+                ['Victor', 'Hugo', 'victor@hugo.org'],
+                ['Arthur', 'Rimbaud', 'arthur@rimbaud.co.fr'],
+                ['Jenny', 'Morris', 'jenny@morris.me'],
+                ['Thore', 'Dosdal', 'thore@thore.me'],
+                ['Carla', 'Bruni', 'carla@carlabruni.com'],
+                ['M', 'François', 'fran@m.org']
+            ].each { person -> intermediateFrenchIIPeople.add(buildPerson(person)) }
+            intermediateFrenchIIPeople.each { it.save(failOnError) }
+            intermediateFrenchIIPeople.each { enrollPerson it, intermediateFrenchII }
 
             Project releaseOne = new Project(name: 'Release One', description: 'Students do cool things',
                     course: softwareDesign, dueDate: new Date().next()).save(failOnError)
