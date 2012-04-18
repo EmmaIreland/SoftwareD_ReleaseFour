@@ -13,6 +13,6 @@ class SurveyAssignment implements Comparable<SurveyAssignment> {
     }
     
     public int compareTo(Object o) {
-	person.name.compareTo(o.person.name)
+	person.name <=> o.person.name
     }
 }

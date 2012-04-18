@@ -133,6 +133,13 @@
                           		<br/>
                           	</g:each></td>
                         </tr>
+                        
+                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="survey.project.label" default="Project" /></td>
+                            
+                            <td valign="top" class="value"><g:link controller="project" action="show" id="${surveyInstance?.project?.id}">${surveyInstance?.project?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
                     
                     </tbody>
                 </table>
@@ -145,7 +152,11 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                     <span class="button"><g:actionSubmit class="preview" action="preview" value="${message(code: 'default.button.preview.label', default: 'Preview')}"/></span>
                     <span class="button"><g:actionSubmit class="take" action="take" value="${message(code: 'default.button.take.label', default: 'Take')}"/></span>
-                    <span class="button"><g:actionSubmit class="assign" action="assign" value="${message(code: 'default.button.assign.label', default: 'Assign')}"/></span>
+                    <span class="button">
+                    	<g:link controller="surveyAssignment" action="create" id="1" params="${['survey.id': surveyInstance.id]}">
+                    		<input name="_action_assign" value="Assign" class="assign" />
+                   		</g:link>
+                    </span>
                 </g:form>
             </div>
         </div>

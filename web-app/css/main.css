@@ -313,6 +313,10 @@ th.desc a {
     margin-bottom: 10px;
 }
 
+.buttons .button a:hover {
+	text-decoration: none;
+}
+
 .buttons input {
     background: #fff;
     border: 0;
