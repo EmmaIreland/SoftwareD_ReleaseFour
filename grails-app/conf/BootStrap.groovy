@@ -139,7 +139,7 @@ class BootStrap {
                 choices: ['380-450 (violet)', '450-475 (blue)', '476-495 (cyan)', '495-570 (green)',
                     '570-590 (yellow)', '590-620 (orange)', '620-750 (red)', '760+ (infrared)']),
                 new ShortTextQuestion(prompt: 'What is your favorite vowel-less word?'),
-                new LongTextQuestion(prompt: 'Tell me softwareDesigna story.'),
+                new LongTextQuestion(prompt: 'Tell me a story.'),
                 new CheckboxQuestion(prompt: 'Do you love me?', choices: ['Yes', 'More than yes (wink, wink)'])
             ]
 
@@ -150,6 +150,11 @@ class BootStrap {
 
             surveyReleaseOne.save(failOnError)
             scootsSurvey.save(failOnError)
+            
+            Project releaseFourDemo = new Project(name: 'Release Four Demo',
+                                                  description: 'Teams will present their projects to other students bribed by cookies.',
+                                                  course: softwareDesign,
+                                                  dueDate: new Date().next()).save(failOnError)
             
             Project examenOral = new Project(name: 'Un Examen Oral',
                                            description: 'Vous et un(e) partenaire préparerez une présantation où vous discuterez le sujet du chapitre.',
