@@ -16,7 +16,7 @@ class SurveyAssignmentController {
     def create = {
         def surveyAssignmentInstance = new SurveyAssignment()
         surveyAssignmentInstance.properties = params
-        return [surveyAssignmentInstance: surveyAssignmentInstance]
+        [surveyAssignmentInstance: surveyAssignmentInstance, surveyid: params.surveyid]
     }
 
     def save = {
@@ -42,14 +42,15 @@ class SurveyAssignmentController {
     }
     
     def assign = {
-	def surveyAssignmentInstance = SurveyAssignment.get(params.id)
-	if (!surveyAssignmentInstance) {
-	    flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'surveyAssignment.label', default: 'SurveyAssignment'), params.id])}"
-	    redirect(action: "list")
+	def students = params.list('student')
+	println "the list of students = " + students
+	println "surveyid is " + params.surveyid
+	println "Survey is " + Survey.get(params.surveyid)
+	
+	students.each { person ->
+	    def surveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid), person: person).save(flush:true)
 	}
-	else {
-	    [surveyAssignmentInstance: surveyAssignmentInstance]
-	}
+	redirect(action: "show", id: params.surveyid)
     }
 
     def edit = {

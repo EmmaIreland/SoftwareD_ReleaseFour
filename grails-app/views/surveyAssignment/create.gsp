@@ -36,7 +36,7 @@
                 <g:renderErrors bean="${surveyAssignmentInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form name="saveform" action="save" >
+            <g:form name="saveform" action="assign" >
             	<input type=button name="CheckAll" value="Assign to all" onclick="checkAll(document.saveform.student)">
                 <input type=button name="UnCheckAll" value="Unassign to all" onclick="uncheckAll(document.saveform.student)">
                 <div class="dialog">
@@ -45,7 +45,7 @@
                         
                      <div class="demo">
 					
-						<g:each in="${Survey.get(params.survey.id).project.teams.sort{it.name}}" var="team">
+						<g:each in="${Survey.get(surveyid).project.teams.sort{it.name}}" var="team">
 							<trinkets:collapsibleDiv title="${team.name}">
 							<div id="${team.id}">
 								<h2>Members:</h2>
@@ -63,7 +63,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" action="assign" params="${[surveyid: Survey.get(params.surveyid)]}" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button"><g:submitButton name="create" class="save" action="assign" params="${['surveyid': surveyid]}" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
                 </div>
             </g:form>
         </div>
