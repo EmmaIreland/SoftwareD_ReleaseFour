@@ -12,6 +12,7 @@ class CourseCreatePage extends Page {
 	static content = {
 	    courseAbbreviationBox() { $('input', name: 'abbreviation') }
 	    courseNameBox() { $('input', name: 'name') }
+		courseTermBox() { $('select', name: 'term') }
 	    courseCreateButton(to: CourseShowPage) { $('input', value:'Create') }
 	    
 	}

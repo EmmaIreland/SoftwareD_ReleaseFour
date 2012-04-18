@@ -13,7 +13,7 @@ class CourseShowPage extends Page {
         homeButton() { $("a", text: "Home") }
         courseListButton() { $("a", text: "Course List") }
         newCourseButton() { $("a", text: "New Course") }
-        courseEditButton(to: CourseEditPage) { $('a', text:'Edit') }
+        courseEditButton(to: CourseEditPage) { $('input', value:'Edit') }
         addOrRemoveAStudent() { $('a', text:'Add or remove a student') }
     }
 }

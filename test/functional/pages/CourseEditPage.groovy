@@ -13,6 +13,7 @@ class CourseEditPage extends Page {
         newCourseButton() { $("a", text: "New Course") }
         courseAbbreviationBox() { $('input', name: 'abbreviation') }
         courseNameBox() { $('input', name: 'name') }
+		courseTermBox() { $('select', name: 'term') }
         courseUpdateButton(to: CourseShowPage) { $('input', value:'Update') }
         courseDeleteButton(to: CourseListPage) { $('input', value:'Delete') }
     }

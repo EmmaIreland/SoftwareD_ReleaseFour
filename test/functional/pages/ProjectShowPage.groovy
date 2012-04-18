@@ -14,7 +14,7 @@ class ProjectShowPage extends Page {
         projectListButton() { $("a", text: "Project List") }
         newProjectButton() { $("a", text: "New Project") }
         createNewSurveyButton() { $("a", text: "Create new Survey") }
-        projectEditButton(to: ProjectEditPage) { $('a', text:'Edit') }
+        projectEditButton(to: ProjectEditPage) { $('input', value:'Edit') }
         manageGroupsButton() { $('a', text:'Manage Groups') }
     }
 }
