@@ -10,7 +10,8 @@ class ProjectListPage extends Page{
     }
     
     static content = {
-	
+        homeButton() { $("a", text: "Home") }
+        newProjectButton() { $("a", text: "New Project") }
     }
 
 }
