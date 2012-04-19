@@ -123,7 +123,6 @@ class SurveyController {
         }
         def questions = surveyInstance.questions
 
-
         questions.each { question ->
             def serverResponse = params[question.id.toString()]
             if (serverResponse == null) {
@@ -132,6 +131,8 @@ class SurveyController {
                 createAnswer(question, personInstance, serverResponse)
             }
         }
+        // not necessary with each once SurveyAssignment is unique
+        SurveyAssignment.findBySurveyAndPerson(surveyInstance, personInstance).each { it.completed = true }
         redirect(controller: 'person', action: showString, id:personInstance.id)
     }
 

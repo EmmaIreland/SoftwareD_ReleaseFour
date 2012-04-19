@@ -1,6 +1,7 @@
 package survey
 
 class SurveyAssignment implements Comparable<SurveyAssignment> {
+    boolean completed = false
     static belongsTo = [survey: Survey, person:Person]
     
     static constraints = {
