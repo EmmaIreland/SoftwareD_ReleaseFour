@@ -370,6 +370,15 @@ th.desc a {
     padding-left: 28px;
 }
 
+.buttons a {
+	color: #ddd;
+}
+
+.buttons a.assign {
+	background: transparent url(../images/skin/assign.png) 5px 50% no-repeat;
+    padding-left: 28px;
+}
+
 .deleteIcon {
 	position: relative;
 	top: 3px;
