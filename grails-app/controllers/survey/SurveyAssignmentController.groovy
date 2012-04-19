@@ -127,10 +127,7 @@ class SurveyAssignmentController {
 	}
 
 	private getLabel() {
-		message(code: 'course.label', default: '')
+		message(code: 'surveyAssignment.label', default: '')
 	}
 
-	private courseMap(courseInstance) {
-		[courseInstance: courseInstance]
-	}
 }
