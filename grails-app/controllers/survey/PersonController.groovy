@@ -78,11 +78,6 @@ class PersonController {
             }
             personInstance.name = params.name
             personInstance.email = params.email
-            if(params.old_password){                
-                if((authenticationService.hashPassword(params.old_password) == personInstance.password)){
-                    personInstance.password = authenticationService.hashPassword(params.password)                    
-                }
-            }
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', personInstance.toString())
                 redirect(action: showString, id: personInstance.id)
@@ -148,11 +143,38 @@ class PersonController {
         }
         else {
             flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
-            
+            redirect(action: listString)    
         }
     }
-
+    def updatePassword = {
+        def personInstance = Person.get(params.id)
+        if (personInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (personInstance.version > version) {
+                    personInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
+                        [makeMessage('person.label', personInstance.id)] as Object[],
+                    'Another user has updated this Person while you were editing')
+                    render(view: editString, model: [personInstance: personInstance])
+                    return
+                }
+            }
+            if(params.old_password){
+                authenticationService.changePassword(params.old_password, params.password, personInstance)
+            }
+            if (!personInstance.hasErrors() && personInstance.save(flush)) {
+                flash.message = makeMessage('default.updated.message', personInstance.toString())
+                redirect(action: editString, id: personInstance.id)
+            }
+            else {
+                render(view: 'changePassword', model: [personInstance: personInstance])
+            }
+        }
+        else {
+            flash.message = makeMessage(defaultNotFoundMessage, params.id)
+            redirect(action: listString)
+        }
+    }
     private makeMessage(code, personId) {
         return "${message(code: code, args: [personLabel(), personId])}"
     }

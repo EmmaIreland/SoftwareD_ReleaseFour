@@ -3,30 +3,36 @@ package survey
 import org.springframework.web.context.request.RequestContextHolder
 
 class AuthenticationService {
-    
-    static transactional = true
-    
-	@Override
-    def serviceMethod() {
 
+    static transactional = true
+
+    @Override
+    def serviceMethod() {
     }
-    
+
     def validateLogin(String email, String password) {
-	def person = Person.findByEmail(email)
-	( person && person.password == hashPassword(password) ) ? person : null
+        def person = Person.findByEmail(email)
+        ( person && person.password == hashPassword(password) ) ? person : null
     }
-    
+
     def loginPerson(Person person) {
         def session = RequestContextHolder.currentRequestAttributes().session
-	session['user'] = person.id
+        session['user'] = person.id
     }
-    
+
     def logout() {
         def session = RequestContextHolder.currentRequestAttributes().session
-	session.invalidate()
+        session.invalidate()
     }
-    
+
     def hashPassword(String password) {
-    	password.encodeAsMD5()
+        password.encodeAsMD5()
+    }
+    def changePassword(String oldPassword, String newPassword, Person personInstance){
+        if (hashPassword(oldPassword) == personInstance.password){
+            personInstance.password = hashPassword(newPassword)
+        } else {
+            personInstance.errors.rejectValue('password', 'default.passwordMismatch.message')
+        }
     }
 }
