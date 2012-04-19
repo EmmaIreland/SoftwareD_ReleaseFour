@@ -79,7 +79,7 @@
                             
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
-                                <g:each in="${personInstance.surveyAssignment}" var="o">
+                                <g:each in="${personInstance.surveyAssignments}" var="o">
                                     <li><g:link controller="survey" action="show" id="${o.survey.id}">${o?.survey.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>

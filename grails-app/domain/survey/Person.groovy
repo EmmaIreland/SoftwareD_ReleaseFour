@@ -6,7 +6,7 @@ class Person {
     String password
     Boolean isAdmin = false
     static hasMany = [ownedCourses:Course, enrollments:Enrollment, \
-        memberships: Membership, answers: Answer, surveyAssignment: SurveyAssignment]
+        memberships: Membership, answers: Answer, surveyAssignments: SurveyAssignment]
     
     def authenticationService
     

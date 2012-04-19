@@ -27,6 +27,23 @@
 							  model="['header':'My Courses',
 							  		  'courseList':person.ownedCourses.sort { it.name }]" />
 				</g:if>
+				
+				<g:if test="${!person.surveyAssignments.isEmpty()}">
+					<h2>Assigned Surveys</h2>
+					<div class="dialog non-table-dialog">
+						<div class="dialog-subDiv">
+							<g:each in="${person.surveyAssignments.collect({it.survey}).sort {it.name}}" status="i" var="survey">
+								<g:link controller="survey" action="take" id="${survey.id}" params="['personid':session['user']]" >
+									${survey.title}
+								</g:link>
+								<g:if test="${i != person.surveyAssignments.size() - 1}">
+									<br/>
+								</g:if>
+							</g:each>
+						</div>
+					</div>
+					<trinkets:emptyButtonsBar />
+				</g:if>
 			</g:if>
 		</div>
     </body>
