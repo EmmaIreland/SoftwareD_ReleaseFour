@@ -121,7 +121,18 @@ class PersonController {
         def person = authenticationService.validateLogin(email, password)
         if ( person ) {
             authenticationService.loginPerson(person)
-            redirect(uri: '/')
+            def preLoginURL = session['preLoginURL']
+            session['preLoginURL'] = null
+            if ( preLoginURL ) {
+                def urlParts = preLoginURL.split('/')
+                def projectName = urlParts[1]
+                def newUrl = ''
+                urlParts.each { if ( it != projectName ) newUrl += it + '/' }
+                preLoginURL = newUrl
+            } else {
+                preLoginURL = '/'
+            }
+            redirect(uri: preLoginURL)
         } else {
             redirect(action: login, params: [loginStatus: 'failed', enteredEmail: email])
         }
