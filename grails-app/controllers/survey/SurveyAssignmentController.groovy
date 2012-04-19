@@ -2,6 +2,7 @@ package survey
 
 class SurveyAssignmentController {
 	static post = 'POST'
+	def surveyAssignmentLabel = 'surveyAssignment.label'
 	def listString = 'list'
 	def editString = 'edit'
 	def createString = 'create'
@@ -50,13 +51,15 @@ class SurveyAssignmentController {
 		def students = params.list('student')
 
 		for(int i = 0; i < students.size(); i++){
-			def tempSurveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid), person: Person.get(students.get(i))).save(flush)
+			def tempSurveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid),
+				 person: Person.get(students.get(i)))
+			tempSurveyAssignment.save(flush)
 		}
 
-	redirect(controller: 'survey', action: showString, id: params.surveyid)
+		redirect(controller: 'survey', action: showString, id: params.surveyid)
 	}
 
-	
+
 	def edit = {
 		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
 		if (surveyAssignmentInstance) {
@@ -68,58 +71,60 @@ class SurveyAssignmentController {
 		}
 	}
 
-        def update = {
-                def surveyAssignmentInstance = SurveyAssignment.get(params.id)
-                if (surveyAssignmentInstance) {
-                        if (params.version) {
-                                def version = params.version.toLong()
-                                if (surveyAssignmentInstance.version > version) {
-                                        surveyAssignmentInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                                                 [message(code: 'surveyAssignment.label', default: 'SurveyAssignment')] as Object[],
-                                                 'Another user has updated this SurveyAssignment while you were editing')
-                                        render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
-                                        return
-                                }
-                        }
-                        surveyAssignmentInstance.properties = params
-                        if (!surveyAssignmentInstance.hasErrors() && surveyAssignmentInstance.save(flush)) {
-            flash.message = makeMessage('default.updated.message', surveyAssignmentInstance.id)
-                                redirect(action: showString, id: surveyAssignmentInstance.id)
-                        }
-                        else {
-                                render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
-                        }
-                }
-                else {
-                        flash.message = makeMessage(defaultNotFoundMessage, params.id)
-                        redirect(action: listString)
-                }
-        }
+	def update = {
+		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
+		if (surveyAssignmentInstance) {
+			if (params.version) {
+				def version = params.version.toLong()
+				if (surveyAssignmentInstance.version > version) {
+					surveyAssignmentInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
+							[
+								message(code: surveyAssignmentLabel, default: 'SurveyAssignment')]
+							as Object[],
+							'Another user has updated this SurveyAssignment while you were editing')
+					render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
+					return
+				}
+			}
+			surveyAssignmentInstance.properties = params
+			if (!surveyAssignmentInstance.hasErrors() && surveyAssignmentInstance.save(flush)) {
+				flash.message = makeMessage('default.updated.message', surveyAssignmentInstance.id)
+				redirect(action: showString, id: surveyAssignmentInstance.id)
+			}
+			else {
+				render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
+			}
+		}
+		else {
+			flash.message = makeMessage(defaultNotFoundMessage, params.id)
+			redirect(action: listString)
+		}
+	}
 
-        def delete = {
-                def surveyAssignmentInstance = SurveyAssignment.get(params.id)
-                if (surveyAssignmentInstance) {
-                        try {
-                                surveyAssignmentInstance.delete(flush)
-                        flash.message = makeMessage('default.deleted.message', params.id)
-                                redirect(action: listString)
-                        }
-                        catch (org.springframework.dao.DataIntegrityViolationException e) {
-                                flash.message = makeMessage('default.not.deleted.message', params.id)
-                                redirect(action: showString, id: params.id)
-                        }
-                }
-                else {
-                        flash.message = makeMessage(defaultNotFoundMessage, params.id)
-                        redirect(action: listString)
-                }
-        }
+	def delete = {
+		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
+		if (surveyAssignmentInstance) {
+			try {
+				surveyAssignmentInstance.delete(flush)
+				flash.message = makeMessage('default.deleted.message', params.id)
+				redirect(action: listString)
+			}
+			catch (org.springframework.dao.DataIntegrityViolationException e) {
+				flash.message = makeMessage('default.not.deleted.message', params.id)
+				redirect(action: showString, id: params.id)
+			}
+		}
+		else {
+			flash.message = makeMessage(defaultNotFoundMessage, params.id)
+			redirect(action: listString)
+		}
+	}
 
 	private makeMessage(code, instanceId) {
 		"${message(code: code, args: [label, instanceId])}"
 	}
 
 	private getLabel() {
-		message(code: 'surveyAssignment.label', default: '')
+		message(code: surveyAssignmentLabel, default: '')
 	}
 }

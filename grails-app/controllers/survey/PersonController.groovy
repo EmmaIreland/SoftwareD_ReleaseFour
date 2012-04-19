@@ -4,6 +4,7 @@ class PersonController {
 
     static post = 'POST'
     def listString = 'list'
+	def personLabelString = 'person.label'
     def editString = 'edit'
     def createString = 'create'
     def showString = 'show'
@@ -70,7 +71,7 @@ class PersonController {
                 def version = params.version.toLong()
                 if (personInstance.version > version) {
                     personInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                        [makeMessage('person.label', personInstance.id)] as Object[], 
+                        [makeMessage(personLabelString, personInstance.id)] as Object[], 
                     'Another user has updated this Person while you were editing')
                     render(view: editString, model: [personInstance: personInstance])
                     return
@@ -121,16 +122,18 @@ class PersonController {
         def person = authenticationService.validateLogin(email, password)
         if ( person ) {
             authenticationService.loginPerson(person)
-            def preLoginURL = session['preLoginURL']
-            session['preLoginURL'] = null
+			def preLoginURLString = 'preLoginURL'
+            def preLoginURL = session[preLoginURLString]
+            session[preLoginURLString] = null
             if ( preLoginURL ) {
-                def urlParts = preLoginURL.split('/')
+				def forwardSlash = '/'
+                def urlParts = preLoginURL.split(forwardSlash)
                 def projectName = urlParts[1]
                 def newUrl = ''
-                urlParts.each { if ( it != projectName ) newUrl += it + '/' }
+                urlParts.each { if ( it != projectName ) newUrl += it + forwardSlash }
                 preLoginURL = newUrl
             } else {
-                preLoginURL = '/'
+                preLoginURL = forwardSlash
             }
             redirect(uri: preLoginURL)
         } else {
@@ -160,16 +163,6 @@ class PersonController {
     def updatePassword = {
         def personInstance = Person.get(params.id)
         if (personInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (personInstance.version > version) {
-                    personInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                        [makeMessage('person.label', personInstance.id)] as Object[],
-                    'Another user has updated this Person while you were editing')
-                    render(view: editString, model: [personInstance: personInstance])
-                    return
-                }
-            }
             if(params.old_password){
                 authenticationService.changePassword(params.old_password, params.password, personInstance)
             }
@@ -191,6 +184,6 @@ class PersonController {
     }
 
     private personLabel() {
-        message(code: 'person.label', default: 'Person')
+        message(code: personLabelString, default: 'Person')
     }
 }
