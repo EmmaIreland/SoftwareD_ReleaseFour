@@ -50,6 +50,7 @@
 							<div id="${team.id}">
 								<h2>Members:</h2>
 								<g:each in="${team.memberships.member}" var="student">
+									<input type="checkbox" name="student" value="${student.id}" />
 									<g:link controller="person" action="show" id="${student}">${student?.encodeAsHTML()}</g:link>
 									<br>
 								</g:each>
