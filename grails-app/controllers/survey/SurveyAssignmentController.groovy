@@ -58,7 +58,8 @@ class SurveyAssignmentController {
 
 		students.each {
 			person ->
-			def surveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid), person: person).save(flush)
+			def surveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid), person: person)
+			surveyAssignment.save(flush)
 		}
 		redirect(action: showString, id: params.surveyid)
 	}
