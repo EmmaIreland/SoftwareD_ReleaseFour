@@ -163,7 +163,7 @@ class PersonController {
                 authenticationService.changePassword(params.old_password, params.password, personInstance)
             }
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
-                flash.message = makeMessage('default.updated.message', personInstance.toString())
+                flash.message = makeMessage('default.updated.message', 'Password')
                 redirect(action: editString, id: personInstance.id)
             }
             else {
