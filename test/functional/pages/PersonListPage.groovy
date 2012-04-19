@@ -10,7 +10,8 @@ class PersonListPage extends Page{
     }
     
     static content = {
-	
+        homeButton() { $("a", text: "Home") }
+        newPersonButton() { $("a", text: "New Person") }
     }
 
 }

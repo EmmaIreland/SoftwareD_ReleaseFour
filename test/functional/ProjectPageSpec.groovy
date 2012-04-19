@@ -17,7 +17,7 @@ class ProjectPageSpec extends GebReportingSpec {
         loginPasswordField.value('shiboleet')
         loginButton.click()
     }
-    
+
     def "home button on project list page should go to home page"() {
         when:
         to ProjectListPage
@@ -35,7 +35,7 @@ class ProjectPageSpec extends GebReportingSpec {
         then:
         at ProjectCreatePage
     }
-    
+
     def "home button on project show page should go to home page"() {
         when:
         to ProjectShowPage
@@ -44,25 +44,25 @@ class ProjectPageSpec extends GebReportingSpec {
         then:
         at HomePage
     }
-	
-	def "create survey button on project show page should go to survey create"() {
-		when:
-		to ProjectShowPage
-		createNewSurveyButton.click()
 
-		then:
-		at SurveyCreatePage
-	}
-	
-	def "project edit button on project show goes to project edit"() {
-		when:
-		to ProjectShowPage
-		projectEditButton.click()
+    def "create survey button on project show page should go to survey create"() {
+        when:
+        to ProjectShowPage
+        createNewSurveyButton.click()
 
-		then:
-		at ProjectEditPage
-	}
-    
+        then:
+        at SurveyCreatePage
+    }
+
+    def "edit button on project show goes to project edit"() {
+        when:
+        to ProjectShowPage
+        projectEditButton.click()
+
+        then:
+        at ProjectEditPage
+    }
+
     def "new project button on project show page should go to project create"() {
         when:
         to ProjectShowPage
@@ -71,17 +71,15 @@ class ProjectPageSpec extends GebReportingSpec {
         then:
         at ProjectCreatePage
     }
-	
-	def "project edit should go to project show"() {
-		when:
-		to ProjectEditPage
-		projectNameBox.value("Project 1")
-		projectDescriptionBox.value("Software Ree")
-		projectUpdateButton.click()
 
-		then:
-		at ProjectShowPage
-	}
-    
+    def "project edit should go to project show"() {
+        when:
+        to ProjectEditPage
+        projectNameBox.value("Project 1")
+        projectDescriptionBox.value("Software Ree")
+        projectUpdateButton.click()
 
+        then:
+        at ProjectShowPage
+    }
 }

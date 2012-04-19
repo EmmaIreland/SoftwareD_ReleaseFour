@@ -6,11 +6,11 @@ class PersonCreatePage extends Page{
     static url = "person/create"
     
     static at = {
-	title =~ /Person Create/
+	title =~ /Create Person/
     }
     
     static content = {
-	create
+	
     }
 
 }

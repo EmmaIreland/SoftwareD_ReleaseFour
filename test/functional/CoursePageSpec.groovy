@@ -15,7 +15,7 @@ class CoursePageSpec extends GebReportingSpec {
         to LoginPage
         loginEmailField.value('sid@anderson.net')
         loginPasswordField.value('shiboleet')
-        loginButton.click()     
+        loginButton.click()
     }
 
     def "home button on course list page should go to home page"() {
@@ -41,19 +41,31 @@ class CoursePageSpec extends GebReportingSpec {
         to CourseCreatePage
         courseAbbreviationBox.value('SA')
         courseNameBox.value('Some Name')
-		courseTermBox.value('Spring')
+        courseTermBox.value('Spring')
         courseCreateButton.click()
 
         then:
         at CourseShowPage
     }
-    
+
+    def "course list button on course show page should go to course list"() {
+        when:
+        to CourseCreatePage
+        courseAbbreviationBox.value("SA")
+        courseNameBox.value("Some Name")
+        courseCreateButton.click()
+        courseListButton.click()
+
+        then:
+        at CourseListPage
+    }
+
     def "course edit should go to course show"() {
         when:
         to CourseEditPage
         courseAbbreviationBox.value("CSCI 1601")
         courseNameBox.value("Software R")
-		courseTermBox.value('May')
+        courseTermBox.value('May')
         courseUpdateButton.click()
 
         then:
@@ -68,28 +80,16 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at CourseCreatePage
     }
-	
-	def "course edit button on course show goes to course edit"() {
-		when:
-		to CourseShowPage
-		courseEditButton.click()
 
-		then:
-		at CourseEditPage
-	}
-
-    def "course list button on course show page should go to course list"() {
+    def "course edit button on course show goes to course edit"() {
         when:
-        to CourseCreatePage
-        courseAbbreviationBox.value("SA")
-        courseNameBox.value("Some Name")
-        courseCreateButton.click()
-        courseListButton.click()
+        to CourseShowPage
+        courseEditButton.click()
 
         then:
-        at CourseListPage
+        at CourseEditPage
     }
-    
+
     def "Add or remove a student button on course show page should go to course create"() {
         when:
         to CourseShowPage
@@ -98,5 +98,4 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at EnrollmentCreatePage
     }
-    
 }
