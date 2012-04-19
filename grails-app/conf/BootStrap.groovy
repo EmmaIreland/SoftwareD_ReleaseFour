@@ -9,6 +9,7 @@ class BootStrap {
         if (Person.count() == 0) { //GrailsUtil.environment != 'production') {
             def failOnError = [failOnError: true]
             def springString = 'Spring'
+			def twentyTwelve = 2012
 
             // People -------------------------------------
             
@@ -35,13 +36,14 @@ class BootStrap {
                                      isAdmin: true).save(failOnError)
 
             Course softwareDesign = new Course(abbreviation:'CSCI 3601', name:'Software Design',
-                    term: springString,year: 2012, owner: nic).save(failOnError)
+                    term: springString,year: twentyTwelve, owner: nic).save(failOnError)
             Course introToComputing = new Course(abbreviation:'CSCI 1001', name:'Intro to the Computing World',
                     term: springString,year: 2013, owner: kkLamberty).save(failOnError)
             Course intermediateFrenchII = new Course(abbreviation:'FREN 2002', name: 'Intermediate French II',
-                    term: springString, year: 2012, owner: sarah).save(failOnError)
+                    term: springString, year: twentyTwelve, owner: sarah).save(failOnError)
             Course dataStructures = new Course(abbreviation:'CSCI 2101', name: 'Data Structures',
-                    term: 'Fall', year: 2012, owner: joeB).save(failOnError)
+                    term: 'Fall', year: twentyTwelve, owner: joeB)
+			dataStructures.save(failOnError)
 
             def defaultPassword = 'password'
             def buildPerson = { person -> new Person(name: person[0] + ' ' + person[1],
@@ -153,14 +155,15 @@ class BootStrap {
             scootsSurvey.save(failOnError)
             
             Project releaseFourDemo = new Project(name: 'Release Four Demo',
-                                                  description: 'Teams will present their projects to other students bribed by cookies.',
-                                                  course: softwareDesign,
-                                                  dueDate: new Date().next()).save(failOnError)
+                    description: 'Teams will present their projects to other students bribed by cookies.',
+                    course: softwareDesign,
+                    dueDate: new Date().next())
+			releaseFourDemo.save(failOnError)
             
             Project examenOral = new Project(name: 'Un Examen Oral',
-                                           description: 'Vous et un(e) partenaire préparerez une présantation où vous discuterez le sujet du chapitre.',
-                                           course: intermediateFrenchII,
-                                           dueDate: new Date().next()).save(failOnError)
+	   description:'Vous et un(e) partenaire préparerez une présantation où vous discuterez le sujet du chapitre.',
+                    course: intermediateFrenchII,
+                    dueDate: new Date().next()).save(failOnError)
             
             for (i in 1..3) {
                 Team oralExamPair = new Team(name: 'Équipe ' + i, project: examenOral).save(failOnError)
