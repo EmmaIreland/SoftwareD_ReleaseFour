@@ -9,14 +9,14 @@ class BootStrap {
         if (Person.count() == 0) { //GrailsUtil.environment != 'production') {
             def failOnError = [failOnError: true]
             def springString = 'Spring'
-			def twentyTwelve = 2012
+            def twentyTwelve = 2012
 
             // People -------------------------------------
             
-            new Person(name: 'Sid Anderson',
-                       password: 'shiboleet',
-                       email: 'sid@anderson.net',
-                       isAdmin: true).save(failOnError)
+            Person sid = new Person(name: 'Sid Anderson',
+                                    password: 'shiboleet',
+                                    email: 'sid@anderson.net',
+                                    isAdmin: true).save(failOnError)
 
             Person nic = new Person(name: 'Nic McPhee',
                                     password: 'thomas',
@@ -172,6 +172,38 @@ class BootStrap {
                     new Membership(team: oralExamPair, member: intermediateFrenchIIPeople[j+1]).save(failOnError)
                 }
             }
+            
+            // Demo
+            
+            Course humanInteraction = new Course(abbreviation:'HINT 3113', name:'Human Interaction With Computers',
+                    term: springString,year: twentyTwelve, owner: sid).save(failOnError)
+            introToComputingPeople.each { enrollPerson it, humanInteraction }
+            softwareDesignPeople.each { enrollPerson it, humanInteraction }
+            intermediateFrenchIIPeople.each { enrollPerson it, humanInteraction }
+            
+            Project demo = new Project(name: 'Interaction Demonstration',
+                                       description: 'Students learn how to interact with modified computers.',
+                                       course: humanInteraction,
+                                       dueDate: new Date().next()).save(failOnError)
+                    
+            def demoSurveyQuestions = [
+                new LongTextQuestion(prompt: 'So, tell me \'bout yerself.'),
+                new MultipleChoiceQuestion(prompt: 'Look to your left. What do you see?',
+                                           choices: ['Boy', 'Girl', 'No one', 'Other']),
+                new MultipleChoiceQuestion(prompt: 'Look to your right. What do you see?',
+                                           choices: ['Boy', 'Girl', 'No one', 'Other']),
+                new LongTextQuestion(prompt: 'Tell me about the person on your left. (Do you like them?)'),
+                new LongTextQuestion(prompt: 'Tell me about the person on your right. (Do you like them?)'),
+                new ShortTextQuestion(prompt: 'If you were an animal, what animal would you be?'),
+                new ShortTextQuestion(prompt: 'How many cookies have you had?'),
+                new LongTextQuestion(prompt: 'Tell me how those cookies made you feel.'),
+                new CheckboxQuestion(prompt: 'Which of these fictional characters would like to have as friends?',
+                                     choices: ['Cthulu', 'Kevin', 'Harry Potter', 'Bond: James Bond', 'Goku', 'The Smurfs', 'Superman']),
+                new MultipleChoiceQuestion(prompt: 'On a scale of 0 to 4, how bored are you right now? Be honest.',
+                                           choices: ['0','1','2','3','4'] )
+            ]
+            new Survey(title: 'Personal Survey', dueDate: new Date().next(),
+                questions: demoSurveyQuestions, project: demo).save(failOnError)
         }
     }
 
