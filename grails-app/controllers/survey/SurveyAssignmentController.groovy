@@ -99,7 +99,7 @@ class SurveyAssignmentController {
 		}
 		else {
 			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: 'list')
+			redirect(action: listString)
 		}
 	}
 
