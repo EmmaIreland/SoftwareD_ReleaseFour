@@ -10,7 +10,10 @@ class PersonCreatePage extends Page{
     }
     
     static content = {
-	
+        personNameBox() { $('input', name: 'name') }
+        personEmailBox() { $('input', name: 'email') }
+        personPasswordBox() { $('input', name: 'password') }
+        personCreateButton() { $('input', value:'Create') }
     }
 
 }

@@ -1,6 +1,8 @@
 import geb.spock.GebReportingSpec
 import spock.lang.*
 import pages.*
+import pages.PersonShowPage
+import pages.PersonEditPage
 
 class PersonPageSpec extends GebReportingSpec {
     
@@ -28,5 +30,14 @@ class PersonPageSpec extends GebReportingSpec {
 
         then:
         at PersonCreatePage
+    }
+    
+    def "edit button on person show page should go to person edit"() {
+        when:
+        to PersonShowPage
+        personEditButton.click()
+        
+        then:
+        at PersonEditPage
     }
 }
