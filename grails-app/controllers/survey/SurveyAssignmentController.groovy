@@ -53,9 +53,10 @@ class SurveyAssignmentController {
 			def tempSurveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid), person: Person.get(students.get(i))).save(flush)
 		}
 
-		redirect(action: showString, id: params.surveyid)
+	redirect(controller: 'survey', action: showString, id: params.surveyid)
 	}
 
+	
 	def edit = {
 		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
 		if (surveyAssignmentInstance) {
