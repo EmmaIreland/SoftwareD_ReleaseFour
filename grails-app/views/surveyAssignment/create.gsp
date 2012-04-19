@@ -45,12 +45,11 @@
                         
                      <div class="demo">
 					
-						<g:each in="${Survey.get(surveyid).project.teams.sort{it.name}}" var="team">
+						<g:each in="${(Survey.get(surveyid)).project.teams.sort{it.name}}" var="team">
 							<trinkets:collapsibleDiv title="${team.name}">
 							<div id="${team.id}">
 								<h2>Members:</h2>
 								<g:each in="${team.memberships.member}" var="student">
-									<input type="checkbox" name="student" value="${student}" />
 									<g:link controller="person" action="show" id="${student}">${student?.encodeAsHTML()}</g:link>
 									<br>
 								</g:each>
@@ -63,7 +62,10 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" action="assign" params="${['surveyid': surveyid]}" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button">
+                    <g:hiddenField name="surveyid" value="${surveyid}"/>
+                    <g:submitButton name="create" class="assign" action="assign" params="${['surveyid': surveyid]}" value="${message(code: 'default.button.assign.label', default: 'Assign')}" />
+                    </span>
                 </div>
             </g:form>
         </div>
