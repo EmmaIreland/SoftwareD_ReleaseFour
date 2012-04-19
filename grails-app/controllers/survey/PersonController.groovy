@@ -125,8 +125,8 @@ class PersonController {
 			def preLoginURLString = 'preLoginURL'
             def preLoginURL = session[preLoginURLString]
             session[preLoginURLString] = null
+			def forwardSlash = '/'
             if ( preLoginURL ) {
-				def forwardSlash = '/'
                 def urlParts = preLoginURL.split(forwardSlash)
                 def projectName = urlParts[1]
                 def newUrl = ''
