@@ -40,4 +40,14 @@ class PersonPageSpec extends GebReportingSpec {
         then:
         at PersonEditPage
     }
+    
+    def "update on edit goes to person show"() {
+        when:
+        to PersonEditPage
+        personNameBox.value("O")
+        personUpdateButton.click()
+        
+        then:
+        at PersonShowPage
+    }
 }
