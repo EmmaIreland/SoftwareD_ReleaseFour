@@ -183,7 +183,21 @@
 								<g:textField class="required email" name="email" value="${personInstance?.email}" />
 							</td>
 						</tr>
-
+							<tr class="prop">
+							<td valign="top" class="name">
+								<label for="password">
+									<g:message code="person.password.label" default="Password" />
+								</label>
+							</td>
+							<td valign="top"
+								class="value ${hasErrors(bean: personInstance, field: 'password', 'errors')}">
+								<label for="password" class="error" style="display:none;">
+									Please enter a valid password.
+									<br/>
+								</label>
+								<g:passwordField class="required password" name="password" value="${personInstance?.password}" />
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
