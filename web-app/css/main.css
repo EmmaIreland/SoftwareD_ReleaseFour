@@ -6,7 +6,7 @@ html * {
 /* GENERAL */
 
 body {
-    background: #f0f0f0;
+    background: #d5dbf1;
     color: #222;
     font: 11px verdana, arial, helvetica, sans-serif;
 }
@@ -14,7 +14,7 @@ body {
 #sideBarNav {
 	float: left;
 	padding:10px 20px 20px 0px;
-	background-color: #555;
+	background-color: #303643;
 	border-radius: 0px 0px 20px 0px;
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 #sideBarNav #appName a {
-	color: #fff;
+	color: #8dc4ea;
 	font-weight: bold;
 	font-size: 16px;
 }
@@ -37,11 +37,11 @@ body {
 }
 
 #sideBarNav #controllers a {
-	color: #bbb;
+	color: #8dc4ea;
 }
 
 #sideBarNav #controllers #title {
-	color: #ccc;
+	color: #8dc4ea;
 	font-size: 14px;
 	font-weight: bold;
 	padding: 12px 0px 4px 0px;
@@ -60,13 +60,13 @@ body {
 }
 
 #sideBarNav #login {
-	color: #ccc;
+	color: #8dc4ea;
 	font-size: 12px;
 	padding: 12px 0px 0px 14px;
 }
 
 #sideBarNav #login a {
-	color: #bbb;
+	color: #8dc4ea;
 }
 
 a:link, a:visited {
@@ -209,7 +209,7 @@ td, th {
     vertical-align: top;
 }
 th {
-    background: #888;
+    background: #555;
     color: #eee;
     font-size: 11px;
     font-weight: bold;
@@ -238,7 +238,7 @@ th.desc a {
     background: #fff;
 }
 .even {
-    background: #e0c8c8;
+    background: #c8d6e0;
 }
 
 /* LIST */
@@ -249,14 +249,17 @@ th.desc a {
 .list th, .list td {
     border-left: 1px solid #ddd;
 }
-.list th:hover, .list tr:hover {
-    background: #b2d1ff;
+.list th:hover {
+    background: #888;
+}
+.list tr:hover {
+    background: #e0c8c8;
 }
 
 /* PAGINATION */
 
 .paginateButtons {
-    background: #666;
+    background: #555;
     border-top: 0;
     color: #ddd;
     font-size: 10px;
@@ -278,7 +281,7 @@ th.desc a {
 /* DIALOG */
 
 .dialog {
-	background-color: #ccc;
+	background-color: #bbb;
 	border-radius: 6px 6px 0px 0px;
 	width: 480px;
 }
@@ -303,7 +306,7 @@ th.desc a {
 /* ACTION BUTTONS */
 
 .buttons {
-    background: #666;
+    background: #555;
     color: #ddd;
     font-size: 10px;
     overflow: hidden;
