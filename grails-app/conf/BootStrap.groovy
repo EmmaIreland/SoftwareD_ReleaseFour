@@ -10,6 +10,8 @@ class BootStrap {
             def failOnError = [failOnError: true]
             def springString = 'Spring'
             def twentyTwelve = 2012
+			def choiceList = ['Boy', 'Girl', 'No one', 'Other'] 
+
 
             // People -------------------------------------
             
@@ -189,9 +191,9 @@ class BootStrap {
             def demoSurveyQuestions = [
                 new LongTextQuestion(prompt: 'So, tell me \'bout yerself.'),
                 new MultipleChoiceQuestion(prompt: 'Look to your left. What do you see?',
-                                           choices: ['Boy', 'Girl', 'No one', 'Other']),
+                                           choices: choiceList),
                 new MultipleChoiceQuestion(prompt: 'Look to your right. What do you see?',
-                                           choices: ['Boy', 'Girl', 'No one', 'Other']),
+                                           choices: choiceList),
                 new LongTextQuestion(prompt: 'Tell me about the person on your left. (Do you like them?)'),
                 new LongTextQuestion(prompt: 'Tell me about the person on your right. (Do you like them?)'),
                 new ShortTextQuestion(prompt: 'If you were an animal, what animal would you be?'),
