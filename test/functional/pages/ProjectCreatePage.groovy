@@ -10,7 +10,11 @@ class ProjectCreatePage extends Page {
     }
     
     static content = {
-	
+        homeButton() { $("a", text: "Home") }
+        projectListButton() { $("a", text: "Project List") }
+        projectNameBox() { $('input', name: 'name') }
+        projectDescriptionBox() { $('textarea', name: 'description') }
+        projectCreateButton() { $('input', value:'Create') }
     }
 
 }

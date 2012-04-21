@@ -36,6 +36,17 @@ class ProjectPageSpec extends GebReportingSpec {
         at HomePage
     }
 
+    def "create button on project create should go to project show"() {
+        when:
+        to ProjectCreatePage
+        projectNameBox.value('New Project')
+        projectDescriptionBox.value('This is a new project for you')
+        projectCreateButton.click()
+        
+        then:
+        at ProjectShowPage
+    }
+    
     def "create survey button on project show page should go to survey create"() {
         when:
         to ProjectShowPage
