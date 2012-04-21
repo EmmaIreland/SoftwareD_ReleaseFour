@@ -7,6 +7,13 @@
 <g:set var="entityName"
 	value="${message(code: 'person.label', default: 'Person')}" />
 <title>Login</title>
+<g:if test="${loginStatus!='failed'}">
+	<g:javascript>
+		$(function() {
+			document.login.email.focus();
+		});
+	</g:javascript>
+</g:if>
 </head>
 
 <body>
@@ -15,7 +22,7 @@
     </div>
 	<div class="body">
 		<h1>Login</h1>
-		<g:form method="post">
+		<g:form method="post" name="login">
 			<div class="dialog">
 					<table>
 						<tbody>
