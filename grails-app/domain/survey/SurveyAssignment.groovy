@@ -5,8 +5,8 @@ class SurveyAssignment implements Comparable<SurveyAssignment> {
     static belongsTo = [survey: Survey, person:Person]
     
     static constraints = {
-	survey()
-	person()
+	survey(unique: 'person')
+	person(unique: 'survey')
     }
     
     String toString() {
