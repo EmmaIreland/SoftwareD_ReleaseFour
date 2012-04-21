@@ -9,7 +9,7 @@ class Team {
     static final NULLABLE = [nullable: true]
 
     static constraints = {
-        name(nullable: true, blank: false)      
+        name(blank: false)      
         project(NULLABLE)
 	comments(NULLABLE)
         memberships()
