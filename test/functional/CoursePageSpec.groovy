@@ -39,9 +39,10 @@ class CoursePageSpec extends GebReportingSpec {
     def "course create should go to course show"() {
         when:
         to CourseCreatePage
-        courseAbbreviationBox.value('SA')
-        courseNameBox.value('Some Name')
+        courseAbbreviationBox.value('SN')
+        courseNameBox.value('Some Name 101')
         courseTermBox.value('Spring')
+        courseYearBox.value('2012')
         courseCreateButton.click()
 
         then:
@@ -66,6 +67,7 @@ class CoursePageSpec extends GebReportingSpec {
         courseAbbreviationBox.value("CSCI 1601")
         courseNameBox.value("Software R")
         courseTermBox.value('May')
+        courseYearBox.value('2012')
         courseUpdateButton.click()
 
         then:

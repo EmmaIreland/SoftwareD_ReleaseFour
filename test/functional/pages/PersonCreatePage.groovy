@@ -13,6 +13,7 @@ class PersonCreatePage extends Page{
         personNameBox() { $('input', name: 'name') }
         personEmailBox() { $('input', name: 'email') }
         personPasswordBox() { $('input', name: 'password') }
+        personReEnterPasswordBox() { $('input', name: 'confirm_password') }
         personCreateButton() { $('input', value:'Create') }
     }
 

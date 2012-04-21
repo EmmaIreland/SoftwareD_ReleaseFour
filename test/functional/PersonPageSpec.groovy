@@ -32,6 +32,19 @@ class PersonPageSpec extends GebReportingSpec {
         at PersonCreatePage
     }
     
+    def "create button on person create should go to person show"() {
+        when:
+        to PersonCreatePage
+        personNameBox.value('Bob')
+        personEmailBox.value('bob@bob.com')
+        personPasswordBox.value('bbbbb')
+        personReEnterPasswordBox.value('bbbbb')
+        personCreateButton.click()
+        
+        then:
+        at PersonShowPage
+    }
+    
     def "edit button on person show page should go to person edit"() {
         when:
         to PersonShowPage
@@ -44,10 +57,20 @@ class PersonPageSpec extends GebReportingSpec {
     def "update on edit goes to person show"() {
         when:
         to PersonEditPage
-        personNameBox.value("O")
+        personNameBox.value('Oprah')
         personUpdateButton.click()
         
         then:
         at PersonShowPage
     }
+    
+    def "change password on person edit goes to person change password page"() {
+        when:
+        to PersonEditPage
+        changePasswordButton.click()
+        
+        then:
+        at PersonChangePasswordPage
+    }
+
 }
