@@ -87,12 +87,12 @@
 										<span id="${e.person.id}">
 											<br/>
 
-											<g:link controller="person" action="show" id="${e.person.id}">
-												${e.person}
-											</g:link>
 											<img src="${resource(dir:'images',file:'delete.png')}"
 											style="position: relative; top: 3px; cursor: pointer"
 											onclick="deletePerson(this)" />
+											<g:link controller="person" action="show" id="${e.person.id}">
+												${e.person}
+											</g:link>
 										</span>
 									</g:each>
 								</td>
