@@ -12,7 +12,11 @@
             
             <g:if test="${person}">
 	            <div id="welcome-message">
-		            <h1>Hello ${person.name}!</h1>
+		            <h1>
+		            	Hello
+		            	<g:link controller="person" action="show" id="${person.id}">
+		            		${person.name}</g:link>!
+		            </h1>
 		            <p>Welcome to the TwentyFourEyes' Survey Tool!</p>
 	            </div>
 	
