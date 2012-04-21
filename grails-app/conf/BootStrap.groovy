@@ -11,6 +11,8 @@ class BootStrap {
             def springString = 'Spring'
             def twentyTwelve = 2012
 			def choiceList = ['Boy', 'Girl', 'No one', 'Other'] 
+			def boutYerselfString = 'So, tell me \'bout yerself.'
+			def animalTypeString = 'If you were an animal, what animal would you be?'
 
 
             // People -------------------------------------
@@ -136,10 +138,10 @@ class BootStrap {
             ]
 
             def scootsSurveyQuestions = [
-                new LongTextQuestion(prompt: 'So, tell me \'bout yerself.'),
+                new LongTextQuestion(prompt: boutYerselfString),
                 new CheckboxQuestion(prompt: 'Are you a boy or a girl?', choices: ['Boy', 'Girl', 'Other']),
                 new LongTextQuestion(prompt: 'And how d\'you feel \'bout that?'),
-                new ShortTextQuestion(prompt: 'If you were an animal, what animal would you be?'),
+                new ShortTextQuestion(prompt: animalTypeString),
                 new MultipleChoiceQuestion(prompt: 'What\'s your favorite range in the visible light spectrum?',
                 choices: ['380-450 (violet)', '450-475 (blue)', '476-495 (cyan)', '495-570 (green)',
                     '570-590 (yellow)', '590-620 (orange)', '620-750 (red)', '760+ (infrared)']),
@@ -189,18 +191,19 @@ class BootStrap {
                                        dueDate: new Date().next()).save(failOnError)
                     
             def demoSurveyQuestions = [
-                new LongTextQuestion(prompt: 'So, tell me \'bout yerself.'),
+                new LongTextQuestion(prompt: boutYerselfString),
                 new MultipleChoiceQuestion(prompt: 'Look to your left. What do you see?',
                                            choices: choiceList),
                 new MultipleChoiceQuestion(prompt: 'Look to your right. What do you see?',
                                            choices: choiceList),
                 new LongTextQuestion(prompt: 'Tell me about the person on your left. (Do you like them?)'),
                 new LongTextQuestion(prompt: 'Tell me about the person on your right. (Do you like them?)'),
-                new ShortTextQuestion(prompt: 'If you were an animal, what animal would you be?'),
+                new ShortTextQuestion(prompt: animalTypeString),
                 new ShortTextQuestion(prompt: 'How many cookies have you had?'),
                 new LongTextQuestion(prompt: 'Tell me how those cookies made you feel.'),
                 new CheckboxQuestion(prompt: 'Which of these fictional characters would like to have as friends?',
-                                     choices: ['Cthulu', 'Kevin', 'Harry Potter', 'Bond: James Bond', 'Goku', 'The Smurfs', 'Superman']),
+                                     choices: ['Cthulu', 'Kevin', 'Harry Potter',
+										 	   'Bond: James Bond', 'Goku', 'The Smurfs', 'Superman']),
                 new MultipleChoiceQuestion(prompt: 'On a scale of 0 to 4, how bored are you right now? Be honest.',
                                            choices: ['0','1','2','3','4'] )
             ]
