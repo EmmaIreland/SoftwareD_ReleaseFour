@@ -67,20 +67,9 @@
                                 </td>
                             </tr>
                         
-                        	<g:if test="${projectInstance.course == null}">
-                            	<tr class="prop">
-                                	<td valign="top" class="name">
-                               		     <label for="course"><g:message code="project.course.label" default="Course" /></label>
-                               		 </td>
-                               		 <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'course', 'errors')}">
-                               		     <g:select name="course.id" from="${survey.Course.list()}" optionKey="id" value="${projectInstance?.course?.id}"  />
-                               		 </td>
-                           		 </tr>
-                            </g:if>
-                            <g:else>
+                        	
                             	  <g:hiddenField name="course.id" value="${projectInstance?.course?.id}" />
-                            </g:else>
-
+         
                         
                         </tbody>
                     </table>
