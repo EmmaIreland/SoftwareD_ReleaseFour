@@ -40,8 +40,10 @@
         			<br/>
         			<g:link controller='person' action='show' id="${session['user']}">
         				${fieldValue(bean: loggedInUser, field: "name")}
-        				<g:if test="${loggedInUser.isAdmin}">+</g:if>
         			</g:link>
+       				<g:if test="${loggedInUser.isAdmin}">
+       					<br/>(Admin)
+       				</g:if>
         			<br/><br/>
         			<g:link controller='person' action='logout'>Logout</g:link>
 	        	</div>
