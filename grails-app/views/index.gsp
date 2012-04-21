@@ -33,7 +33,7 @@
 					<h2>Assigned Surveys</h2>
 					<div class="dialog non-table-dialog">
 						<div class="dialog-subDiv">
-							<g:each in="${incompleteSurveys.collect({it.survey}).sort {it.name}}" status="i" var="survey">
+							<g:each in="${incompleteSurveys.collect({it.survey}).sort {it.title}}" status="i" var="survey">
 								<g:link controller="survey" action="take" id="${survey.id}" params="['personid':session['user']]" >
 									${survey.title}
 								</g:link>
