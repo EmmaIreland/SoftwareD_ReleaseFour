@@ -21,13 +21,23 @@ class SurveyPageSpec extends GebReportingSpec {
         then:
         at HomePage
     }
-
-    def "new survey button on survey list page should go to survey create"() {
+    
+    def "edit button on survey show should go to survey edit"() {
         when:
-        to SurveyListPage
-        newSurveyButton.click()
-
+        to SurveyShowPage
+        surveyEditButton.click()
+        
         then:
-        at SurveyCreatePage
+        at SurveyEditPage
+    }
+    
+    def "update button on survey edit goes to survey show"() {
+        when:
+        to SurveyEditPage
+        surveyTitleBox.value('Updated Survey')
+        surveyUpdateButton.click()
+        
+        then:
+        at SurveyShowPage
     }
 }
