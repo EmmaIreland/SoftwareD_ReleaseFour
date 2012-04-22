@@ -36,6 +36,8 @@
 	      		<h2>Students not assigned to groups</h2>
 	      		<div class="dialog droppable" id="unassignedStudents">
 			 		<div title="Drag students to assign them to groups" id="studentList">
+			 		<h2>&nbsp;Drag students to assign them to groups</h2>
+			 		    <br>
 			 			<g:if test="${courseHasStudents}">
 		 					<ul class="students" id="g0" style="min-height: 40px">
 		 						<g:each in="${unassignedStudents.sort() {it.name}}" var="student">
@@ -105,7 +107,7 @@
 	 			<g:if test="${projectHasTeams}">
 	 				<g:each in="${projectInstance.teams.sort() {it.name}}" var="team">
 	 					<div class="group droppable">
-	 						<img class="deleteButton" src="${resource(dir:'images',file:'delete.png')}"  />
+	 						<img title="Delete Group" class="deleteButton" src="${resource(dir:'images',file:'delete.png')}"  />
 	 						
 	 						<div class="teamname">
 	 							<g:link action="edit" id="${team.id}">${fieldValue(bean: team, field: "name")}</g:link>
