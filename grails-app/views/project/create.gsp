@@ -63,7 +63,7 @@
                                     <label for="description"><g:message code="project.dueDate.label" default="Due Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'dueDate', 'errors')}">
-                                    <g:datePicker name="dueDate" precision="hour" value="${projectInstance?.dueDate}"  />
+                                    <g:datePicker name="dueDate" precision="minute" value="${projectInstance?.dueDate}"  />
                                 </td>
                             </tr>
                         

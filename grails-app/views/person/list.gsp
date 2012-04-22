@@ -20,12 +20,15 @@
             <div class="list">
 	        	<g:each in="${personInstanceList}" status="i" var="personInstance">
                 	<trinkets:collapsibleDiv title="${personInstance.name}">
-                        		
+                       
+                        <div id="${personInstance.id}">
+                        	<g:link controller="person" action="show" id="${personInstance.id}">
+                        	${personInstance.name}'s home page 
+                        	</g:link>
+                        </div>
+                        
 						<div id="email${personInstance.id}">
-							<h4>Email:</h4>
-							<g:link controller="person" action="show" id="${personInstance.id}">
-								${fieldValue(bean: personInstance, field: "email")}
-							</g:link>
+							<h4>Email: <a href="mailto:${personInstance.email}">${personInstance.email}</a> </h4>
 						</div>
    
 						<div id="${personInstance.enrollments.course}">
