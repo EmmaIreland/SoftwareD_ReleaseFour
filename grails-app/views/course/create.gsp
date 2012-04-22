@@ -115,20 +115,9 @@
 									valueMessagePrefix="course.year" />
 							</td>
 						</tr>
-
-						<tr class="prop">
-							<td valign="top" class="name">
-								<label for="owner">
-									<g:message code="course.owner.label" default="Owner" />
-								</label>
-							</td>
-							<td valign="top"
-								class="value ${hasErrors(bean: courseInstance, field: 'owner', 'errors')}">
-								<g:select name="owner.id" from="${survey.Person.list()}"
-									optionKey="id" value="${courseInstance?.owner?.id}" />
-							</td>
-						</tr>
-
+						
+						<g:hiddenField name="owner.id" value="${session['user']}"/>
+						
 					</tbody>
 				</table>
 			</div>
