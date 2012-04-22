@@ -8,6 +8,18 @@
         <g:javascript src="utility.js" />
         <g:javascript src="teamscript.js" />
         <title>Manage Groups for ${projectInstance.name}</title>
+		<g:javascript>
+			$(function() {
+				$("[name='newNamedGroupForm']").validate({
+					errorPlacement: function(error, element) {
+						error.insertAfter(element);  // default jquery.validation action.
+					}, submitHandler: function(form) {
+						form.submit();
+					}
+					
+				});
+			});
+		</g:javascript>
         <link rel="stylesheet" href="${resource(dir:'css',file:'manageteams.css')}" />
     </head>
 
@@ -37,7 +49,7 @@
 		 			</div>
 	 			</div>
 	 			<trinkets:emptyButtonsBar />
- 				<g:form action="save">
+ 				<g:form action="save" name="newNamedGroupForm">
 	           		<h2>Add new named group to this project:</h2>
                		<div class="dialog" id="addgroup" style="clear: left;">
 	                   	<table>
@@ -48,8 +60,11 @@
 	                                   	<label for="name"><g:message code="team.name.label" default="Name" /></label>
 	                               	</td>
 	                               	<td valign="top" class="value ${hasErrors(bean: teamInstance, field: 'name', 'errors')}">
-	                                   	<g:textField name="name" value="${teamInstance?.name}" />
-	                              		</td>
+	                                   	<g:textField class="required" name="name" value="${teamInstance?.name}" />
+										<label for="name" class="error" style="display:none;">
+											<br/>Please enter a name for your group.
+										</label>
+	                              	</td>
 	                           	</tr>                       
 	                       	</tbody>
 	                   	</table>
