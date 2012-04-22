@@ -22,6 +22,7 @@
         	<div><a href="${createLink(uri: '/')}"><img id="appLogo" src="${resource(dir:'images',file:'24eyes.png')}" alt="Grails" border="0" /></a></div>
         	<br>
         	<div id="appName"><a href="${createLink(uri: '/')}">TwentyFourEyes</a></div>
+        	<g:if test="${session['user'] && Person.get(session['user']).isAdmin}">
         	<div id="controllers">
         		<div id="title">View</div>
         		<div id="list">
@@ -33,6 +34,7 @@
                     </ul>
                 </div>
         	</div>
+        	</g:if>
        		<g:if test="${session['user']}">
 	        	<div id="login">
         			<g:set var='loggedInUser' value="${Person.get(session['user'])}" />
