@@ -1,6 +1,11 @@
 import geb.spock.GebReportingSpec
 import spock.lang.*
 import pages.*
+import pages.LoginPage
+import pages.HomePage
+import pages.SurveyListPage
+import pages.SurveyShowPage
+import pages.SurveyEditPage
 
 
 class SurveyPageSpec extends GebReportingSpec {

@@ -1,6 +1,8 @@
 import geb.spock.GebReportingSpec
 import spock.lang.*
 import pages.*
+import pages.LoginPage
+import pages.HomePage
 import pages.ProjectListPage
 import pages.ProjectShowPage
 import pages.ProjectCreatePage
