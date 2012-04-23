@@ -16,7 +16,7 @@
 		            </h1>
 		            <p style="font-size: 12px">
 		            	You do not have permissions for the page that you tried to access.
-		            	If you believe this is a mistake, please contact your system admin.
+		            	If you believe this is a mistake, please contact your system administrator.
 		            </p>
 		            <p style="font-size: 12px">
 		            	In the meantime, please
