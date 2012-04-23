@@ -15,5 +15,6 @@ class CourseShowPage extends Page {
         newCourseButton() { $("a", text: "New Course") }
         courseEditButton(to: CourseEditPage) { $('input', value:'Edit') }
         addOrRemoveAStudent() { $('a', text:'Add or remove a student') }
+        courseDeleteButton(to: CourseListPage) { $('input', value:'Delete') }
     }
 }

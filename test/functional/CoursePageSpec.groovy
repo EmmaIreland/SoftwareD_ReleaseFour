@@ -100,4 +100,29 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at EnrollmentCreatePage
     }
+    
+    def "delete button should go to course list"() {
+        when:
+        to CourseShowPage
+        withConfirm { courseDeleteButton.click() }
+        
+        then:
+        at CourseListPage
+    }
+    
+    def "course delete on edit goes to course list"() {
+        when:
+        to CourseCreatePage
+        courseAbbreviationBox.value("Abbreviation")
+        courseNameBox.value("Name")
+        courseTermBox.value('Fall')
+        courseYearBox.value('2013')
+        courseCreateButton.click()
+        
+        courseEditButton.click()
+        withConfirm { courseDeleteButton.click() }
+        
+        then:
+        at CourseListPage
+    }
 }
