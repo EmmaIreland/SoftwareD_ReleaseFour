@@ -29,15 +29,6 @@ class ProjectPageSpec extends GebReportingSpec {
         at HomePage
     }
 
-    def "home button on project show page should go to home page"() {
-        when:
-        to ProjectShowPage
-        homeButton.click()
-
-        then:
-        at HomePage
-    }
-
     def "create button on project create should go to project show"() {
         when:
         to ProjectCreatePage
@@ -47,6 +38,15 @@ class ProjectPageSpec extends GebReportingSpec {
         
         then:
         at ProjectShowPage
+    }
+    
+    def "home button on project show page should go to home page"() {
+        when:
+        to ProjectShowPage
+        homeButton.click()
+
+        then:
+        at HomePage
     }
     
     def "create survey button on project show page should go to survey create"() {

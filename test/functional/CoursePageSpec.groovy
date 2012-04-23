@@ -125,4 +125,18 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at CourseListPage
     }
+    
+    def "creating a new course should go to course show"() {
+        when:
+        to CourseCreatePage
+        courseAbbreviationBox.value('Test 101')
+        courseNameBox.value('This is a test')
+        courseTermBox.value('May')
+        courseYearBox.value('2012')
+        courseCreateButton.click()
+
+        then:
+        at CourseShowPage
+    }
+    
 }
