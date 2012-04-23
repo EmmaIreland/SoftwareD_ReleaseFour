@@ -394,6 +394,10 @@ td.errors {
     color: #cc0000;
 }
 
+div.smallIndent {
+	padding-left: 2.5em;
+}
+
 /*This is for jquery validation*/
 .error {
 	color: red;

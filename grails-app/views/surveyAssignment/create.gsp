@@ -6,20 +6,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'surveyAssignment.label', default: 'SurveyAssignment')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
-        <g:javascript>
-        function checkAll(field)
-		{
-		for (i = 0; i < field.length; i++)
-			field[i].checked = true ;
-		}
-		
-		function uncheckAll(field)
-		{
-		for (i = 0; i < field.length; i++)
-			field[i].checked = false ;
-		}
-        </g:javascript>
+        <title>Assign Survey</title>
+        <g:javascript src="assignsurvey.js" />
     </head>
     <body>
         <div class="nav">
@@ -37,31 +25,21 @@
             </div>
             </g:hasErrors>
             <g:form name="saveform" action="assign" >
-            	<input type=button name="CheckAll" value="Assign to all" onclick="checkAll(document.saveform.student)">
-                <input type=button name="UnCheckAll" value="Unassign to all" onclick="uncheckAll(document.saveform.student)">
+            	<input type=button name="checkAll" value="Select all" id="checkAll">
+                <input type=button name="uncheckAll" value="Deselect all" id="uncheckAll">
                 <div class="dialog">
-                    <table>
-                        <tbody>
-                        
-                     <div class="demo">
 					
-						<g:each in="${(Survey.get(surveyid)).project.teams.sort{it.name}}" var="team">
-							<trinkets:collapsibleDiv title="${team.name}">
-							<div id="${team.id}">
-								<h2>Members:</h2>
-								<g:each in="${team.memberships.member}" var="student">
-									<input type="checkbox" name="student" value="${student.id}" />
-									<g:link controller="person" action="show" id="${student}">${student?.encodeAsHTML()}</g:link>
+						<g:each in="${Survey.get(surveyid).getTeamsForAssignment()}" var="team">
+							<h2><input type="checkbox" name="group" value="${team.id}" class="teamCheckbox" /> ${team.name}</h2>
+							<div id="${team.id}" class="smallIndent">
+								<g:each in="${team.memberships}" var="membership">
+									<input type="checkbox" name="student" value="${membership.member.id}" />
+									<g:link controller="person" action="show" id="${membership.member.id}">${membership.member?.encodeAsHTML()}</g:link>
 									<br>
 								</g:each>
 							</div>
-							</trinkets:collapsibleDiv>
 						</g:each>
 					</div>
-                        
-                        </tbody>
-                    </table>
-                </div>
                 <div class="buttons">
                     <span class="button">
                     <g:hiddenField name="surveyid" value="${surveyid}"/>

@@ -50,9 +50,9 @@ class SurveyAssignmentController {
 	def assign = {
 		def students = params.list('student')
 
-		for(int i = 0; i < students.size(); i++){
+		students.each { student ->
 			def tempSurveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid),
-				 person: Person.get(students.get(i)))
+				 person: Person.get(student))
 			tempSurveyAssignment.save(flush)
 		}
 
