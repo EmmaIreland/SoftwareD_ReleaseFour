@@ -53,33 +53,42 @@
                         </tr>
                         
                     	<g:if test="${Person.get(session['user']).isAdmin}">
-                        <tr class="prop">
-                            <td valign="top" class="name">Enrolled Students:</td>
-                            
-                            <td valign="top" style="text-align: left;" class="value">
-                            	<g:link controller="enrollment" action="create" params="${['course.id': courseInstance.id] }">Add or remove a student</g:link>
-                                <ul>
-                                <g:each in="${courseInstance.enrollments}" var="e">
-                                    <li><g:link controller="person" action="show" id="${e.person.id}">${e?.person?.encodeAsHTML()}</g:link></li>
-                                </g:each>
-                                </ul>
-                            </td>
-                        </tr>
+	                        <tr class="prop">
+	                            <td valign="top" class="name">Enrolled Students:</td>
+	                            
+	                            <td valign="top" style="text-align: left;" class="value">
+	                            	<g:link controller="enrollment" action="create" params="${['course.id': courseInstance.id] }">Add or remove a student</g:link>
+	                                <ul>
+	                                <g:each in="${courseInstance.enrollments}" var="e">
+	                                    <li><g:link controller="person" action="show" id="${e.person.id}">${e?.person?.encodeAsHTML()}</g:link></li>
+	                                </g:each>
+	                                </ul>
+	                            </td>
+	                        </tr>
                         </g:if>
                         
                     </tbody>
                 </table>
-                <g:if test="${addStudent}">
-                
-                </g:if>
             </div>
             <div class="buttons">
                 <g:form>
-                    <g:hiddenField name="id" value="${courseInstance?.id}" />
-                    <g:if test="${Person.get(session['user']).isAdmin}">
-                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                   		<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                	</g:if>
+            		<g:if test="${Person.get(session['user']).isAdmin}">
+	                    <g:hiddenField name="id" value="${courseInstance?.id}" />
+		                <span class="button">
+		                  	<g:actionSubmit class="edit"
+		                   					action="edit"
+		                   					value="${message(code: 'default.button.edit.label', default: 'Edit')}" />
+		                </span>
+	                   	<span class="button">
+	                   		<g:actionSubmit class="delete"
+	                   						action="delete"
+	                   						value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+	                   						onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+	                   	</span>
+                   	</g:if>
+                   	<g:else>
+                   		<trinkets:fakeButton />
+                   	</g:else>
                 </g:form>
             </div>
             <br/>
@@ -117,12 +126,15 @@
 				<div class="buttons">
 					<g:form>
 						<g:if test="${Person.get(session['user']).isAdmin}">
-	                    <span class="button">
-	                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
-	                    		<input class="add" value="Add Projects"/>
-	                    	</g:link>
-	                    </span>
+		                    <span class="button">
+		                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
+		                    		<input class="add" value="Add Projects"/>
+		                    	</g:link>
+		                    </span>
 	                    </g:if>
+	                   	<g:else>
+	                   		<trinkets:fakeButton />
+	                   	</g:else>
 	                </g:form>
 				</div>
 	            

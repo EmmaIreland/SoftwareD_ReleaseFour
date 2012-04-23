@@ -25,13 +25,22 @@ class TrinketsTagLib {
    }
    
    /**
-    * Renders and empty buttons bar (under dialog for consistent look)
+    * Renders an empty buttons bar (under dialog for consistent look)
     */
    def emptyButtonsBar = { attrs, body ->
        out << """<div class="buttons">
 <span class="button"><input type="button" class="fakeButton"/></span>
 </div>
 """
+   }
+   
+   /**
+    * Renders a fake button
+    * (use case difference from emptyButtonsBar:
+    * for when there may or may not be a single button)
+    */
+   def fakeButton = { attrs, body ->
+       out << """<span class="button"><input type="button" class="fakeButton"/></span>"""
    }
    
    def makeHTMLNewlines = { attrs, body ->
