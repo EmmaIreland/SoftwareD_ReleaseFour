@@ -172,7 +172,7 @@ class SurveyController {
 
     def take = {
         def surveyInstance = Survey.get(params.id)
-        def personInstance = Person.get(params.personid)
+        def personInstance = Person.get(session['user'])
         if (!surveyInstance || !personInstance) {
             flash.message = makeMessage(defaultNotFoundMessage, params.id)
             redirect(action: listString)

@@ -38,7 +38,7 @@
 					<div class="dialog non-table-dialog">
 						<div class="dialog-subDiv">
 							<g:each in="${incompleteSurveys.collect({it.survey}).sort {it.title}}" status="i" var="survey">
-								<g:link controller="survey" action="take" id="${survey.id}" params="['personid':session['user']]" >
+								<g:link controller="survey" action="take" id="${survey.id}" >
 									${survey.title}
 								</g:link>
 								<g:if test="${i != incompleteSurveys.size() - 1}">
