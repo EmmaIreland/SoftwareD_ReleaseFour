@@ -30,12 +30,12 @@ class AuthenticationFilters {
                 }
                 if ( !session['user'] && !(request.forwardURI =~ '/*/login*') ) {
                     
-//                    def urlEnd = request.forwardURI.split('/')
-//                    urlEnd = urlEnd.size() == 2 ? []lamberty@morris.umn.edu : urlEnd[2..-1]
-//                    urlEnd = '/' + urlEnd.join('/')
+                    def urlEnd = request.forwardURI.split('/')
+                    urlEnd = urlEnd.size() == 2 ? [] : urlEnd[2..-1]
+                    urlEnd = '/' + urlEnd.join('/')
                     
                     def urlParamMap = request.parameterMap;
-                    session['preLoginURL'] = request.forwardURI + urlParamsToString(urlParamMap)
+                    session['preLoginURL'] = urlEnd + urlParamsToString(urlParamMap)
                     redirect(controller: 'person', action: 'login')
                     
                     return false
