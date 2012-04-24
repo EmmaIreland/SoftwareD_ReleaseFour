@@ -11,5 +11,6 @@ class SurveyAssignmentCreatePage extends Page {
     static content = {
         homeButton() { $("a", text: "Home") }
         surveyAssignmentListButton() { $("a", text: "SurveyAssignment List") }
+        surveyAssignButton() { $('input', value:'Assign') }
     }
 }
