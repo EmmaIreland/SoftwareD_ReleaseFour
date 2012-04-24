@@ -10,6 +10,7 @@ class SurveyShowPage extends Page {
 
     static content = {
         homeButton() { $("a", text: "Home") }
+        surveyListButton() { $("a", text: "Survey List") }
         surveyEditButton(to: SurveyEditPage) { $('input', value:'Edit') }
     }
 }

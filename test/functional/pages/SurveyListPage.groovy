@@ -11,7 +11,6 @@ class SurveyListPage extends Page{
     
     static content = {
         homeButton() { $("a", text: "Home") }
-        newSurveyButton() { $("a", text: "New Survey") }
     }
 
 }
