@@ -12,5 +12,6 @@ class SurveyShowPage extends Page {
         homeButton() { $("a", text: "Home") }
         surveyListButton() { $("a", text: "Survey List") }
         surveyEditButton(to: SurveyEditPage) { $('input', value:'Edit') }
+        surveyAssignButton() { $('a', text:'Assign') }
     }
 }

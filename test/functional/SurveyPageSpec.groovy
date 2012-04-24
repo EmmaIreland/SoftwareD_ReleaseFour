@@ -39,6 +39,15 @@ class SurveyPageSpec extends GebReportingSpec {
         then:
         at SurveyEditPage
     }
+    
+    def "assign button on survey show should go to survey assignment create"() {
+        when:
+        to SurveyShowPage
+        surveyAssignButton.click()
+       
+        then:
+        at SurveyAssignmentCreatePage
+    }
    
     def "update button on survey edit goes to survey show"() {
         when:
