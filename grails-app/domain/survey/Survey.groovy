@@ -4,7 +4,7 @@ class Survey {
     String title
     Date dueDate
     List questions
-    static hasMany = [questions: Question]
+    static hasMany = [questions: Question, reports: Report]
     static belongsTo = [project: Project]
     
     static constraints = {
