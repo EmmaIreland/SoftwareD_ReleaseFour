@@ -2,8 +2,10 @@ package survey
 
 class AuthenticationFilters {
     def noPermissionURL = '/nopermission'
-	def courseString = 'course'
-	def userString = 'user'
+    def courseString = 'course'
+    def userString = 'user'
+    // protectedActions are all actions except login, logout, sendLogin
+    def protectedActions = '(create|list|show|edit|update|save|addmany|changeMember|deleteByPerson|changePassword|updatePassword|assign|addQuestion|preview|submit|take)'
     
     def filters = {
         loggedInHome(uri: '/') {
@@ -17,11 +19,10 @@ class AuthenticationFilters {
                     redirect(controller: 'person', action: 'login')
                     return false
                 }
-                return true
             }
         }
         
-        loggedIn(controller:'*', action: '(create|list|show|edit|update|save|addmany|changeMember|deleteByPerson|changePassword|updatePassword|assign|addQuestion|preview|submit|take)') {
+        loggedIn(controller:'*', action: protectedActions ) {
             before = {
                 if ( session['user'] && !Person.get(session['user']) ) {
                     session['user'] = null
@@ -39,8 +40,16 @@ class AuthenticationFilters {
                     redirect(controller: 'person', action: 'login')
                     
                     return false
-                } else {
-                    return true
+                }
+            }
+        }
+        
+        // prevents exception where user enters sendLogin url manually
+        protectSendLogin(controller:'person', action:'sendLogin') {
+            before = {
+                if ( !(params['email'] && params['password']) ) {
+                    redirect(controller: 'person', action: 'login')
+                    return false
                 }
             }
         }
@@ -48,7 +57,7 @@ class AuthenticationFilters {
         courseModification(controller:courseString, action: '(create|edit|delete|update|save)') {
             before = {
                 def user = Person.get(session[userString])
-                if ( user != null && !user.isAdmin ) {
+                if ( notNullNotAdmin(user) ) {
                     redirect(uri: noPermissionURL)
                     return false
                 }
@@ -59,8 +68,7 @@ class AuthenticationFilters {
             before = {
                 def user = Person.get(session[userString])
                 def course = Course.get(params.id)
-                if ( user != null &&
-                     !user.isAdmin &&
+                if ( notNullNotAdmin(user) &&
                      !personIsEnrolledInCourse(user, course) ) {
                     redirect(uri: noPermissionURL)
                     return false
@@ -71,8 +79,7 @@ class AuthenticationFilters {
 	personPrivacy(controller:'person', action: '(create|edit|delete|update|save|show|list)') {
 	    before = {
 		def user = Person.get(session[userString])
-		if ( user != null &&
-                     !user.isAdmin &&
+		if ( notNullNotAdmin(user) &&
                      user.id.toString() != params.id.toString() ) {
                     redirect(uri: noPermissionURL)
                     return false
@@ -80,6 +87,10 @@ class AuthenticationFilters {
 		    
 	    }
 	}
+    }
+    
+    def notNullNotAdmin(user) {
+        user && !user.isAdmin
     }
     
     def personIsEnrolledInCourse(person, course) {
