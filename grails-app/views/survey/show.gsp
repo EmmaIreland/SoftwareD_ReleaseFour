@@ -26,7 +26,7 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="survey.dueDate.label" default="Due Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${surveyInstance?.dueDate}" format="MMMMM d, yyyy, h a" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${surveyInstance?.dueDate}" format="MMMMM d, yyyy, h:m a" /></td>
                             
                         </tr>
                     
