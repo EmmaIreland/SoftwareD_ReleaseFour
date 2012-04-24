@@ -1,8 +1,7 @@
-<g:if test="${!session['user']}">
+<%@ page import="survey.Person"%>
+<g:if test="${false && !session['user']}"><!-- Not logged in -->
 	<g:redirectToLogin currentURL="${request.forwardURI}" />
 </g:if>
-<%@ page import="survey.Person"%>
-<!DOCTYPE html>
 <html>
     <head>
         <title><g:layoutTitle default="TwentyFourEyes" /></title>

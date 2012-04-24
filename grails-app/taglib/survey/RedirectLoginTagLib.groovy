@@ -12,6 +12,11 @@ class RedirectLoginTagLib {
         }
     }
     
+    def redirectDeletedPerson = { attrs, body ->
+        session['user'] == null
+        response.sendRedirect("${request.contextPath}/person/login?loginStatus=deleted")
+    }
+    
     def urlParamsToString (Map urlParamMap) {
         def urlParamString = ''
         if ( urlParamMap.size() > 0 ) {
