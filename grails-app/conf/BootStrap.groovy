@@ -202,10 +202,10 @@ class BootStrap {
                 new ShortTextQuestion(prompt: 'How many cookies have you had?'),
                 new LongTextQuestion(prompt: 'Tell me how those cookies made you feel.'),
                 new CheckboxQuestion(prompt: 'Which of these fictional characters would like to have as friends?',
-                                     choices: ['Cthulu', 'Kevin', 'Harry Potter',
+                                     choices: ['Cthulu', 'Kevins', 'Harry Potter',
 										 	   'Bond: James Bond', 'Goku', 'The Smurfs', 'Superman']),
                 new MultipleChoiceQuestion(prompt: 'On a scale of 0 to 4, how bored are you right now? Be honest.',
-                                           choices: ['0','1','2','3','4'] )
+                                           choices: ['3','4'] )
             ]
             new Survey(title: 'Personal Survey', dueDate: new Date().next(),
                 questions: demoSurveyQuestions, project: demo).save(failOnError)
