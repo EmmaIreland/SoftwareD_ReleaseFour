@@ -12,6 +12,7 @@ class TeamEditPage extends Page {
         homeButton() { $("a", text: "Home") }
         teamNameBox() { $('input', name: 'name') }
         teamCommentBox() { $('textarea', name: 'comments') }
+        manageStudentsInGroupButton() { $("a", text: "Manage Students in Group") }
         teamUpdateButton(to: ProjectShowPage) { $('input', value:'Update') }
     }
 }

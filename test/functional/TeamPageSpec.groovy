@@ -31,4 +31,13 @@ class TeamPageSpec extends GebReportingSpec {
         at ProjectShowPage
     }
     
+    def "Manage students in group button goes to manage teams page"() {
+        when:
+        to TeamEditPage
+        manageStudentsInGroupButton.click()
+        
+        then:
+        at TeamManageTeamsPage
+    }
+    
 }
