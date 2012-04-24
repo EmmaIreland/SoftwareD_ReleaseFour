@@ -71,6 +71,45 @@ class TrinketsTagLib {
        out << collapsibleDiv
    }
    
+   /**
+    * Renders a body as a link if link == 'true'
+    * Can do uri or controller/action/id, prioritizes uri
+    * If there is no uri and no valid link can be generated,
+    * from controller/action/id
+    * it will not render as a link
+    * 
+    * @attr link : defaults to true
+    * @attr uri : example '/person/login'
+    * @attr controller
+    * @attr action
+    * @attr id
+    */
+   def protectedLink = { attrs, body ->
+       def link = attrs['link']
+       if ( !attrs['link'] ) {
+           link = 'true'
+       }
+       link = Boolean.parseBoolean(link)
+       
+       def uri = attrs['uri']
+       def controller = attrs['controller']
+       def action = attrs['action']
+       def id = attrs['id']
+       
+       if ( link && ( uri || (controller && action) ) ) {
+           if ( uri ) {
+               out << g.link(uri: uri, body())
+           } else {
+               out << g.link(controller: controller,
+                             action: action,
+                             id: id,
+                             body())
+           }
+       } else {
+           out << body()
+       }
+   }
+   
    def ifNullBlank(attribute) {
        (attribute) ? attribute : ''
    }
