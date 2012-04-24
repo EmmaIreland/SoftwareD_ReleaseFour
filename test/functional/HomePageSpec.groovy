@@ -9,66 +9,70 @@ import pages.LoginPage
 
 class HomePageSpec extends GebReportingSpec {
 
-	def setup() {
-		setup:
+    private login(email, password) {
         to LoginPage
-        loginEmailField.value('sid@anderson.net')
-        loginPasswordField.value('shiboleet')
+        loginEmailField.value(email)
+        loginPasswordField.value(password)
         loginButton.click()
-	}
-	
-    def "can reach the home page"() {
-	when:
-	to HomePage
+    }
 
-	then:
-	at HomePage
+    def "can reach the home page"() {
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to HomePage
+
+        then:
+        at HomePage
     }
 
     def "can see Course List"() {
-	when:
-	to HomePage
-	coursesButton.click()
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to HomePage
+        coursesButton.click()
 
-	then:
-	at CourseListPage
+        then:
+        at CourseListPage
     }
-    
+
     def "can reach the person list page"(){
-	when:
-	to HomePage
-	peopleButton().click()
-	
-	then:
-	at PersonListPage
-	
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to HomePage
+        peopleButton().click()
+
+        then:
+        at PersonListPage
     }
-    
+
     def "can reach the survey list page"(){
-	when:
-	to HomePage
-	surveysButton().click()
-	
-	then:
-	at SurveyListPage
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to HomePage
+        surveysButton().click()
+
+        then:
+        at SurveyListPage
     }
-    
-    
+
+
     def "can reach the project list page"(){
-	when:
-	to HomePage
-	projectsButton().click()
-	
-	then:
-	at ProjectListPage
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to HomePage
+        projectsButton().click()
+
+        then:
+        at ProjectListPage
     }
-    
+
     def "redirect to Login page"(){
         when:
+        login('sid@anderson.net', 'shiboleet')
         to HomePage
-	logoutButton().click()
+        logoutButton().click()
         to HomePage
-        
+
         then:
         at LoginPage
     }
