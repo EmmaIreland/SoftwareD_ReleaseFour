@@ -20,7 +20,7 @@
 		            </p>
 		            <p style="font-size: 12px">
 		            	In the meantime, please
-		            	go <a href="" onclick="history.go(-1)">back</a>,
+		            	go back,
 		            	go <g:link uri="/">home</g:link>
 		            	or try another page.
 		            </p>

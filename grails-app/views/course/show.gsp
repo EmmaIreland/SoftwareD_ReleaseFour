@@ -5,13 +5,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'course.label', default: 'Course')}" />
+        <g:set var="isAdmin" value="${Person.get(session['user']).isAdmin}"/> 
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-        	<g:if test="${Person.get(session['user']).isAdmin}">    
+            <g:if test="${isAdmin}"> 
+            	<span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         	</g:if>
         </div>
@@ -52,7 +53,7 @@
                             
                         </tr>
                         
-                    	<g:if test="${Person.get(session['user']).isAdmin}">
+                    	<g:if test="${isAdmin}">
 	                        <tr class="prop">
 	                            <td valign="top" class="name">Enrolled Students:</td>
 	                            
@@ -72,7 +73,7 @@
             </div>
             <div class="buttons">
                 <g:form>
-            		<g:if test="${Person.get(session['user']).isAdmin}">
+            		<g:if test="${isAdmin}">
 	                    <g:hiddenField name="id" value="${courseInstance?.id}" />
 		                <span class="button">
 		                  	<g:actionSubmit class="edit"
@@ -125,7 +126,7 @@
 				</table>
 				<div class="buttons">
 					<g:form>
-						<g:if test="${Person.get(session['user']).isAdmin}">
+						<g:if test="${isAdmin}">
 		                    <span class="button">
 		                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
 		                    		<input class="add" value="Add Projects"/>

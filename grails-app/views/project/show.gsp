@@ -143,7 +143,9 @@
 					
 			</g:if>	
 			<g:else>
-				<h2><g:link controller="team" action="list" params="${[project: projectInstance.id]}">No groups made. Click here to add groups</g:link></h2>
+				<g:if test="${isAdmin}">
+					<h2><g:link controller="team" action="list" params="${[project: projectInstance.id]}">No groups made. Click here to add groups</g:link></h2>
+				</g:if>
 			</g:else>
 			
             
