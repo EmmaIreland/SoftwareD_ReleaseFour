@@ -1,15 +1,10 @@
 import geb.spock.GebReportingSpec
 import spock.lang.*
 import pages.*
-import pages.LoginPage
-import pages.HomePage
-import pages.SurveyListPage
-import pages.SurveyShowPage
-import pages.SurveyEditPage
 
 
 class SurveyPageSpec extends GebReportingSpec {
-
+    
     def setup() {
         setup:
         to LoginPage
@@ -17,31 +12,30 @@ class SurveyPageSpec extends GebReportingSpec {
         loginPasswordField.value('shiboleet')
         loginButton.click()
     }
-
+    
     def "home button on survey list page should go to home page"() {
         when:
         to SurveyListPage
         homeButton.click()
-
         then:
         at HomePage
     }
-    
+   
     def "edit button on survey show should go to survey edit"() {
         when:
         to SurveyShowPage
         surveyEditButton.click()
-        
+       
         then:
         at SurveyEditPage
     }
-    
+   
     def "update button on survey edit goes to survey show"() {
         when:
         to SurveyEditPage
         surveyTitleBox.value('Updated Survey')
         surveyUpdateButton.click()
-        
+       
         then:
         at SurveyShowPage
     }
