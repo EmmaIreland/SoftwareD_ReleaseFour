@@ -2,8 +2,7 @@ import geb.spock.GebReportingSpec
 import spock.lang.*
 import pages.*
 
-
-class SurveyPageSpec extends GebReportingSpec {
+class TeamPageSpec extends GebReportingSpec {
     
     def setup() {
         setup:
@@ -20,24 +19,16 @@ class SurveyPageSpec extends GebReportingSpec {
         then:
         at HomePage
     }
-   
-    def "edit button on survey show should go to survey edit"() {
+    
+    def "When update button is clicked it should go to the project show page"(){
         when:
-        to SurveyShowPage
-        surveyEditButton.click()
-       
+        to TeamEditPage
+        teamNameBox.value("TheName!")
+        teamCommentBox.value("TheComment!")
+        teamUpdateButton.click()
+        
         then:
-        at SurveyEditPage
-    }
-   
-    def "update button on survey edit goes to survey show"() {
-        when:
-        to SurveyEditPage
-        surveyTitleBox.value('Updated Survey')
-        surveyUpdateButton.click()
-       
-        then:
-        at SurveyShowPage
+        at ProjectShowPage
     }
     
 }
