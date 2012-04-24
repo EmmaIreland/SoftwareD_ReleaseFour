@@ -10,7 +10,7 @@ class QuestionListPage extends Page{
     }
     
     static content = {
-	
+        homeButton() { $("a", text: "Home") }
     }
 
 }
