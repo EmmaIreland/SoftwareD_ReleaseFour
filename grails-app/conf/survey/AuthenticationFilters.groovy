@@ -76,15 +76,18 @@ class AuthenticationFilters {
             }
         }
 	
+        // prevents non-admins from viewing other profiles except those belonging to themselves and their instructors
 	personPrivacy(controller:'person', action: '(create|edit|delete|update|save|show|list)') {
 	    before = {
 		def user = Person.get(session[userString])
 		if ( notNullNotAdmin(user) &&
-                     user.id.toString() != params.id.toString() ) {
+                     user.id.toString() != params.id.toString() &&
+                     !( (actionName == 'show') &&
+                        personHasAsInstructor(user, Person.get(params.id)) )) {
+                    println 'Person is trying to see instructor: ' + ((actionName == 'show') && personHasAsInstructor(user, Person.get(params.id)))
                     redirect(uri: noPermissionURL)
                     return false
                 }
-		    
 	    }
 	}
     }
@@ -93,9 +96,13 @@ class AuthenticationFilters {
         user && !user.isAdmin
     }
     
-    def personIsEnrolledInCourse(person, course) {
-        def courses = person.enrollments*.course
+    def personIsEnrolledInCourse(user, course) {
+        def courses = user.enrollments*.course
         courses.contains(course)
+    }
+    
+    def personHasAsInstructor(user, instructor) {
+        user.enrollments*.course.owner.contains(instructor)
     }
     
     static urlParamsToString (Map urlParamMap) {
