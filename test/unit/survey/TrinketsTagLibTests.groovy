@@ -4,11 +4,15 @@ import grails.test.*
 
 class TrinketsTagLibTests extends TagLibUnitTestCase {
     StringWriter out
+    TrinketsTagLib ttl
+    def collapsedDivPattern = /<div.*collapsed.*><div.*>.*<\/div><div.*\/><\/div><\/div>/
+    def expandedDivPattern = /<div.*expanded.*><div.*>.*<\/div><div.*\/><\/div><\/div>/
+    
     protected void setUp() {
         super.setUp()
         out = new StringWriter()
         TrinketsTagLib.metaClass.out = out
-        
+        ttl = new TrinketsTagLib()
     }
 
     protected void tearDown() {
@@ -17,17 +21,22 @@ class TrinketsTagLibTests extends TagLibUnitTestCase {
         remove TrinketsTagLib
     }
 
-    void testCollapsibleDiv() {
-        TrinketsTagLib ttl = new TrinketsTagLib()
-        
+    void testCollapsibleDivExpanded() {
+        ttl.collapsibleDiv([title:'title', collapsed:'false'], {""})
+        assertTrue out.toString().matches(expandedDivPattern)
+    }
+
+    void testCollapsibleDivCollapsed() {
         ttl.collapsibleDiv([title:'title', collapsed:'true'], {""})
-        //RegEx below matches the proper format of the div tag that should be printed.
-        def expected = /<div.*><div.*>.*<\/div><div.*\/><\/div><\/div>/
-        assertTrue out.toString().matches(expected)
+        assertTrue out.toString().matches(collapsedDivPattern)
+    }
+
+    void testCollapsibleDivDefault() {
+        ttl.collapsibleDiv([title:'title'], {""})
+        assertTrue out.toString().matches(collapsedDivPattern)
     }
     
     void testIfNullBlank() {
-        TrinketsTagLib ttl = new TrinketsTagLib()
         def results = ttl.ifNullBlank('thing')
         assertEquals results, 'thing'
         results = ttl.ifNullBlank(null)
@@ -36,8 +45,6 @@ class TrinketsTagLibTests extends TagLibUnitTestCase {
     }
     
     void testEmptyButtonsBar() {
-        TrinketsTagLib ttl = new TrinketsTagLib()
-        
         def results = ttl.emptyButtonsBar([:], {""})
         assertEquals results, ttl.out
     }
