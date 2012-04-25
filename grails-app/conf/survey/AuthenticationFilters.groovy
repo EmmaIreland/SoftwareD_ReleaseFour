@@ -98,13 +98,13 @@ class AuthenticationFilters {
         courses.contains(course)
     }
     
-    def urlParamsToString (Map urlParamMap) {
+    static urlParamsToString (Map urlParamMap) {
         def urlParamString = ''
         if ( urlParamMap.size() > 0 ) {
             urlParamString += '?'
             def index = 0
             urlParamMap.each { key, value ->
-                urlParamString += key + '=' + value[0]
+                urlParamString += key + '=' + value[0] // values are size-1 lists
                 if ( index != urlParamMap.size() - 1 ) {
                     urlParamString += '&'
                 }
