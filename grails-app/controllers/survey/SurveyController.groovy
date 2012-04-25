@@ -116,7 +116,7 @@ class SurveyController {
     def submit = {
         def surveyInstance = Survey.get(params.id)
         def personInstance = Person.get(params.personid)
-	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(failOnError: true)
+	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(failOnError)
         if (!surveyInstance || !personInstance) {
             flash.message = makeMessage(defaultNotFoundMessage, params.id)
             redirect(action: listString)
@@ -133,7 +133,7 @@ class SurveyController {
             }
         }
 
-	surveyReport.save(failOnError: true)
+	surveyReport.save(failOnError)
         // not necessary with each once SurveyAssignment is unique
         SurveyAssignment.findBySurveyAndPerson(surveyInstance, personInstance).each { it.completed = true }
 	redirect(controller: 'report', action: showString, id:surveyReport.id)
