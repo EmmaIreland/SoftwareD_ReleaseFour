@@ -24,10 +24,14 @@ class EnrollmentController {
     def create = {
         def enrollmentInstance = new Enrollment()
         def availableStudents = Person.list()
-
-        if (params.course?.id) {
-            def course = Course.get(params.course.id)
+        
+        def course = Course.get(params.course.id)
+        
+        if (course) {
             availableStudents = availableStudents - course.enrollments*.person - course.owner
+        } else {
+            redirect(uri: '/404')
+            return []
         }
 
         enrollmentInstance.properties = params
