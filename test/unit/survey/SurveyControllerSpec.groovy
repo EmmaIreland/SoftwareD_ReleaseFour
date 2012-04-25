@@ -19,8 +19,8 @@ class SurveyControllerSpec extends ControllerSpec {
     Question longText = new LongTextQuestion()
     Question multipleChoice = new MultipleChoiceQuestion()
     Question checkBox = new CheckboxQuestion()
-
-
+    Report newReport = new Report(person: bob, survey: testSurvey, answers: [])
+    Survey newSurvey = new Survey(title: 'Test', project: project, questions: [shortText])
     def setup(){
         mockForConstraintsTests(Survey)
         mockDomain(Person, [admin, bob, steve])
@@ -28,38 +28,22 @@ class SurveyControllerSpec extends ControllerSpec {
         mockDomain(Enrollment, [bobEnroll])
         mockDomain(Project, [project])
         mockDomain(Team, [testTeam])
-        mockDomain(Survey, [testSurvey])
+        mockDomain(Survey, [testSurvey, newSurvey])
+	mockDomain(Answer, [])
+	mockDomain(Report, [newReport])
+	mockDomain(SurveyAssignment, [])
         mockDomain(Question, [
             shortText,
             longText,
             multipleChoice,
             checkBox
         ])
-    }
-    def 'Test Submit Survey'() {
-        Survey newSurvey = new Survey(title: 'Test', project: project, questions: [shortText])
-        controller.metaClass.message = {''}
-        
-        when:
-        controller.params.id = 1
-        controller.params.personid = 1
-        controller.submit()
-        then:
-        controller.redirectArgs != null
-
-        when:
-        controller.params.id = null
-        controller.params.personid = null
-        controller.submit()
-
-        then:
-        controller.redirectArgs.action == 'list'
     }    
     def 'Test createAnswer'() {
         expect:
         mockDomain(Answer, [])
         Answer.list().size() == 0
-        controller.createAnswer(longText, bob, 'Stuff')
+        controller.createAnswer(longText, bob, 'Stuff', newReport)
         
         Answer.list().size() == 1
     }

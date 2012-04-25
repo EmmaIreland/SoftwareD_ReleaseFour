@@ -5,5 +5,6 @@ class Report {
     static hasMany = [answers: Answer] 
     
     static constraints = {
+	answers(nullable: true)
     }
 }

@@ -116,6 +116,8 @@ class SurveyController {
     def submit = {
         def surveyInstance = Survey.get(params.id)
         def personInstance = Person.get(params.personid)
+	def answersList = []
+	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(failOnError: true)
         if (!surveyInstance || !personInstance) {
             flash.message = makeMessage(defaultNotFoundMessage, params.id)
             redirect(action: listString)
@@ -126,27 +128,38 @@ class SurveyController {
         questions.each { question ->
             def serverResponse = params[question.id.toString()]
             if (serverResponse == null) {
-                createAnswer(question, personInstance, [])
+                surveyReport.answers.add(createAnswer(question, personInstance, [], surveyReport))
             } else {
-                createAnswer(question, personInstance, serverResponse)
+                surveyReport.answers.add(createAnswer(question, personInstance, serverResponse, surveyReport))
             }
         }
+	//def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: answersList).save(failOnError: true)
+	surveyReport.save(failOnError: true)
+	def dbReport = Report.get(surveyReport.id)
+	println "size: " + dbReport.answers.size()
+	dbReport.answers.each { answer ->
+	    println answer
+	    println "----"
+	}
         // not necessary with each once SurveyAssignment is unique
         SurveyAssignment.findBySurveyAndPerson(surveyInstance, personInstance).each { it.completed = true }
-        redirect(controller: 'person', action: showString, id:personInstance.id)
+	println "params: " + params
+	println "report id: " + surveyReport.id
+	redirect(controller: 'report', action: showString, id:surveyReport.id)
+        //redirect(controller: 'person', action: showString, id:personInstance.id)
     }
 
-    private createAnswer(question, person, serverResponse) {
+    private createAnswer(question, person, serverResponse, surveyReport) {
         def answer
         switch(question.templateName) {
             case 'Long':
             case 'Short':
                 answer = new TextAnswer(response: serverResponse,
-                person: person, question: question).save(failOnError)
+                person: person, question: question, report: surveyReport).save(failOnError)
                 break
             case 'MultipleChoice':
                 answer = new MultipleChoiceAnswer(responseIndex: serverResponse,
-                person: person, question: question).save(failOnError)
+                person: person, question: question, report: surveyReport).save(failOnError)
                 break
             case 'Checkbox':
                 def responseMap = [:]
@@ -155,18 +168,28 @@ class SurveyController {
                 } else {
                     serverResponse = serverResponse as List
                 }
-
+		
                 question.choices.eachWithIndex { choice, index ->
-
-
-                    responseMap[index] = serverResponse.contains(index)
+		    
+                    responseMap[index.toString()] = serverResponse.contains(index)
+		    
                 }
-                answer = new CheckboxAnswer(responses: responseMap, person: person, question: question)
+                answer = new CheckboxAnswer(responses: responseMap, person: person, question: question, report: surveyReport)
                 answer.save(failOnError)
                 break
             default:
                 break
         }
+	answer
+//	println "answer: " + answer
+//	println "surveyReport.size() " + surveyReport.answers.size()
+//	println "class of index " + surveyReport.answers.size().class
+//	def index = surveyReport.answers.size()
+//	def stringIndex = surveyReport.answers.size() + ''
+//	println "index: " + stringIndex
+//	println "class of index: "  + stringIndex.class
+//	surveyReport.answers.add(answer)
+//	surveyReport.save(failOnError: true)
     }
 
 
