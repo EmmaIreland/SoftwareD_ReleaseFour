@@ -133,18 +133,10 @@ class SurveyController {
                 surveyReport.answers.add(createAnswer(question, personInstance, serverResponse, surveyReport))
             }
         }
-	//def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: answersList).save(failOnError: true)
+
 	surveyReport.save(failOnError: true)
-	def dbReport = Report.get(surveyReport.id)
-	println "size: " + dbReport.answers.size()
-	dbReport.answers.each { answer ->
-	    println answer
-	    println "----"
-	}
         // not necessary with each once SurveyAssignment is unique
         SurveyAssignment.findBySurveyAndPerson(surveyInstance, personInstance).each { it.completed = true }
-	println "params: " + params
-	println "report id: " + surveyReport.id
 	redirect(controller: 'report', action: showString, id:surveyReport.id)
         //redirect(controller: 'person', action: showString, id:personInstance.id)
     }
@@ -181,15 +173,6 @@ class SurveyController {
                 break
         }
 	answer
-//	println "answer: " + answer
-//	println "surveyReport.size() " + surveyReport.answers.size()
-//	println "class of index " + surveyReport.answers.size().class
-//	def index = surveyReport.answers.size()
-//	def stringIndex = surveyReport.answers.size() + ''
-//	println "index: " + stringIndex
-//	println "class of index: "  + stringIndex.class
-//	surveyReport.answers.add(answer)
-//	surveyReport.save(failOnError: true)
     }
 
 
