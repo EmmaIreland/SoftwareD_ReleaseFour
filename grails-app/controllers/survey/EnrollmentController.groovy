@@ -1,15 +1,7 @@
 package survey
 
-class EnrollmentController {
+class EnrollmentController extends ControllerAssist {
 
-    def defaultNotFoundMessage = 'default.not.found.message'
-    def listString = 'list'
-    def editString = 'edit'
-    def createString = 'create'
-    static post = 'POST'
-    def showString = 'show'
-    def flush = [flush: true]
-	
     static allowedMethods = [save: post, update: post, delete: post]
 
     def index = {
@@ -85,15 +77,7 @@ class EnrollmentController {
         def enrollmentInstance = Enrollment.get(params.id)
         if (enrollmentInstance) {
             if (params.version) {
-                def version = params.version.toLong()
-                if (enrollmentInstance.version > version) {
-
-                    enrollmentInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-						 [makeMessage('enrollment.label', enrollmentInstance.id)] as Object[],
-						  'Another user has updated this Enrollment while you were editing')
-                    render(view: editString, model: [enrollmentInstance: enrollmentInstance])
-                    return
-                }
+				versionCheck(enrollmentInstance, params.version, enrollmentLabelString, 'Enrollment')
             }
             enrollmentInstance.properties = params
             if (!enrollmentInstance.hasErrors() && enrollmentInstance.save(flush)) {
@@ -127,6 +111,6 @@ class EnrollmentController {
     }
 
     private enrollmentLabel() {
-        message(code: 'enrollment.label', default: 'Enrollment')
+        message(code: enrollmentLabelString, default: 'Enrollment')
     }
 }

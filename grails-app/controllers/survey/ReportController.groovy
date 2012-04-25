@@ -1,11 +1,11 @@
 package survey
 
-class ReportController {
+class ReportController extends ControllerAssist {
 
-    static allowedMethods = [save: "POST", delete: "POST"]
+    static allowedMethods = [save: post, update: post, delete: post]
 
     def index = {
-        redirect(action: "list", params: params)
+        redirect(action: listString, params: params)
     }
 
     def list = {
@@ -21,42 +21,50 @@ class ReportController {
 
     def save = {
         def reportInstance = new Report(params)
-        if (reportInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'report.label', default: 'Report'), reportInstance.id])}"
-            redirect(action: "show", id: reportInstance.id)
+        if (reportInstance.save(flush)) {
+			flash.message =  makeMessage('default.created.message', reportInstance.id)
+			redirect(action: showString, id: reportInstance.id)
         }
         else {
-            render(view: "create", model: [reportInstance: reportInstance])
+            render(view: createString, model: [reportInstance: reportInstance])
         }
     }
 
     def show = {
         def reportInstance = Report.get(params.id)
         if (reportInstance) {
-            [reportInstance: reportInstance]
+			[reportInstance: reportInstance]
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-            redirect(action: "list")
+			flash.message =  makeMessage(defaultNotFoundMessage, params.id)
+			redirect(action: listString)
         }
     }
-
+    
     def delete = {
         def reportInstance = Report.get(params.id)
         if (reportInstance) {
             try {
-                reportInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-                redirect(action: "list")
+                reportInstance.delete(flush)
+				flash.message =  makeMessage('default.deleted.message', params.id)
+                redirect(action: listString)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-                redirect(action: "show", id: params.id)
+				flash.message =  makeMessage('default.not.deleted.message', params.id)
+                redirect(action: showString, id: params.id)
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-            redirect(action: "list")
+			flash.message =  makeMessage(defaultNotFoundMessage, params.id)
+            redirect(action: listString)
         }
     }
+	
+	private makeMessage(code, reportId) {
+		return "${message(code: code, args: [reportLabel(), reportId])}"
+	}
+
+	private reportLabel() {
+		message(code: 'report.label', default: 'Report')
+	}
 }
