@@ -1,16 +1,6 @@
 package survey
 
-class PersonController {
-
-    static post = 'POST'
-    def listString = 'list'
-	def personLabelString = 'person.label'
-    def editString = 'edit'
-    def createString = 'create'
-    def showString = 'show'
-    def defaultNotFoundMessage = 'default.not.found.message'
-    def flush = [flush: true]
-
+class PersonController extends ControllerAssist {
     def authenticationService
 
     static allowedMethods = [save: post, update: post, delete: post]

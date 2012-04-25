@@ -1,16 +1,8 @@
 package survey
 
-class CourseController {
+class CourseController extends ControllerAssist {
 
-    static post = 'POST'
-    def listString = 'list'
-    def editString = 'edit'
-    def createString = 'create'
-    def showString = 'show'
-	def defaultNotFoundMessage = 'default.not.found.message'
     static allowedMethods = [save: post, update: post, delete: post]
-    def listMap = [action: listString]
-	def flush = [flush: true]
 
     def index = {
         redirect(action: listString, params: params)
