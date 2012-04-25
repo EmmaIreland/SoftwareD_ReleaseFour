@@ -116,7 +116,6 @@ class SurveyController {
     def submit = {
         def surveyInstance = Survey.get(params.id)
         def personInstance = Person.get(params.personid)
-	def answersList = []
 	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(failOnError: true)
         if (!surveyInstance || !personInstance) {
             flash.message = makeMessage(defaultNotFoundMessage, params.id)
