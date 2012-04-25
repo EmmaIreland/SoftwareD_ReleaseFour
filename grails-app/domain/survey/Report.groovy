@@ -8,4 +8,8 @@ class Report {
     static constraints = {
 	answers(nullable: true)
     }
+    
+    def isOverdue() {
+        return dateTaken > survey.dueDate
+    }
 }

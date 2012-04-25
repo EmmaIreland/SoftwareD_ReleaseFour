@@ -45,7 +45,12 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="report.dateTaken.label" default="Date Taken" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${reportInstance?.dateTaken}" format="MMMMM d, yyyy, h:m a" /></td>
+                            <td valign="top" class="value">
+                            	<g:formatDate date="${reportInstance?.dateTaken}" format="MMMMM d, yyyy, h:m a" />
+                            	<g:if test="${reportInstance.isOverdue()}">
+                            		<span style="font-weight: bold; color: red">(Overdue)</span>
+                            	</g:if>
+                            </td>
                             
                         </tr>
                     
