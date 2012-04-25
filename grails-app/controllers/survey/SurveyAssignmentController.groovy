@@ -1,16 +1,9 @@
 package survey
 
-class SurveyAssignmentController {
-	static post = 'POST'
-	def surveyAssignmentLabel = 'surveyAssignment.label'
-	def listString = 'list'
-	def editString = 'edit'
-	def createString = 'create'
-	def showString = 'show'
-	def defaultNotFoundMessage = 'default.not.found.message'
-	def listMap = [action: listString]
-	def flush = [flush: true]
+class SurveyAssignmentController extends ControllerAssist {
+	
 	static allowedMethods = [save: post, update: post, delete: post]
+	
 	def index = {
 		redirect(action: listString, params: params)
 	}
@@ -75,16 +68,7 @@ class SurveyAssignmentController {
 		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
 		if (surveyAssignmentInstance) {
 			if (params.version) {
-				def version = params.version.toLong()
-				if (surveyAssignmentInstance.version > version) {
-					surveyAssignmentInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-							[
-								message(code: surveyAssignmentLabel, default: 'SurveyAssignment')]
-							as Object[],
-							'Another user has updated this SurveyAssignment while you were editing')
-					render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
-					return
-				}
+				versionCheck(surveyAssignmentInstance, params.version, surveyAssignmentLabel, 'SurveyAssignment')
 			}
 			surveyAssignmentInstance.properties = params
 			if (!surveyAssignmentInstance.hasErrors() && surveyAssignmentInstance.save(flush)) {

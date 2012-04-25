@@ -7,7 +7,6 @@ class ControllerAssist {
 	static final failOnError = [failOnError: true]
 	static final listMap = [action: listString]
 
-
 	//action strings
 	static final createString = 'create'
 	static final editString = 'edit'
@@ -19,16 +18,17 @@ class ControllerAssist {
 	static final projectLabelString = 'project.label'
 	static final courseLabelString = 'course.label'
 	static final surveyLabelString = 'survey.label'
-
+	static final enrollmentLabelString = 'enrollment.label'
+	static final questionLabelString = 'question.label'
+	static final surveyAssignmentLabel = 'surveyAssignment.label'
+	
 
 	//other strings
 	static final post = 'POST'
 	static final defaultNotFoundMessage = 'default.not.found.message'
 
-
-
 	// method for the version checking in update action
-	public versionCheck(instance, paramsVersion, label, controllerString) {
+	def versionCheck(instance, paramsVersion, label, controllerString) {
 		def version = paramsVersion.toLong()
 		if (instance.version > version) {
 			instance.errors.rejectValue('version', 'default.optimistic.locking.failure',
