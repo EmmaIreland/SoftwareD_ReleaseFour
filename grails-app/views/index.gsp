@@ -49,6 +49,24 @@
 					</div>
 					<trinkets:emptyButtonsBar />
 				</g:if>
+				
+				<g:set var="completedSurveys" value="${person.reports.sort {it.dateTaken}}" />
+				<g:if test="${!completedSurveys.isEmpty()}">
+					<h2>Completed Surveys</h2>
+					<div class="dialog non-table-dialog">
+						<div class="dialog-subDiv">
+							<g:each in="${completedSurveys}" status="i" var="report">
+								<g:link controller="report" action="show" id="${report.id}" >
+									${report.survey.title}
+								</g:link>
+								<g:if test="${i != completedSurveys.size() - 1}">
+									<br/>
+								</g:if>
+							</g:each>
+						</div>
+					</div>
+					<trinkets:emptyButtonsBar />
+				</g:if>
 			</g:if>
 		</div>
     </body>

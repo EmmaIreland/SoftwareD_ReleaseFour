@@ -75,12 +75,25 @@
                         </tr>
                         
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="person.surveyAssigments.label" default="Assigned Surveys to Take" /></td>
+                            <td valign="top" class="name"><g:message code="person.surveyAssigments.label" default="Assigned Surveys" /></td>
                             
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
                                 <g:each in="${personInstance.surveyAssignments.findAll {sa -> !sa.completed}}" var="o">
                                     <li><g:link controller="survey" action="take" id="${o.survey.id}">${o?.survey.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="person.reports.label" default="Completed Surveys" /></td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:each in="${personInstance.reports.sort { it.date }}" var="r">
+                                    <li><g:link controller="report" action="show" id="${r.id}">${r.survey.encodeAsHTML()}</g:link></li>
                                 </g:each>
                                 </ul>
                             </td>
