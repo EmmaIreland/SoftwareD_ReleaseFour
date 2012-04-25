@@ -84,7 +84,6 @@ class AuthenticationFilters {
                      user.id.toString() != params.id.toString() &&
                      !( (actionName == 'show') &&
                         personHasAsInstructor(user, Person.get(params.id)) )) {
-                    println 'Person is trying to see instructor: ' + ((actionName == 'show') && personHasAsInstructor(user, Person.get(params.id)))
                     redirect(uri: noPermissionURL)
                     return false
                 }
