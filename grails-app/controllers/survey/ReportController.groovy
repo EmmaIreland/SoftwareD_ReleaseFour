@@ -32,12 +32,12 @@ class ReportController {
 
     def show = {
         def reportInstance = Report.get(params.id)
-        if (!reportInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-            redirect(action: "list")
+        if (reportInstance) {
+            [reportInstance: reportInstance]
         }
         else {
-            [reportInstance: reportInstance]
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
+            redirect(action: "list")
         }
     }
 
