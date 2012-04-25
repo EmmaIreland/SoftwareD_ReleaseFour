@@ -5,7 +5,7 @@ class AuthenticationFilters {
     def courseString = 'course'
     def userString = 'user'
     // protectedActions are all actions except login, logout, sendLogin
-    def protectedActions = '(create|list|show|edit|update|save|addmany|changeMember|deleteByPerson|changePassword|updatePassword|assign|addQuestion|preview|submit|take)'
+    def protectedActions = '(create|list|show|edit|update|save|delete|addmany|changeMember|deleteByPerson|changePassword|updatePassword|assign|addQuestion|preview|submit|take)'
     
     def filters = {
         loggedInHome(uri: '/') {
