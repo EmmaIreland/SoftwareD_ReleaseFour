@@ -1,7 +1,9 @@
 package survey
+import survey.Survey
 
 class ReportController extends ControllerAssist {
-
+  
+    
     static allowedMethods = [save: post, update: post, delete: post]
 
     def index = {
@@ -43,11 +45,11 @@ class ReportController extends ControllerAssist {
     
     def delete = {
         def reportInstance = Report.get(params.id)
+	def reportSurvey = reportInstance.survey
         if (reportInstance) {
             try {
                 reportInstance.delete(flush)
-				flash.message =  makeMessage('default.deleted.message', params.id)
-                redirect(action: listString)
+                redirect(controller:'survey', action: 'show', id:reportSurvey.id)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message =  makeMessage('default.not.deleted.message', params.id)

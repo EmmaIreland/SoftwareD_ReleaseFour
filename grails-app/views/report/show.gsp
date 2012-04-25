@@ -1,16 +1,17 @@
 
 <%@ page import="survey.Report" %>
+<%@ page import="survey.Person" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'report.label', default: 'Report')}" />
+        <g:set var="isAdmin" value="${Person.get(session['user']).isAdmin}"/> 
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
             <h1>Responses to ${reportInstance.survey.title}</h1>
@@ -77,7 +78,12 @@
             <div class="buttons">
                 <g:form>
                     <g:hiddenField name="id" value="${reportInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                    <g:if test="${isAdmin}">
+                    	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+               		</g:if>
+               		<g:else>
+	                   		<trinkets:fakeButton />
+	                </g:else>
                 </g:form>
             </div>
         </div>

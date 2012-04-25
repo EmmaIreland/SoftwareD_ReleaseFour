@@ -133,6 +133,15 @@
                           	</g:each></td>
                         </tr>
                         
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="survey.project.label" default="Responses" /></td>
+                            <td>
+                            	<g:each in="${surveyInstance.reports}" var="report">
+                            		<g:link controller="report" action="show" id="${report.id}"> ${report.person.name}'s response</g:link> <br>
+                            	</g:each>
+                            </td>
+                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
