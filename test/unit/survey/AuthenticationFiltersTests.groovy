@@ -10,6 +10,10 @@ class AuthenticationFiltersTests extends GrailsUnitTestCase {
     protected void tearDown() {
         super.tearDown()
     }
+    
+    void testUrlParamsToStringNone() {
+        assertEquals '', AuthenticationFilters.urlParamsToString([:])
+    }
 
     void testUrlParamsToStringSingle() {
         Map paramMap = [factor:['1']]
