@@ -38,6 +38,26 @@ class CoursePageSpec extends GebReportingSpec {
         at CourseCreatePage
     }
     
+    def "home button on course create goes home"() {
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to CourseCreatePage
+        homeButton.click()
+        
+        then:
+        at HomePage
+    }
+    
+    def "course list button on course create goes to course list"() {
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to CourseCreatePage
+        courseListButton.click()
+        
+        then:
+        at CourseListPage
+    }
+    
     def "course create should go to course show"() {
         when:
         login('sid@anderson.net', 'shiboleet')
@@ -77,6 +97,16 @@ class CoursePageSpec extends GebReportingSpec {
         
         then:
         at CourseShowPage
+    }
+    
+    def "home button on course show page should go to home page"() {
+        when:
+        login('sid@anderson.net', 'shiboleet')
+        to CourseShowPage
+        homeButton.click()
+        
+        then:
+        at HomePage
     }
     
     def "new course button on course show page should go to course create"() {

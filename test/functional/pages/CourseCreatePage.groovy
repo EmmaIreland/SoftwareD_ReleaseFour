@@ -8,6 +8,8 @@ class CourseCreatePage extends Page {
     static at = { title =~ /Create Course/ }
 
     static content = {
+        homeButton() { $("a", text: "Home") }
+        courseListButton() { $("a", text: "Course List") }
         courseAbbreviationBox() { $('input', name: 'abbreviation') }
         courseNameBox() { $('input', name: 'name') }
         courseTermBox() { $('select', name: 'term') }
