@@ -5,16 +5,16 @@ import pages.*
 
 class QuestionPageSpec extends GebReportingSpec {
     
-    def setup() {
-        setup:
+    private login(email, password) {
         to LoginPage
-        loginEmailField.value('sid@anderson.net')
-        loginPasswordField.value('shiboleet')
+        loginEmailField.value(email)
+        loginPasswordField.value(password)
         loginButton.click()
     }
     
     def "home button on question show should go to home page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to QuestionShowPage
         homeButton.click()
         
@@ -24,6 +24,7 @@ class QuestionPageSpec extends GebReportingSpec {
     
     def "home button on question list should go to home page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to QuestionListPage
         homeButton.click()
         
@@ -33,6 +34,7 @@ class QuestionPageSpec extends GebReportingSpec {
     
     def "question list button on question show should go to question list"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to QuestionShowPage
         questionListButton.click()
         

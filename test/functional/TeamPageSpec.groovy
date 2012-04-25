@@ -4,16 +4,16 @@ import pages.*
 
 class TeamPageSpec extends GebReportingSpec {
     
-    def setup() {
-        setup:
+    private login(email, password) {
         to LoginPage
-        loginEmailField.value('sid@anderson.net')
-        loginPasswordField.value('shiboleet')
+        loginEmailField.value(email)
+        loginPasswordField.value(password)
         loginButton.click()
     }
     
     def "home button on survey list page should go to home page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to SurveyListPage
         homeButton.click()
         then:
@@ -22,6 +22,7 @@ class TeamPageSpec extends GebReportingSpec {
     
     def "When update button is clicked it should go to the project show page"(){
         when:
+        login('sid@anderson.net', 'shiboleet')
         to TeamEditPage
         teamNameBox.value("TheName!")
         teamCommentBox.value("TheComment!")
@@ -33,6 +34,7 @@ class TeamPageSpec extends GebReportingSpec {
     
     def "Manage students in group button goes to manage teams page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to TeamEditPage
         manageStudentsInGroupButton.click()
         

@@ -5,16 +5,16 @@ import pages.*
 
 class SurveyAssignmentPageSpec extends GebReportingSpec {
     
-    def setup() {
-        setup:
+    private login(email, password) {
         to LoginPage
-        loginEmailField.value('sid@anderson.net')
-        loginPasswordField.value('shiboleet')
+        loginEmailField.value(email)
+        loginPasswordField.value(password)
         loginButton.click()
     }
     
     def "home button on survey assignment create should go to home page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to SurveyAssignmentCreatePage
         homeButton.click()
         
@@ -24,6 +24,7 @@ class SurveyAssignmentPageSpec extends GebReportingSpec {
     
     def "survey assignment list button on survey assignment create should go to survey assignment list"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to SurveyAssignmentCreatePage
         surveyAssignmentListButton.click()
         
@@ -33,6 +34,7 @@ class SurveyAssignmentPageSpec extends GebReportingSpec {
     
     def "assign button on survey assignment create should go to survey show"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to SurveyAssignmentCreatePage
         surveyAssignButton.click()
        

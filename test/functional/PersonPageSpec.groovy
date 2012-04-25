@@ -6,16 +6,16 @@ import pages.PersonEditPage
 
 class PersonPageSpec extends GebReportingSpec {
     
-    def setup() {
-        setup:
+    private login(email, password) {
         to LoginPage
-        loginEmailField.value('sid@anderson.net')
-        loginPasswordField.value('shiboleet')
+        loginEmailField.value(email)
+        loginPasswordField.value(password)
         loginButton.click()
     }
 
     def "home button on person list page should go to home page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonListPage
         homeButton.click()
 
@@ -25,6 +25,7 @@ class PersonPageSpec extends GebReportingSpec {
 
     def "new person button on person list page should go to person create"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonListPage
         newPersonButton.click()
 
@@ -34,6 +35,7 @@ class PersonPageSpec extends GebReportingSpec {
     
     def "create button on person create should go to person show"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonCreatePage
         personNameBox.value('Bob')
         personEmailBox.value('bob@bob.com')
@@ -47,6 +49,7 @@ class PersonPageSpec extends GebReportingSpec {
     
     def "edit button on person show page should go to person edit"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonShowPage
         personEditButton.click()
         
@@ -56,6 +59,7 @@ class PersonPageSpec extends GebReportingSpec {
     
     def "update on edit goes to person show"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonEditPage
         personNameBox.value('Oprah')
         personUpdateButton.click()
@@ -66,6 +70,7 @@ class PersonPageSpec extends GebReportingSpec {
     
     def "change password on person edit goes to person change password page"() {
         when:
+        login('sid@anderson.net', 'shiboleet')
         to PersonEditPage
         changePasswordButton.click()
         
