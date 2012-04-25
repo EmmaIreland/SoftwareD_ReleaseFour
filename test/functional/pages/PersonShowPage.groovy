@@ -12,5 +12,6 @@ class PersonShowPage extends Page {
         personListButton() { $("a", text: "Person List") }
         newPersonButton() { $("a", text: "New Person") }
         personEditButton(to: PersonEditPage) { $('input', value:'Edit') }
+        changePasswordButton(to: PersonChangePasswordPage) { $('input', value:'Change Password') }
     }
 }

@@ -71,7 +71,7 @@ class PersonPageSpec extends GebReportingSpec {
     def "change password on person edit goes to person change password page"() {
         when:
         login('sid@anderson.net', 'shiboleet')
-        to PersonEditPage
+        to PersonShowPage
         changePasswordButton.click()
         
         then:

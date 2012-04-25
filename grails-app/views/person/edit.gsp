@@ -70,13 +70,6 @@
 								<g:textField name="email" value="${personInstance?.email}" />
 							</td>
 						</tr>
-                        
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message default="Change Password" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="person" action="changePassword" id="${personInstance?.id}">${'Change Password'}</g:link></td>
-                            
-                        </tr>
 
 					</tbody>
 				</table>

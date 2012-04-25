@@ -53,7 +53,7 @@
 					</table>
 			</div>
 	        <div class="buttons">
-	            <span class="button"><g:actionSubmit class="sendLogin" action="sendLogin" value="Login" /></span>
+	            <span class="button"><g:actionSubmit class="lock" action="sendLogin" value="Login" /></span>
 	        </div>
         </g:form>
 	</div>

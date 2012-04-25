@@ -12,6 +12,5 @@ class PersonEditPage extends Page {
         personNameBox() { $('input', name: 'name') }
         personEmailBox() { $('input', name: 'email') }
         personUpdateButton(to: PersonShowPage) { $('input', value:'Update') }
-        changePasswordButton() { $("a", text: "Change Password") }
     }
 }
