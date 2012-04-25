@@ -39,7 +39,7 @@ class HomePageSpec extends GebReportingSpec {
         when:
         login('sid@anderson.net', 'shiboleet')
         to HomePage
-        peopleButton().click()
+        peopleButton.click()
 
         then:
         at PersonListPage
@@ -49,7 +49,7 @@ class HomePageSpec extends GebReportingSpec {
         when:
         login('sid@anderson.net', 'shiboleet')
         to HomePage
-        surveysButton().click()
+        surveysButton.click()
 
         then:
         at SurveyListPage
@@ -60,7 +60,7 @@ class HomePageSpec extends GebReportingSpec {
         when:
         login('sid@anderson.net', 'shiboleet')
         to HomePage
-        projectsButton().click()
+        projectsButton.click()
 
         then:
         at ProjectListPage
@@ -70,9 +70,19 @@ class HomePageSpec extends GebReportingSpec {
         when:
         login('sid@anderson.net', 'shiboleet')
         to HomePage
-        logoutButton().click()
+        logoutButton.click()
         to HomePage
 
+        then:
+        at LoginPage
+    }
+    
+    def "A non admin can log out"() {
+        when:
+        login('oprah@oprah.com', 'password')
+        to HomePage
+        logoutButton.click()
+        
         then:
         at LoginPage
     }

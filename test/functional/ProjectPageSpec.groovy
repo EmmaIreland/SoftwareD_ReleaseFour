@@ -22,6 +22,7 @@ class ProjectPageSpec extends GebReportingSpec {
         login('sid@anderson.net', 'shiboleet')
         to ProjectListPage
         homeButton.click()
+        
         then:
         at HomePage
     }
@@ -31,6 +32,7 @@ class ProjectPageSpec extends GebReportingSpec {
         login('sid@anderson.net', 'shiboleet')
         to ProjectShowPage
         homeButton.click()
+        
         then:
         at HomePage
     }
@@ -52,6 +54,7 @@ class ProjectPageSpec extends GebReportingSpec {
         login('sid@anderson.net', 'shiboleet')
         to ProjectShowPage
         createNewSurveyButton.click()
+        
         then:
         at SurveyCreatePage
     }
@@ -61,6 +64,7 @@ class ProjectPageSpec extends GebReportingSpec {
         login('sid@anderson.net', 'shiboleet')
         to ProjectShowPage
         projectEditButton.click()
+        
         then:
         at ProjectEditPage
     }
@@ -72,7 +76,18 @@ class ProjectPageSpec extends GebReportingSpec {
         projectNameBox.value("Project 1")
         projectDescriptionBox.value("Software Ree")
         projectUpdateButton.click()
+        
         then:
         at ProjectShowPage
+    }
+    
+    def "For a non admin, home button on project show page should go to home page"() {
+        when:
+        login('oprah@oprah.com', 'password')
+        to ProjectShowPage
+        homeButton.click()
+        
+        then:
+        at HomePage
     }
 }

@@ -108,4 +108,14 @@ class CoursePageSpec extends GebReportingSpec {
         then:
         at EnrollmentCreatePage
     }
+    
+    def "For a non admin, home button on course show goes to home"() {
+        when:
+        login('oprah@oprah.com', 'password')
+        to CourseShowPage
+        homeButton.click()
+        
+        then:
+        at HomePage
+    }
 }
