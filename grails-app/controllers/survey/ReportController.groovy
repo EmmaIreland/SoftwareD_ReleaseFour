@@ -2,7 +2,7 @@ package survey
 
 class ReportController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", delete: "POST"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -38,44 +38,6 @@ class ReportController {
         }
         else {
             [reportInstance: reportInstance]
-        }
-    }
-
-    def edit = {
-        def reportInstance = Report.get(params.id)
-        if (!reportInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [reportInstance: reportInstance]
-        }
-    }
-
-    def update = {
-        def reportInstance = Report.get(params.id)
-        if (reportInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (reportInstance.version > version) {
-                    
-                    reportInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'report.label', default: 'Report')] as Object[], "Another user has updated this Report while you were editing")
-                    render(view: "edit", model: [reportInstance: reportInstance])
-                    return
-                }
-            }
-            reportInstance.properties = params
-            if (!reportInstance.hasErrors() && reportInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'report.label', default: 'Report'), reportInstance.id])}"
-                redirect(action: "show", id: reportInstance.id)
-            }
-            else {
-                render(view: "edit", model: [reportInstance: reportInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'report.label', default: 'Report'), params.id])}"
-            redirect(action: "list")
         }
     }
 
