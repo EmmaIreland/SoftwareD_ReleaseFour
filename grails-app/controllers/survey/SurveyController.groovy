@@ -3,16 +3,7 @@ import survey.answers.*
 import survey.questions.*
 import grails.converters.JSON
 
-class SurveyController {
-
-    static post = 'POST'
-    def listString = 'list'
-    def editString = 'edit'
-    def createString = 'create'
-    def showString = 'show'
-    def flush = [flush: true]
-    def defaultNotFoundMessage = 'default.not.found.message'
-    def failOnError = [failOnError: true]
+class SurveyController extends ControllerAssist {
 
     static allowedMethods = [save: post, update: post, delete: post, preview: post]
 
