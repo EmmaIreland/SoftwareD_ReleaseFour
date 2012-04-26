@@ -86,10 +86,9 @@ class TrinketsTagLib {
     */
    def protectedLink = { attrs, body ->
        def link = attrs['link']
-       if ( !attrs['link'] ) {
-           link = 'true'
+       if ( attrs['link'] == null ) {
+           link = true
        }
-       link = Boolean.parseBoolean(link)
        
        def uri = attrs['uri']
        def controller = attrs['controller']

@@ -53,20 +53,26 @@
                             
                         </tr>
                         
-                    	<g:if test="${isAdmin}">
-	                        <tr class="prop">
-	                            <td valign="top" class="name">Enrolled Students:</td>
-	                            
-	                            <td valign="top" style="text-align: left;" class="value">
-	                            	<g:link controller="enrollment" action="create" params="${['course.id': courseInstance.id] }">Add or remove a student</g:link>
-	                                <ul>
-	                                <g:each in="${courseInstance.enrollments}" var="e">
-	                                    <li><g:link controller="person" action="show" id="${e.person.id}">${e?.person?.encodeAsHTML()}</g:link></li>
-	                                </g:each>
-	                                </ul>
-	                            </td>
-	                        </tr>
-                        </g:if>
+                        <tr class="prop">
+                            <td valign="top" class="name">Enrolled Students:</td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                            	<g:if test="${isAdmin}">
+	                            	<g:link controller="enrollment" action="create" params="${['course.id': courseInstance.id] }">
+	                            		Add or remove a student
+	                            	</g:link>
+                                </g:if>
+                                <ul>
+                                <g:each in="${courseInstance.enrollments}" var="e">
+                                    <li>
+                                    	<trinkets:protectedLink controller="person" action="show" id="${e.person.id}" link="${isAdmin}">
+                                    		${e?.person?.encodeAsHTML()}
+                                    	</trinkets:protectedLink>
+                                    </li>
+                                </g:each>
+                                </ul>
+                            </td>
+                        </tr>
                         
                     </tbody>
                 </table>
