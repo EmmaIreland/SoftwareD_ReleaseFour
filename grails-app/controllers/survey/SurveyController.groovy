@@ -153,11 +153,9 @@ class SurveyController extends ControllerAssist {
                 } else {
                     serverResponse = serverResponse as List
                 }
-		
                 question.choices.eachWithIndex { choice, index ->
-		    
-                    responseMap[index.toString()] = serverResponse.contains(index)
-		    
+                    responseMap[choice] = serverResponse.contains(index.toString())
+					
                 }
                 answer = new CheckboxAnswer(responses: responseMap, person: person, question: question, report: surveyReport)
                 answer.save(FAIL_ON_ERROR)

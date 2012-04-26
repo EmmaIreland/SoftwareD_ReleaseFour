@@ -1,6 +1,7 @@
 
 <%@ page import="survey.Report" %>
 <%@ page import="survey.Person" %>
+<%@ page import="survey.questions.*" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -62,9 +63,17 @@
                                 <ul>
                                 <g:each in="${reportInstance.answers}" var="a">
                                     <li>
-                                    	"${a.question.prompt}"
+                                    	${a.question.prompt}
                                         <br>
-                                        Answer given: <span style="font-weight: bold">${a?.encodeAsHTML()}</span>
+                                        <g:if test="${a.question.instanceOf(CheckboxQuestion)}">
+                                        	<g:set var="responses" value="${
+                                        		a.responses.collect{ key, value -> if ( value ) key }.findAll{it != null}
+                                        		}" />
+                                        </g:if>
+                                        <g:else>
+                                        	<g:set var="responses" value="${a.toString()}" />
+                                        </g:else>
+                                        Answer given: <span style="font-weight: bold">${responses.encodeAsHTML()}</span>
                                     </li>
                                     <br>
                                 </g:each>
