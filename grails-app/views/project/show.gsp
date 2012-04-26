@@ -124,9 +124,13 @@
 								<h2>Members:</h2>
 								
 								<g:each in="${team.memberships.member}" var="student">
-									<ul> <ul>
-										<li><g:link controller="person" action="show" id="${student.id}">${student?.encodeAsHTML()}</g:link></li>
-									</ul></ul>
+									<ul>
+										<li>
+											<trinkets:protectedLink link="${isAdmin}" controller="person" action="show" id="${student.id}">
+												${student?.encodeAsHTML()}
+											</trinkets:protectedLink>
+										</li>
+									</ul>
 								</g:each>
 								
 								<g:if test="${isAdmin}">
