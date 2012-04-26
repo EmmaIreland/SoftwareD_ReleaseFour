@@ -225,6 +225,7 @@
 		               <span class="button">
                     		<g:link class="assign" controller="surveyAssignment" action="create" params="${['surveyid': surveyInstance.id]}">
                     			Assign
+                    			<trinkets:fakeButton />
                    			</g:link>
                     	</span>
 	                </g:form>
