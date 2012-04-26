@@ -1,4 +1,5 @@
 <%@ page import="survey.Survey" %>
+<%@ page import="survey.Report" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -131,16 +132,7 @@
                           		</span>
                           		<br/>
                           	</g:each></td>
-                        </tr>
-                        
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="survey.project.label" default="Responses" /></td>
-                            <td>
-                            	<g:each in="${surveyInstance.reports}" var="report">
-                            		<g:link controller="report" action="show" id="${report.id}"> ${report.person.name}'s response</g:link> <br>
-                            	</g:each>
-                            </td>
-                        </tr>
+                        </tr>    
                         
                     </tbody>
                 </table>
@@ -154,13 +146,56 @@
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                     <span class="button"><g:actionSubmit class="preview" action="preview" value="${message(code: 'default.button.preview.label', default: 'Preview')}"/></span>
                     <span class="button"><g:actionSubmit class="take" action="take" value="${message(code: 'default.button.take.label', default: 'Take')}"/></span>
-                    <span class="button">
-                    	<g:link class="assign" controller="surveyAssignment" action="create" params="${['surveyid': surveyInstance.id]}">
-                    		Assign
-                   		</g:link>
-                    </span>
                 </g:form>
             </div>
+            <br>
+            <g:if test="${surveyInstance.surveyAssignments.isEmpty()}">
+				<h2><g:link controller="surveyAssignment" action="create" params="${['surveyid': surveyInstance.id]}">No students are assigned to take this survey. Click here to assign students</g:link></h2>
+			</g:if>
+          	<g:else>
+          	 	<h1>${surveyInstance.toString()} Responses</h1>
+					<div class="list">
+						<table>
+							<thead>
+								<tr>
+									<th><g:message code="student.label" default="Students Assigned" /></th>
+									
+									<th><g:message code="responded.label" default="Responded" /></th>
+									
+											
+								</tr>
+							</thead>
+							<tbody>
+								<g:each in="${surveyInstance.surveyAssignments.person}" status="i" var="k">
+									<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+			
+										<td>
+											<g:link controller="person" action="show" id="${k.id}">${k?.encodeAsHTML()}</g:link>
+										</td>
+			
+										<td valign="top" style="text-align: left;" class="value">
+											<g:if test="${responseList.contains(k.id)}">
+												<g:link controller="report" action="show" id="${Report.findByPersonAndSurvey(k,surveyInstance).id}">
+													Yes: View Response
+												</g:link>
+											</g:if>
+											<g:else>No</g:else>
+										</td>			
+									</tr>
+								</g:each>
+							</tbody>
+						</table>
+				</div>
+				<div class="buttons">
+					<g:form>
+		               <span class="button">
+                    		<g:link class="assign" controller="surveyAssignment" action="create" params="${['surveyid': surveyInstance.id]}">
+                    			Assign
+                   			</g:link>
+                    	</span>
+	                </g:form>
+				</div>						
+			</g:else>
         </div>
     </body>
 </html>

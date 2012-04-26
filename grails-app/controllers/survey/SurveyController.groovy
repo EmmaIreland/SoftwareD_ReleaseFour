@@ -84,13 +84,16 @@ class SurveyController extends ControllerAssist {
     def show = {
         def surveyInstance = Survey.get(params.id)
         def existingQuestions = Question.findAll()
+		def responseList = surveyInstance.reports.person.id
         if (surveyInstance) {
-            [surveyInstance: surveyInstance, existingQuestions: existingQuestions]
+            [surveyInstance: surveyInstance, existingQuestions: existingQuestions, responseList: responseList]
         }
         else {
             flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
             redirect(action: LIST)
         }
+
+			
     }
 
     def preview = {
