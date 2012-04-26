@@ -33,9 +33,18 @@
 							<h2><input type="checkbox" name="group" value="${team.id}" class="teamCheckbox" /> ${team.name}</h2>
 							<div id="${team.id}" class="smallIndent">
 								<g:each in="${team.memberships}" var="membership">
-									<input type="checkbox" name="student" value="${membership.member.id}" />
-									<g:link controller="person" action="show" id="${membership.member.id}">${membership.member?.encodeAsHTML()}</g:link>
-									<br>
+									<input type="checkbox"
+										   name="student"
+										   value="${membership.member.id}"
+										   <g:if test="${membership.member.surveyAssignments*.survey.contains(Survey.get(surveyid))}">
+										   		checked="checked"
+										   		disabled="disabled"
+										   </g:if>
+										   />
+									<g:link controller="person" action="show" id="${membership.member.id}">
+										${membership.member?.encodeAsHTML()}
+									</g:link>
+									<br/>
 								</g:each>
 							</div>
 						</g:each>
