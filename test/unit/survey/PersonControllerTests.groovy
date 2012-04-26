@@ -57,14 +57,6 @@ class PersonControllerTests extends ControllerUnitTestCase {
         assertEquals controller.redirectArgs.action, controller.request.message
     }
     
-    void testDeletePerson(){
-        controller.params.id = 1
-        def results = controller.delete()
-        assertEquals Person.list().size(), 1
-        controller.params.id = 100
-        controller.delete()
-        assertEquals controller.redirectArgs.action, controller.list()
-    }
     
     void testUpdateInvalidPerson() {
         controller.params.id = 100
