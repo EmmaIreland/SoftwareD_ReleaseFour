@@ -3,29 +3,31 @@ package survey
 class ControllerAssist {
 
 	//maps
-	static final flush = [flush: true]
-	static final failOnError = [failOnError: true]
-	static final listMap = [action: listString]
+	static final FLUSH = [flush: true]
+	static final FAIL_ON_ERROR = [failOnError: true]
+	static final LIST_MAP = [action: LIST]
 
 	//action strings
-	static final createString = 'create'
-	static final editString = 'edit'
-	static final listString = 'list'
-	static final showString = 'show'
+	static final CREATE = 'create'
+	static final EDIT = 'edit'
+	static final LIST = 'list'
+	static final SHOW = 'show'
 
 	//label strings
-	static final personLabelString = 'person.label'
-	static final projectLabelString = 'project.label'
-	static final courseLabelString = 'course.label'
-	static final surveyLabelString = 'survey.label'
-	static final enrollmentLabelString = 'enrollment.label'
-	static final questionLabelString = 'question.label'
-	static final surveyAssignmentLabel = 'surveyAssignment.label'
+	static final PERSON_LABEL = 'person.label'
+	static final PROJECT_LABEL = 'project.label'
+	static final TEAM_LABEL = 'team.label'
+	static final COURSE_LABEL = 'course.label'
+	static final REPORT_LABEL = 'report.label'
+	static final SURVEY_LABEL = 'survey.label'
+	static final ENROLLMENT_LABEL = 'enrollment.label'
+	static final QUESTION_LABEL = 'question.label'
+	static final SURVEYASSIGNMENT_LABEL = 'surveyAssignment.label'
 	
 
 	//other strings
-	static final post = 'POST'
-	static final defaultNotFoundMessage = 'default.not.found.message'
+	static final POST = 'POST'
+	static final DEFAULT_NOTFOUND_MESSAGE = 'default.not.found.message'
 
 	// method for the version checking in update action
 	def versionCheck(instance, paramsVersion, label, controllerString) {
@@ -34,7 +36,7 @@ class ControllerAssist {
 			instance.errors.rejectValue('version', 'default.optimistic.locking.failure',
 					[message(code: label, default: controllerString)] as Object[],
 					'Another user has updated this while you were editing')
-			render(view: 'edit', model: [instance: instance])
+			render(view: EDIT, model: [instance: instance])
 			return
 		}
 	}
