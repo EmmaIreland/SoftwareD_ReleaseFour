@@ -4,10 +4,11 @@ class Survey {
     String title
     Date dueDate
     List questions
-    static hasMany = [questions: Question, reports: Report]
+    static hasMany = [questions: Question, reports: Report, surveyAssignments: SurveyAssignment]
     static belongsTo = [project: Project]
     
     static constraints = {
+	surveyAssignments(nullable: true)
 	title(blank: false)
 	dueDate(validator: { dueDate -> dueDate.after(new Date().previous()) } )
 	questions(nullable: true)

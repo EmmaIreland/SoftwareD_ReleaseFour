@@ -212,11 +212,13 @@ class SurveyController extends ControllerAssist {
 
     def delete = {
         def surveyInstance = Survey.get(params.id)
+	def surveyProject = surveyInstance.project
+	surveyInstance.surveyAssignments.each { assignment -> assignment.delete() }
         if (surveyInstance) {
             try {
                 surveyInstance.delete(FLUSH)
                 flash.message = makeMessage('default.deleted.message', surveyInstance.title)
-                redirect(action: LIST)
+                redirect(controller: 'project', action: SHOW, id:surveyProject.id)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = makeMessage('default.not.deleted.message', params.id)

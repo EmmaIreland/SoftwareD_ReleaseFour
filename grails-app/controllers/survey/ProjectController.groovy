@@ -76,11 +76,12 @@ class ProjectController extends ControllerAssist {
 
 	def delete = {
 		def projectInstance = Project.get(params.id)
+		def projectCourse = projectInstance.course
 		if (projectInstance) {
 			try {
 				projectInstance.delete(FLUSH)
 				flash.message = makeMessage('default.deleted.message', projectInstance.name)
-				redirect(action: LIST)
+				redirect(controller:'course', action: SHOW, id:projectCourse.id)
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = makeMessage('default.not.deleted.message', projectInstance.name)
