@@ -63,7 +63,7 @@ class PersonControllerTests extends ControllerUnitTestCase {
         assertEquals Person.list().size(), 1
         controller.params.id = 100
         controller.delete()
-        assertEquals controller.redirectArgs.action, controller.listString
+        assertEquals controller.redirectArgs.action, controller.list()
     }
     
     void testUpdateInvalidPerson() {
