@@ -24,12 +24,21 @@
 					<g:render template="myCourseBlock"
 							  model="['header':'My Enrollments',
 							  		  'courseList':(person.enrollments.sort { it.course.name }).collect({it.course})]" />
+					<trinkets:emptyButtonsBar />
 				</g:if>
 				
 				<g:if test="${!person.ownedCourses.isEmpty()}">
 					<g:render template="myCourseBlock"
 							  model="['header':'My Courses',
 							  		  'courseList':person.ownedCourses.sort { it.name }]" />
+					<div class="buttons">
+						<span class="button">
+	                   		<g:link class="add" controller="course" action="create">
+	                   			New Course
+	                  		</g:link>
+	                   	</span>
+						<span class="button"><input type="button" class="fakeButton"/></span>
+					</div>
 				</g:if>
 				
 				<g:set var="incompleteSurveys" value="${person.surveyAssignments.grep({!it.completed})}" />

@@ -11,4 +11,3 @@
 		</g:each>
 	</div>
 </div>
-<trinkets:emptyButtonsBar />
