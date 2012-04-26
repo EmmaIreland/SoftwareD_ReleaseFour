@@ -14,9 +14,13 @@ class SurveyAssignmentController extends ControllerAssist {
 	}
 
 	def create = {
+            if ( params.surveyid ) {
 		def surveyAssignmentInstance = new SurveyAssignment()
 		surveyAssignmentInstance.properties = params
 		[surveyAssignmentInstance: surveyAssignmentInstance, surveyid: params.surveyid]
+            } else {
+                redirect(uri: '/404')
+            }
 	}
 
 	def save = {
