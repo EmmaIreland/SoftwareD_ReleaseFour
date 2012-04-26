@@ -108,53 +108,60 @@
                 </g:form>
             </div>
             <br/>
-	        <h1>${courseInstance.toString()} Projects</h1>
-			<div class="list">
-				<table>
-					<thead>
-						<tr>
-	
-							<g:sortableColumn property="name"
-								title="${message(code: 'course.project.label', default: 'Projects')}" />
-									
-							<th><g:message code="course.project.groups.label"
-									default="No. of Groups" /></th>
-									
-						</tr>
-					</thead>
-					<tbody>
-						<g:each in="${courseInstance.projects}" status="i" var="k">
-							<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-	
-								<td>
-									<g:link controller="project" action="show" id="${k.id}">
-										${k?.encodeAsHTML()}
-									</g:link>
-								</td>
-	
-								<td valign="top" style="text-align: left;" class="value">
-									${k.teams.size()}
-								</td>			
+            
+            <g:if test="${courseInstance.projects.size() != 0}">
+		        <h1>${courseInstance.toString()} Projects</h1>
+				<div class="list">
+					<table>
+						<thead>
+							<tr>
+								<g:sortableColumn property="name"
+									title="${message(code: 'course.project.label', default: 'Projects')}" />
+										
+								<th><g:message code="course.project.groups.label"
+										default="No. of Groups" /></th>
+										
 							</tr>
-						</g:each>
-					</tbody>
-				</table>
-				<div class="buttons">
-					<g:form>
-						<g:if test="${isAdmin}">
-		                    <span class="button">
-		                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
-		                    		<input class="add" value="Add Projects"/>
-		                    	</g:link>
-		                    </span>
-	                    </g:if>
-	                   	<g:else>
-	                   		<trinkets:fakeButton />
-	                   	</g:else>
-	                </g:form>
-				</div>
-	            
-	        </div>
+						</thead>
+						<tbody>
+							<g:each in="${courseInstance.projects}" status="i" var="k">
+								<tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+		
+									<td>
+										<g:link controller="project" action="show" id="${k.id}">
+											${k?.encodeAsHTML()}
+										</g:link>
+									</td>
+		
+									<td valign="top" style="text-align: left;" class="value">
+										${k.teams.size()}
+									</td>			
+								</tr>
+							</g:each>
+						</tbody>
+					</table>
+					<div class="buttons">
+						<g:form>
+							<g:if test="${isAdmin}">
+			                    <span class="button">
+			                    	<g:link class="create" controller="project" action="create" params="${['course.id': courseInstance.id]}">
+			                    		<input class="add" value="Add Projects"/>
+			                    	</g:link>
+			                    </span>
+		                    </g:if>
+		                   	<g:else>
+		                   		<trinkets:fakeButton />
+		                   	</g:else>
+		                </g:form>
+					</div>
+		        </div>
+	        </g:if>
+	        <g:else>
+				<g:if test="${isAdmin}">
+					<h2><g:link controller="project" action="create" params="${['course.id': courseInstance.id]}">No projects have been created. Click here to add a project</g:link>
+					</h2>
+				</g:if>
+			</g:else>
         </div>
     </body>
 </html>
