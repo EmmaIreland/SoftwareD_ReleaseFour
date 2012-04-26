@@ -2,10 +2,10 @@ package survey
 
 class CourseController extends ControllerAssist {
 
-    static allowedMethods = [save: post, update: post, delete: post]
+    static allowedMethods = [save: POST, update: POST, delete: POST]
 
     def index = {
-        redirect(action: listString, params: params)
+        redirect(action: LIST, params: params)
     }
 
     def list = {
@@ -21,12 +21,12 @@ class CourseController extends ControllerAssist {
 
     def save = {
         def courseInstance = new Course(params)
-        if (courseInstance.save(flush)) {
+        if (courseInstance.save(FLUSH)) {
             flash.message = makeMessage('default.created.message', params.name)
-            redirect(action: showString, id: courseInstance.id)
+            redirect(action: SHOW, id: courseInstance.id)
         }
         else {
-            render(view: createString, model: courseMap(courseInstance))
+            render(view: CREATE, model: courseMap(courseInstance))
         }
     }
 
@@ -40,8 +40,8 @@ class CourseController extends ControllerAssist {
                 courseMap(courseInstance)
             }
         } else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.name)
-            redirect(listMap)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.name)
+            redirect(LIST_MAP)
         }
         
     }
@@ -52,8 +52,8 @@ class CourseController extends ControllerAssist {
 			return courseMap(courseInstance)
         }
         else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.name)
-			redirect(listMap)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.name)
+			redirect(LIST_MAP)
         }
     }
 
@@ -66,22 +66,22 @@ class CourseController extends ControllerAssist {
 
                     courseInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
 						 [label] as Object[], 'Another user has updated this Course while you were editing')
-                    render(view: editString, model: courseMap(courseInstance))
+                    render(view: EDIT, model: courseMap(courseInstance))
                     return
                 }
             }
             courseInstance.properties = params
-            if (!courseInstance.hasErrors() && courseInstance.save(flush)) {
+            if (!courseInstance.hasErrors() && courseInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', params.name)
-                redirect(action: showString, id: courseInstance.id)
+                redirect(action: SHOW, id: courseInstance.id)
             }
             else {
-                render(view: editString, model: courseMap(courseInstance))
+                render(view: EDIT, model: courseMap(courseInstance))
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.name)
-            redirect(listMap)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.name)
+            redirect(LIST_MAP)
         }
     }
 
@@ -89,18 +89,18 @@ class CourseController extends ControllerAssist {
         def courseInstance = Course.get(params.id)
         if (courseInstance) {
             try {
-                courseInstance.delete(flush)
+                courseInstance.delete(FLUSH)
                 flash.message = 'Course Deleted'
-                redirect(listMap)
+                redirect(LIST_MAP)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = makeMessage(defaultNotFoundMessage, params.name)
-                redirect(action: showString, id: params.id)
+                flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.name)
+                redirect(action: SHOW, id: params.id)
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.name)
-            redirect(listMap)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.name)
+            redirect(LIST_MAP)
         }
     }
 
@@ -109,7 +109,7 @@ class CourseController extends ControllerAssist {
     }
 
     private getLabel() {
-        message(code: 'course.label', default: '')
+        message(code: COURSE_LABEL, default: '')
     }
 
     private courseMap(courseInstance) {

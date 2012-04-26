@@ -3,10 +3,10 @@ package survey
 class PersonController extends ControllerAssist {
     def authenticationService
 
-    static allowedMethods = [save: post, update: post, delete: post]
+    static allowedMethods = [save: POST, update: POST, delete: POST]
 
     def index = {
-        redirect(action: listString, params: params)
+        redirect(action: LIST, params: params)
     }
 
     def list = {
@@ -25,9 +25,9 @@ class PersonController extends ControllerAssist {
         if(params.password == params.confirm_password){
             if (personInstance.save(flush)) {
                 flash.message = makeMessage('default.created.message', personInstance.name)
-                redirect(action: showString, id: personInstance.id)
+                redirect(action: SHOW, id: personInstance.id)
             } else {
-                render(view: createString, model: [personInstance: personInstance])
+                render(view: CREATE, model: [personInstance: personInstance])
             }
         }
     }
@@ -38,8 +38,8 @@ class PersonController extends ControllerAssist {
             [personInstance: personInstance]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -49,8 +49,8 @@ class PersonController extends ControllerAssist {
             return [personInstance: personInstance]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -61,9 +61,9 @@ class PersonController extends ControllerAssist {
                 def version = params.version.toLong()
                 if (personInstance.version > version) {
                     personInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                        [makeMessage(personLabelString, personInstance.id)] as Object[], 
+                        [makeMessage(PERSON_LABEL, personInstance.id)] as Object[], 
                     'Another user has updated this Person while you were editing')
-                    render(view: editString, model: [personInstance: personInstance])
+                    render(view: EDIT, model: [personInstance: personInstance])
                     return
                 }
             }
@@ -71,15 +71,15 @@ class PersonController extends ControllerAssist {
             personInstance.email = params.email
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', personInstance.toString())
-                redirect(action: showString, id: personInstance.id)
+                redirect(action: SHOW, id: personInstance.id)
             }
             else {
-                render(view: editString, model: [personInstance: personInstance])
+                render(view: EDIT, model: [personInstance: personInstance])
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -92,16 +92,16 @@ class PersonController extends ControllerAssist {
             try {
                 personInstance.delete(flush)
                 flash.message = makeMessage('default.deleted.message', personInstance.toString())
-                redirect(action: listString)
+                redirect(action: LIST)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = makeMessage('default.not.deleted.message', personInstance.toString())
-                redirect(action: showString, id: params.id)
+                redirect(action: SHOW, id: params.id)
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -137,8 +137,8 @@ class PersonController extends ControllerAssist {
             return [personInstance: personInstance]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)    
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)    
         }
     }
     def updatePassword = {
@@ -149,15 +149,15 @@ class PersonController extends ControllerAssist {
             }
             if (!personInstance.hasErrors() && personInstance.save(flush)) {
                 flash.message = makeMessage('default.updated.message', 'Password')
-                redirect(action: editString, id: personInstance.id)
+                redirect(action: EDIT, id: personInstance.id)
             }
             else {
                 render(view: 'changePassword', model: [personInstance: personInstance])
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
     private makeMessage(code, personId) {
@@ -165,6 +165,6 @@ class PersonController extends ControllerAssist {
     }
 
     private personLabel() {
-        message(code: personLabelString, default: 'Person')
+        message(code: PERSON_LABEL, default: 'Person')
     }
 }

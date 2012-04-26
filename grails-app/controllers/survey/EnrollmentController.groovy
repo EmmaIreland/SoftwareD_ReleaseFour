@@ -2,10 +2,10 @@ package survey
 
 class EnrollmentController extends ControllerAssist {
 
-    static allowedMethods = [save: post, update: post, delete: post]
+    static allowedMethods = [save: POST, update: POST, delete: POST]
 
     def index = {
-        redirect(action: listString, params: params)
+        redirect(action: LIST, params: params)
     }
 
     def list = {
@@ -36,18 +36,18 @@ class EnrollmentController extends ControllerAssist {
         def personInstance
         if (params?.name != null) {
             personInstance = new Person(params)
-            personInstance.save(flush)
+            personInstance.save(FLUSH)
         }
 
         def enrollmentInstance = personInstance ? new Enrollment(person: personInstance,
 			course: Course.get(params.course.id)) : new Enrollment(params)
-        if (enrollmentInstance.save(flush)) {
-            redirect(controller: 'enrollment', action: createString,
+        if (enrollmentInstance.save(FLUSH)) {
+            redirect(controller: 'enrollment', action: CREATE,
 				 params:['course.id': enrollmentInstance.course.id])
         }
         else {
             enrollmentInstance.errors.rejectValue('person', 'enrollment.person.unique')
-            render(view: createString, model: [enrollmentInstance: enrollmentInstance])
+            render(view: CREATE, model: [enrollmentInstance: enrollmentInstance])
         }
     }
 
@@ -57,8 +57,8 @@ class EnrollmentController extends ControllerAssist {
 			[enrollmentInstance: enrollmentInstance]
         }
         else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
         }
     }
 
@@ -68,8 +68,8 @@ class EnrollmentController extends ControllerAssist {
 			return [enrollmentInstance: enrollmentInstance]
         }
         else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
         }
     }
 
@@ -77,33 +77,33 @@ class EnrollmentController extends ControllerAssist {
         def enrollmentInstance = Enrollment.get(params.id)
         if (enrollmentInstance) {
             if (params.version) {
-				versionCheck(enrollmentInstance, params.version, enrollmentLabelString, 'Enrollment')
+				versionCheck(enrollmentInstance, params.version, ENROLLMENT_LABEL, 'Enrollment')
             }
             enrollmentInstance.properties = params
-            if (!enrollmentInstance.hasErrors() && enrollmentInstance.save(flush)) {
+            if (!enrollmentInstance.hasErrors() && enrollmentInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', enrollmentInstance.id)
-                redirect(action: showString, id: enrollmentInstance.id)
+                redirect(action: SHOW, id: enrollmentInstance.id)
             }
             else {
-                render(view: editString, model: [enrollmentInstance: enrollmentInstance])
+                render(view: EDIT, model: [enrollmentInstance: enrollmentInstance])
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
     def delete = {
         def enrollmentInstance = Enrollment.get(params.id)
-        enrollmentInstance.delete(flush)
+        enrollmentInstance.delete(FLUSH)
         render('Success')
     }
     
     def deleteByPerson = {
         def course = Course.get(params.courseId)
         def person = Person.get(params.personId)
-        Enrollment.findByCourseAndPerson(course, person).delete(flush)
+        Enrollment.findByCourseAndPerson(course, person).delete(FLUSH)
     }
 
     private makeMessage(code, enrollmentId) {
@@ -111,6 +111,6 @@ class EnrollmentController extends ControllerAssist {
     }
 
     private enrollmentLabel() {
-        message(code: enrollmentLabelString, default: 'Enrollment')
+        message(code: ENROLLMENT_LABEL, default: 'Enrollment')
     }
 }
