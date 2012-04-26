@@ -106,8 +106,12 @@
                 <g:form>
                     <g:hiddenField name="id" value="${personInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    <span class="button"><g:actionSubmit class="lock" action="changePassword" value="${message(code: 'default.button.changePassword.label', default: 'Change Password')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                    <g:if test="${(personInstance.id).equals(session['user'])}">
+                    	<span class="button"><g:actionSubmit class="lock" action="changePassword" value="${message(code: 'default.button.changePassword.label', default: 'Change Password')}" /></span>
+                    </g:if>
+                    <g:if test="${Person.get(session['user']).isAdmin}" }>
+                    	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+                	</g:if>
                 </g:form>
             </div>
         </div>

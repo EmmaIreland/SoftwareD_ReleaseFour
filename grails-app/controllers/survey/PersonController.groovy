@@ -142,7 +142,7 @@ class PersonController extends ControllerAssist {
             }
             if (!personInstance.hasErrors() && personInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', 'Password')
-                redirect(action: EDIT, id: personInstance.id)
+                redirect(action: SHOW, id: personInstance.id)
             }
             else {
                 render(view: 'changePassword', model: [personInstance: personInstance])

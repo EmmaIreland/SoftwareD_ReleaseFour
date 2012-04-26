@@ -1,5 +1,7 @@
 package survey
 
+import org.apache.catalina.Session;
+
 class AuthenticationFilters {
     def noPermissionURL = '/nopermission'
     def courseString = 'course'
@@ -63,7 +65,27 @@ class AuthenticationFilters {
                 }
             }
         }
+		
+		personModification(controller:'person', action: '(create|delete|save)') {
+			before = {
+				def user = Person.get(session[userString])
+				if ( notNullNotAdmin(user) ) {
+					redirect(uri: noPermissionURL)
+					return false
+				}
+			}
+		}
         
+		changePassword(controller:'person', action:'(changePassword|updatePassword)'){
+			before = {
+				def user = Person.get(session[userString])
+				if(user && (user.id.toString() != params.id.toString())) {
+					redirect(uri: noPermissionURL)
+					return false
+				}
+			}
+		}
+		
         coursePrivacy(controller:courseString, action: 'show') {
             before = {
                 def user = Person.get(session[userString])
