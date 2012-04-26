@@ -4,7 +4,7 @@ class TrinketsTagLib {
     static namespace = "trinkets"
     
     /**
-    * Renders an div with (+) button and text
+    * Renders a div with (+) button and text
     *
     * @attr id
     * @attr name

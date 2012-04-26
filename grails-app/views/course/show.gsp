@@ -58,9 +58,18 @@
                             
                             <td valign="top" style="text-align: left;" class="value">
                             	<g:if test="${isAdmin}">
-	                            	<g:link controller="enrollment" action="create" params="${['course.id': courseInstance.id] }">
-	                            		Add or remove a student
+                            		<!-- Couldn't be done practically in separate css file -->
+                            		<style type="text/css">a:hover { text-decoration: none; }</style>
+	                            	<g:link controller="enrollment"
+	                            			action="create"
+	                            			params="${['course.id': courseInstance.id] }" >
+		                            	<trinkets:addButton id="addStudentButton"
+		                            						title="Add or remove a student"
+		                            						width="145px" >
+		                            		Add or remove a student
+	                            		</trinkets:addButton>
 	                            	</g:link>
+	                            	<br />
                                 </g:if>
                                 <ul>
                                 <g:each in="${courseInstance.enrollments}" var="e">

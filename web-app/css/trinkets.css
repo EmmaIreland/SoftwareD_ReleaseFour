@@ -8,6 +8,11 @@
 	cursor: pointer;
 }
 
+a .addButton span {
+	font-weight: normal;
+	color: black;
+}
+
 .addButton span {
 	position: relative;
 	bottom: 4px;
