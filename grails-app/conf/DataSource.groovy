@@ -25,7 +25,7 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = 'create-drop'
+            dbCreate = 'update'
             url = 'jdbc:hsqldb:file:twentyFourEyesDb;shutdown=true'
         }
     }
