@@ -2,10 +2,10 @@ package survey
 
 class ProjectController extends ControllerAssist {
 
-	static allowedMethods = [save: post, update: post, delete: post]
+	static allowedMethods = [save: POST, update: POST, delete: POST]
 
 	def index = {
-		redirect(action: listString, params: params)
+		redirect(action: LIST, params: params)
 	}
 
 	def list = {
@@ -21,12 +21,12 @@ class ProjectController extends ControllerAssist {
 
 	def save = {
 		def projectInstance = new Project(params)
-		if (projectInstance.save(flush)) {
+		if (projectInstance.save(FLUSH)) {
 			flash.message = makeMessage('default.created.message', params.name)
-			redirect(action: showString, id: projectInstance.id)
+			redirect(action: SHOW, id: projectInstance.id)
 		}
 		else {
-			render(view: createString, model: [projectInstance: projectInstance])
+			render(view: CREATE, model: [projectInstance: projectInstance])
 		}
 	}
 
@@ -37,8 +37,8 @@ class ProjectController extends ControllerAssist {
 			[projectInstance: projectInstance, numUnassignedStudents: numUnassignedStudents]
 		}
 		else {
-			flash.message =  makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message =  makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -48,8 +48,8 @@ class ProjectController extends ControllerAssist {
 			return [projectInstance: projectInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -57,20 +57,20 @@ class ProjectController extends ControllerAssist {
 		def projectInstance = Project.get(params.id)
 		if (projectInstance) {
 			if (params.version) {
-				versionCheck(projectInstance, params.version, projectLabelString, 'Project')
+				versionCheck(projectInstance, params.version, PROJECT_LABEL, 'Project')
 			}
 			projectInstance.properties = params
-			if (!projectInstance.hasErrors() && projectInstance.save(flush)) {
+			if (!projectInstance.hasErrors() && projectInstance.save(FLUSH)) {
 				flash.message = makeMessage('default.updated.message', projectInstance.name)
-				redirect(action: showString, id: projectInstance.id)
+				redirect(action: SHOW, id: projectInstance.id)
 			}
 			else {
-				render(view: editString, model: [projectInstance: projectInstance])
+				render(view: EDIT, model: [projectInstance: projectInstance])
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -78,18 +78,18 @@ class ProjectController extends ControllerAssist {
 		def projectInstance = Project.get(params.id)
 		if (projectInstance) {
 			try {
-				projectInstance.delete(flush)
+				projectInstance.delete(FLUSH)
 				flash.message = makeMessage('default.deleted.message', projectInstance.name)
-				redirect(action: listString)
+				redirect(action: LIST)
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = makeMessage('default.not.deleted.message', projectInstance.name)
-				redirect(action: showString, id: params.id)
+				redirect(action: SHOW, id: params.id)
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -98,7 +98,7 @@ class ProjectController extends ControllerAssist {
 	}
 
 	private projectLabel() {
-		message(code: 'project.label', default: 'Project')
+		message(code: PROJECT_LABEL, default: 'Project')
 	}
 
 	private getUnassignedStudents(course, project) {

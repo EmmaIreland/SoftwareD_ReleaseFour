@@ -2,10 +2,10 @@ package survey
 
 class SurveyAssignmentController extends ControllerAssist {
 	
-	static allowedMethods = [save: post, update: post, delete: post]
+	static allowedMethods = [save: POST, update: POST, delete: POST]
 	
 	def index = {
-		redirect(action: listString, params: params)
+		redirect(action: LIST, params: params)
 	}
 
 	def list = {
@@ -21,12 +21,12 @@ class SurveyAssignmentController extends ControllerAssist {
 
 	def save = {
 		def surveyAssignmentInstance = new SurveyAssignment(params)
-		if (surveyAssignmentInstance.save(flush)) {
+		if (surveyAssignmentInstance.save(FLUSH)) {
 			flash.message = makeMessage('default.created.message', surveyAssignmentInstance.id)
-			redirect(action: showString, id: surveyAssignmentInstance.id)
+			redirect(action: SHOW, id: surveyAssignmentInstance.id)
 		}
 		else {
-			render(view: createString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
+			render(view: CREATE, model: [surveyAssignmentInstance: surveyAssignmentInstance])
 		}
 	}
 	def show = {
@@ -35,8 +35,8 @@ class SurveyAssignmentController extends ControllerAssist {
 			[surveyAssignmentInstance: surveyAssignmentInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -46,10 +46,10 @@ class SurveyAssignmentController extends ControllerAssist {
 		students.each { student ->
 			def tempSurveyAssignment = new SurveyAssignment(survey: Survey.get(params.surveyid),
 				 person: Person.get(student))
-			tempSurveyAssignment.save(flush)
+			tempSurveyAssignment.save(FLUSH)
 		}
 
-		redirect(controller: 'survey', action: showString, id: params.surveyid)
+		redirect(controller: 'survey', action: SHOW, id: params.surveyid)
 	}
 
 
@@ -59,8 +59,8 @@ class SurveyAssignmentController extends ControllerAssist {
 			return [surveyAssignmentInstance: surveyAssignmentInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -68,20 +68,20 @@ class SurveyAssignmentController extends ControllerAssist {
 		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
 		if (surveyAssignmentInstance) {
 			if (params.version) {
-				versionCheck(surveyAssignmentInstance, params.version, surveyAssignmentLabel, 'SurveyAssignment')
+				versionCheck(surveyAssignmentInstance, params.version, SURVEYASSIGNMENT_LABEL, 'SurveyAssignment')
 			}
 			surveyAssignmentInstance.properties = params
-			if (!surveyAssignmentInstance.hasErrors() && surveyAssignmentInstance.save(flush)) {
+			if (!surveyAssignmentInstance.hasErrors() && surveyAssignmentInstance.save(FLUSH)) {
 				flash.message = makeMessage('default.updated.message', surveyAssignmentInstance.id)
-				redirect(action: showString, id: surveyAssignmentInstance.id)
+				redirect(action: SHOW, id: surveyAssignmentInstance.id)
 			}
 			else {
-				render(view: editString, model: [surveyAssignmentInstance: surveyAssignmentInstance])
+				render(view: EDIT, model: [surveyAssignmentInstance: surveyAssignmentInstance])
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -89,18 +89,18 @@ class SurveyAssignmentController extends ControllerAssist {
 		def surveyAssignmentInstance = SurveyAssignment.get(params.id)
 		if (surveyAssignmentInstance) {
 			try {
-				surveyAssignmentInstance.delete(flush)
+				surveyAssignmentInstance.delete(FLUSH)
 				flash.message = makeMessage('default.deleted.message', params.id)
-				redirect(action: listString)
+				redirect(action: LIST)
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message = makeMessage('default.not.deleted.message', params.id)
-				redirect(action: showString, id: params.id)
+				redirect(action: SHOW, id: params.id)
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -109,6 +109,6 @@ class SurveyAssignmentController extends ControllerAssist {
 	}
 
 	private getLabel() {
-		message(code: surveyAssignmentLabel, default: '')
+		message(code: SURVEYASSIGNMENT_LABEL, default: '')
 	}
 }

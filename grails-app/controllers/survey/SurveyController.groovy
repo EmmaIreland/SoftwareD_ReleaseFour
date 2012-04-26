@@ -5,10 +5,10 @@ import grails.converters.JSON
 
 class SurveyController extends ControllerAssist {
 
-    static allowedMethods = [save: post, update: post, delete: post, preview: post]
+    static allowedMethods = [save: POST, update: POST, delete: POST, preview: POST]
 
     def index = {
-        redirect(action: listString, params: params)
+        redirect(action: LIST, params: params)
     }
 
     def list = {
@@ -33,12 +33,12 @@ class SurveyController extends ControllerAssist {
             }
         }
 
-        if (surveyInstance.save(flush)) {
+        if (surveyInstance.save(FLUSH)) {
             flash.message = makeMessage('default.created.message', surveyInstance.title)
-            redirect(action: showString, id: surveyInstance.id)
+            redirect(action: SHOW, id: surveyInstance.id)
         }
         else {
-            render(view: createString, model: [surveyInstance: surveyInstance])
+            render(view: CREATE, model: [surveyInstance: surveyInstance])
         }
     }
 
@@ -62,22 +62,22 @@ class SurveyController extends ControllerAssist {
             case 'checkbox':
                 def choices = removeEmptyElements(params.cbChoices)
                 questionInstance = new CheckboxQuestion(prompt: params.cbPrompt,
-                        choices: choices).save(failOnError)
+                        choices: choices).save(FAIL_ON_ERROR)
                 break
             case 'multipleChoice':
                 def choices = removeEmptyElements(params.mcChoices)
                 questionInstance = new MultipleChoiceQuestion(prompt: params.mcPrompt,
-                        choices: choices).save(failOnError)
+                        choices: choices).save(FAIL_ON_ERROR)
                 break
             case 'shortResponse':
-                questionInstance = new ShortTextQuestion(prompt: params.stPrompt).save(failOnError)
+                questionInstance = new ShortTextQuestion(prompt: params.stPrompt).save(FAIL_ON_ERROR)
                 break
             case 'longResponse':
-                questionInstance = new LongTextQuestion(prompt: params.ltPrompt).save(failOnError)
+                questionInstance = new LongTextQuestion(prompt: params.ltPrompt).save(FAIL_ON_ERROR)
                 break
         }
         surveyInstance.addToQuestions(questionInstance)
-        surveyInstance.save(failOnError)
+        surveyInstance.save(FAIL_ON_ERROR)
         render questionInstance as JSON
     }
 
@@ -88,8 +88,8 @@ class SurveyController extends ControllerAssist {
             [surveyInstance: surveyInstance, existingQuestions: existingQuestions]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -99,18 +99,18 @@ class SurveyController extends ControllerAssist {
             [surveyInstance: surveyInstance]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
     def submit = {
         def surveyInstance = Survey.get(params.id)
         def personInstance = Person.get(params.personid)
-	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(failOnError)
+	def surveyReport = new Report(person: personInstance, survey: surveyInstance, answers: []).save(FAIL_ON_ERROR)
         if (!surveyInstance || !personInstance) {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
             return
         }
         def questions = surveyInstance.questions
@@ -124,11 +124,11 @@ class SurveyController extends ControllerAssist {
             }
         }
 
-	surveyReport.save(failOnError)
+	surveyReport.save(FAIL_ON_ERROR)
         // not necessary with each once SurveyAssignment is unique
         SurveyAssignment.findBySurveyAndPerson(surveyInstance, personInstance).each { it.completed = true }
-	redirect(controller: 'report', action: showString, id:surveyReport.id)
-        //redirect(controller: 'person', action: showString, id:personInstance.id)
+	redirect(controller: 'report', action: SHOW, id:surveyReport.id)
+        //redirect(controller: 'person', action: SHOW, id:personInstance.id)
     }
 
     private createAnswer(question, person, serverResponse, surveyReport) {
@@ -137,11 +137,11 @@ class SurveyController extends ControllerAssist {
             case 'Long':
             case 'Short':
                 answer = new TextAnswer(response: serverResponse,
-                person: person, question: question, report: surveyReport).save(failOnError)
+                person: person, question: question, report: surveyReport).save(FAIL_ON_ERROR)
                 break
             case 'MultipleChoice':
                 answer = new MultipleChoiceAnswer(responseIndex: serverResponse,
-                person: person, question: question, report: surveyReport).save(failOnError)
+                person: person, question: question, report: surveyReport).save(FAIL_ON_ERROR)
                 break
             case 'Checkbox':
                 def responseMap = [:]
@@ -157,7 +157,7 @@ class SurveyController extends ControllerAssist {
 		    
                 }
                 answer = new CheckboxAnswer(responses: responseMap, person: person, question: question, report: surveyReport)
-                answer.save(failOnError)
+                answer.save(FAIL_ON_ERROR)
                 break
             default:
                 break
@@ -170,8 +170,8 @@ class SurveyController extends ControllerAssist {
         def surveyInstance = Survey.get(params.id)
         def personInstance = Person.get(session['user'])
         if (!surveyInstance || !personInstance) {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
         else {
             [surveyInstance: surveyInstance, personInstance: personInstance]
@@ -184,8 +184,8 @@ class SurveyController extends ControllerAssist {
             return [surveyInstance: surveyInstance]
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -193,29 +193,20 @@ class SurveyController extends ControllerAssist {
         def surveyInstance = Survey.get(params.id)
         if (surveyInstance) {
             if (params.version) {
-                def version = params.version.toLong()
-                if (surveyInstance.version > version) {
-
-                    surveyInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                            [
-                                makeMessage('survey.label', surveyInstance.id)]
-                            as Object[], 'Another user has updated this Survey while you were editing')
-                    render(view: editString, model: [surveyInstance: surveyInstance])
-                    return
-                }
+                versionCheck(surveyInstance, params.version, SURVEY_LABEL, 'Survey')
             }
             surveyInstance.properties = params
-            if (!surveyInstance.hasErrors() && surveyInstance.save(flush)) {
+            if (!surveyInstance.hasErrors() && surveyInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', surveyInstance.title)
-                redirect(action: showString, id: surveyInstance.id)
+                redirect(action: SHOW, id: surveyInstance.id)
             }
             else {
-                render(view: editString, model: [surveyInstance: surveyInstance])
+                render(view: EDIT, model: [surveyInstance: surveyInstance])
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -223,18 +214,18 @@ class SurveyController extends ControllerAssist {
         def surveyInstance = Survey.get(params.id)
         if (surveyInstance) {
             try {
-                surveyInstance.delete(flush)
+                surveyInstance.delete(FLUSH)
                 flash.message = makeMessage('default.deleted.message', surveyInstance.title)
-                redirect(action: listString)
+                redirect(action: LIST)
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = makeMessage('default.not.deleted.message', params.id)
-                redirect(action: showString, id: params.id)
+                redirect(action: SHOW, id: params.id)
             }
         }
         else {
-            flash.message = makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
+            flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+            redirect(action: LIST)
         }
     }
 
@@ -243,6 +234,6 @@ class SurveyController extends ControllerAssist {
     }
 
     private surveyLabel() {
-        message(code: 'survey.label', default: 'Survey')
+        message(code: SURVEY_LABEL, default: 'Survey')
     }
 }

@@ -2,10 +2,10 @@ package survey
 
 class QuestionController extends ControllerAssist{
 
-	static allowedMethods = [save: post, update: post, delete: post]
+	static allowedMethods = [save: POST, update: POST, delete: POST]
 
 	def index = {
-		redirect(action: listString, params: params)
+		redirect(action: LIST, params: params)
 	}
 
 	def list = {
@@ -19,8 +19,8 @@ class QuestionController extends ControllerAssist{
 			[questionInstance: questionInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -30,8 +30,8 @@ class QuestionController extends ControllerAssist{
 			return [questionInstance: questionInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -39,20 +39,20 @@ class QuestionController extends ControllerAssist{
 		def questionInstance = Question.get(params.id)
 		if (questionInstance) {
 			if (params.version) {
-				versionCheck(questionInstance, params.version, questionLabelString, 'Question')
+				versionCheck(questionInstance, params.version, QUESTION_LABEL, 'Question')
 			}
 			questionInstance.properties = params
-			if (!questionInstance.hasErrors() && questionInstance.save(flush)) {
+			if (!questionInstance.hasErrors() && questionInstance.save(FLUSH)) {
 				flash.message = makeMessage('default.updated.message', questionInstance.id)
-				redirect(action: showString, id: questionInstance.id)
+				redirect(action: SHOW, id: questionInstance.id)
 			}
 			else {
-				render(view: editString, model: [questionInstance: questionInstance])
+				render(view: EDIT, model: [questionInstance: questionInstance])
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -68,7 +68,7 @@ class QuestionController extends ControllerAssist{
 					break
 				}
 			}
-			questionInstance.delete(flush)
+			questionInstance.delete(FLUSH)
 		}
 		render('Success.')
 	}

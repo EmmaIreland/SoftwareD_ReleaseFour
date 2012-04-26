@@ -3,14 +3,14 @@ package survey
 
 class TeamController extends ControllerAssist {
 
-	def flushAndFailOnError = [*:flush, *:failOnError]
+	def flushAndFailOnError = [*:FLUSH, *:FAIL_ON_ERROR]
 
-	static allowedMethods = [save: post, update: post, delete: post, changeMember: post]
+	static allowedMethods = [save: POST, update: POST, delete: POST, changeMember: POST]
 
 	static int genericGroupNum = 1
 
 	def index = {
-		redirect(action: listString, params: params)
+		redirect(action: LIST, params: params)
 	}
 
 	def list = {
@@ -48,11 +48,11 @@ class TeamController extends ControllerAssist {
 
 	def save = {
 		def teamInstance = new Team(params)
-		if (teamInstance.save(flush)) {
-			redirect(action: listString, params: [project: teamInstance.project.id])
+		if (teamInstance.save(FLUSH)) {
+			redirect(action: LIST, params: [project: teamInstance.project.id])
 		}
 		else {
-			render(view: createString, model: [teamInstance: teamInstance])
+			render(view: CREATE, model: [teamInstance: teamInstance])
 		}
 	}
 
@@ -62,7 +62,7 @@ class TeamController extends ControllerAssist {
 			def numGroups = Integer.parseInt(params.num_groups)
 			def newGroups = []
 			numGroups.times() {
-				newGroups << new Team(name: "Group ${genericGroupNum++}", project: project).save(flush)
+				newGroups << new Team(name: "Group ${genericGroupNum++}", project: project).save(FLUSH)
 			}
 
 			if (params.random == 'on') {
@@ -76,12 +76,12 @@ class TeamController extends ControllerAssist {
 				newGroups.eachWithIndex() { group, index ->
 					(smallGroupSize + (index < numLargeGroups ? 1 : 0)).times() {
 						def person = unassignedStudents.remove(rand.nextInt(unassignedStudents.size()))
-						new Membership(team: group, member: person).save(flush)
+						new Membership(team: group, member: person).save(FLUSH)
 					}
 				}
 			}
 		}
-		redirect(action: listString, params: [project: project.id])
+		redirect(action: LIST, params: [project: project.id])
 	}
 
 	def show = {
@@ -90,8 +90,8 @@ class TeamController extends ControllerAssist {
 			[teamInstance: teamInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -101,8 +101,8 @@ class TeamController extends ControllerAssist {
 			return [teamInstance: teamInstance]
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
@@ -110,37 +110,27 @@ class TeamController extends ControllerAssist {
 		def teamInstance = Team.get(params.id)
 		if (teamInstance) {
 			if (params.version) {
-				def version = params.version.toLong()
-				if (teamInstance.version > version) {
-
-					teamInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-							[
-								makeMessage('team.label', teamInstance.id)]
-							as Object[],
-							'Another user has updated this Team while you were editing')
-					render(view: editString, model: [teamInstance: teamInstance])
-					return
-				}
+				versionCheck(teamInstance, params.version, TEAM_LABEL, 'Team') 
 			}
 			teamInstance.properties = params
-			if (!teamInstance.hasErrors() && teamInstance.save(flush)) {
+			if (!teamInstance.hasErrors() && teamInstance.save(FLUSH)) {
 				flash.message = makeMessage('default.updated.message', teamInstance.name)
-				redirect(controller: 'project', action: showString, id: teamInstance.project.id)
+				redirect(controller: 'project', action: SHOW, id: teamInstance.project.id)
 			}
 			else {
-				render(view: editString, model: [teamInstance: teamInstance])
+				render(view: EDIT, model: [teamInstance: teamInstance])
 			}
 		}
 		else {
-			flash.message = makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
+			flash.message = makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
 		}
 	}
 
 	def delete = {
 		def teamInstance = Team.get(params.id)
 		if (teamInstance) {
-			teamInstance.delete(flush)
+			teamInstance.delete(FLUSH)
 			render('Success.')
 		}
 	}
@@ -156,7 +146,7 @@ class TeamController extends ControllerAssist {
 		}
 
 		if (teamInstance) {
-			new Membership(team: teamInstance, member: personInstance).save(failOnError)
+			new Membership(team: teamInstance, member: personInstance).save(FAIL_ON_ERROR)
 		}
 
 		render('')
@@ -167,6 +157,6 @@ class TeamController extends ControllerAssist {
 	}
 
 	private teamLabel() {
-		message(code: 'team.label', default: 'Team')
+		message(code: TEAM_LABEL, default: 'Team')
 	}
 }

@@ -2,71 +2,70 @@ package survey
 import survey.Survey
 
 class ReportController extends ControllerAssist {
-  
-    
-    static allowedMethods = [save: post, update: post, delete: post]
 
-    def index = {
-        redirect(action: listString, params: params)
-    }
+	static allowedMethods = [save: POST, update: POST, delete: POST]
 
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [reportInstanceList: Report.list(params), reportInstanceTotal: Report.count()]
-    }
+	def index = {
+		redirect(action: LIST, params: params)
+	}
 
-    def create = {
-        def reportInstance = new Report()
-        reportInstance.properties = params
-        return [reportInstance: reportInstance]
-    }
+	def list = {
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		[reportInstanceList: Report.list(params), reportInstanceTotal: Report.count()]
+	}
 
-    def save = {
-        def reportInstance = new Report(params)
-        if (reportInstance.save(flush)) {
+	def create = {
+		def reportInstance = new Report()
+		reportInstance.properties = params
+		return [reportInstance: reportInstance]
+	}
+
+	def save = {
+		def reportInstance = new Report(params)
+		if (reportInstance.save(FLUSH)) {
 			flash.message =  makeMessage('default.created.message', reportInstance.id)
-			redirect(action: showString, id: reportInstance.id)
-        }
-        else {
-            render(view: createString, model: [reportInstance: reportInstance])
-        }
-    }
+			redirect(action: SHOW, id: reportInstance.id)
+		}
+		else {
+			render(view: CREATE, model: [reportInstance: reportInstance])
+		}
+	}
 
-    def show = {
-        def reportInstance = Report.get(params.id)
-        if (reportInstance) {
+	def show = {
+		def reportInstance = Report.get(params.id)
+		if (reportInstance) {
 			[reportInstance: reportInstance]
-        }
-        else {
-			flash.message =  makeMessage(defaultNotFoundMessage, params.id)
-			redirect(action: listString)
-        }
-    }
-    
-    def delete = {
-        def reportInstance = Report.get(params.id)
-	def reportSurvey = reportInstance.survey
-        if (reportInstance) {
-            try {
-                reportInstance.delete(flush)
-                redirect(controller:'survey', action: 'show', id:reportSurvey.id)
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
+		}
+		else {
+			flash.message =  makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
+		}
+	}
+
+	def delete = {
+		def reportInstance = Report.get(params.id)
+		def reportSurvey = reportInstance.survey
+		if (reportInstance) {
+			try {
+				reportInstance.delete(FLUSH)
+				redirect(controller:'survey', action: SHOW, id:reportSurvey.id)
+			}
+			catch (org.springframework.dao.DataIntegrityViolationException e) {
 				flash.message =  makeMessage('default.not.deleted.message', params.id)
-                redirect(action: showString, id: params.id)
-            }
-        }
-        else {
-			flash.message =  makeMessage(defaultNotFoundMessage, params.id)
-            redirect(action: listString)
-        }
-    }
-	
+				redirect(action: SHOW, id: params.id)
+			}
+		}
+		else {
+			flash.message =  makeMessage(DEFAULT_NOTFOUND_MESSAGE, params.id)
+			redirect(action: LIST)
+		}
+	}
+
 	private makeMessage(code, reportId) {
 		return "${message(code: code, args: [reportLabel(), reportId])}"
 	}
 
 	private reportLabel() {
-		message(code: 'report.label', default: 'Report')
+		message(code: REPORT_LABEL, default: 'Report')
 	}
 }
