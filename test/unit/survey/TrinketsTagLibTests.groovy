@@ -12,8 +12,6 @@ class TrinketsTagLibTests extends TagLibUnitTestCase {
         super.setUp()
         out = new StringWriter()
         TrinketsTagLib.metaClass.out = out
-        TrinketsTagLib.metaClass.g.link = {uri, body -> '<g:link uri= "' + uri.uri + '">' + body + '</g:link>'}
-        TrinketsTagLib.metaClass.g.link = {controller, action, id, body -> ''}
         ttl = new TrinketsTagLib()
     }
 
@@ -37,23 +35,31 @@ class TrinketsTagLibTests extends TagLibUnitTestCase {
         ttl.collapsibleDiv([title:'title'], {""})
         assertTrue out.toString().matches(collapsedDivPattern)
     }
-    
+
     void testIfNullBlank() {
         def results = ttl.ifNullBlank('thing')
         assertEquals results, 'thing'
         results = ttl.ifNullBlank(null)
         assertEquals results, ''
-       
     }
-    
+
     void testEmptyButtonsBar() {
         def results = ttl.emptyButtonsBar([:], {""})
         assertEquals results, ttl.out
     }
-    void testProtectedLink() {
+    void testProtectedLinkCaseOne() {
+        TrinketsTagLib.metaClass.g.link = {attrs, body -> '<g:link uri= "' + attrs.uri + '">' + body + '</g:link>'}
         ttl.protectedLink([uri:'/person/show/3'], {'Body'})
-
-        
         assertEquals out.toString(), '<g:link uri= "/person/show/3">Body</g:link>'
+    }
+    void testProtectedLinkCaseTwo(){
+        TrinketsTagLib.metaClass.g.link = {attrs, body -> '<g:link controller= "' + attrs.controller + '" action= "' + attrs.action + '" id= ' + attrs.id +'>' + body + '</g:link>'}
+        ttl.protectedLink([controller:'controller', action:'action', id:10], {'Body'})
+        assertEquals out.toString(), '<g:link controller= "controller" action= "action" id= 10>Body</g:link>'
+    }
+    void testProtectedLinkCaseThree(){
+        TrinketsTagLib.metaClass.g.link = {body -> body}
+        ttl.protectedLink([:], {'Body'})
+        assertEquals out.toString(), 'Body'
     }
 }
