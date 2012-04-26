@@ -89,7 +89,15 @@ class SurveyController extends ControllerAssist {
                 break
         }
         surveyInstance.addToQuestions(questionInstance)
-        surveyInstance.save(FAIL_ON_ERROR)
+        
+        try {
+            surveyInstance.save(FAIL_ON_ERROR)
+        } catch (grails.validation.ValidationException e) {
+            // When adding a question, ValidationException most likely means trying to add a question
+            // to a survey with a due date in the past. Handle gracefully.
+            render([error: "You may not add questions to surveys that are already due."] as JSON)
+            return
+        }
         render questionInstance as JSON
     }
 

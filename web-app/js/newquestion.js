@@ -16,7 +16,7 @@ function showQuestionFields() {
 function addQuestion() {
 	if (validateNewQuestionForm()) {
 		var ajaxData = $("#newQuestionForm").serialize();
-		jQuery.post("../addQuestion/", ajaxData, function(response) {
+		callAjax("../addQuestion/", ajaxData, function(response) {
 			$("#newQuestionForm").parent().append("<span id='" + response.id + "'><br> </span>");
 			$("#" + response.id).append($(".deleteIcon").first().clone().show());
 			$("#" + response.id).append('<a href="../../question/show/' + response.id + '"> ' + response.prompt + '</a>');
@@ -24,6 +24,16 @@ function addQuestion() {
 		$("#newQuestionFields").hide();
 		clearNewQuestionFields();
 	}
+}
+
+function callAjax(url, params, callback) {
+	jQuery.post(url, params, function(response) {
+		if (response.error) {
+			alert(response.error);
+			return false;
+		}
+		callback(response);
+	});
 }
 
 function clearNewQuestionFields() {
