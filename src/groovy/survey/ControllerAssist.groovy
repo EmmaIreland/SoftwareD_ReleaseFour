@@ -2,6 +2,15 @@ package survey
 
 class ControllerAssist {
 
+	//authentication strings
+	static final NO_PERMISSION_URL = '/nopermission'
+	static final COURSE_STRING = 'course'
+	static final USER_STRING = 'user'
+	static final PERSON_STRING = 'person'
+	static final LOGIN_STRING = 'login'
+	
+	
+	
 	//maps
 	static final FLUSH = [flush: true]
 	static final FAIL_ON_ERROR = [failOnError: true]
