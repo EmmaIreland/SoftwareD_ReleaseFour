@@ -9,6 +9,7 @@
 #newQuestionForm .errors {
 	margin: -2px 2px 0px 2px;
 	padding: 4px 6px 4px 6px;
+	width: 350px;
 }
 
 #newQuestionForm #addQuestionButton {

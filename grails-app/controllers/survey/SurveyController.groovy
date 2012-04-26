@@ -75,6 +75,18 @@ class SurveyController extends ControllerAssist {
             case 'longResponse':
                 questionInstance = new LongTextQuestion(prompt: params.ltPrompt).save(FAIL_ON_ERROR)
                 break
+            case 'scale':
+                def choices
+                try {
+                    def lowerBound = Integer.parseInt(params.scLowerBoundChoices)
+                    def upperBound = Integer.parseInt(params.scUpperBoundChoices)
+                    choices = (lowerBound..upperBound).collect { it.toString() }
+                } catch (e) {
+                    choices = [] // to force multiple choice error
+                }
+                questionInstance = new MultipleChoiceQuestion(prompt: params.scPrompt,
+                        choices: choices).save(FAIL_ON_ERROR)
+                break
         }
         surveyInstance.addToQuestions(questionInstance)
         surveyInstance.save(FAIL_ON_ERROR)

@@ -53,6 +53,7 @@
 		                                    <option value="multipleChoice">New multiple choice question</option>
 		                                    <option value="shortResponse">New short text question</option>
 		                                    <option value="longResponse">New long text question</option>
+		                                    <option value="scale">New scale question</option>
 		                            </select></td></tr>
 		                            <tr class="prop typeRow" id="existingRow">
 		                                <td valign="top" class="name">
@@ -83,7 +84,7 @@
 		                                </td>
 		                            </tr>
 		                            
-		                             <tr class="prop typeRow multipleRow">
+		                            <tr class="prop typeRow multipleRow">
 		                                <td valign="top" class="name">
 		                                    <label for="prompt"><g:message code="multipleChoiceQuestion.prompt.label" default="Prompt" /></label>
 		                                </td>
@@ -118,6 +119,34 @@
 		                                    <g:textField name="ltPrompt" value="${longTextQuestion?.prompt}" />
 		                                </td>
 		                            </tr>
+		                            
+		                            <tr class="prop typeRow scaleRow">
+		                                <td valign="top" class="name">
+		                                    <label for="prompt"><g:message code="multipleChoiceQuestion.prompt.label" default="Prompt" /></label>
+		                                </td>
+		                                <td valign="top" class="value ${hasErrors(bean: multipleChoiceQuestion, field: 'prompt', 'errors')}">
+		                                    <g:textField name="scPrompt" value="${multipleChoiceQuestion?.prompt}" />
+		                                </td>
+		                            </tr>
+		                            
+		                            <tr class="prop typeRow scaleRow">
+		                                <td valign="top" class="name">
+		                                    <label for="scLowerBound">Lower Bound</label>
+		                                </td>
+		                                <td valign="top" class="value ${hasErrors(bean: multipleChoiceQuestion, field: 'prompt', 'errors')}">
+		                                    <g:textField name="scLowerBoundChoices" id="scLowerBound" />
+		                                </td>
+		                            </tr>
+		                            
+		                            <tr class="prop typeRow scaleRow">
+		                                <td valign="top" class="name">
+		                                    <label for="scUpperBound">Upper Bound</label>
+		                                </td>
+		                                <td valign="top" class="value ${hasErrors(bean: multipleChoiceQuestion, field: 'prompt', 'errors')}">
+		                                    <g:textField name="scUpperBoundChoices" id="scUpperBound" />
+		                                </td>
+		                            </tr>
+		                            
 		                            <tr><td><input id="addQuestionButton" type="button" value="Add Question" onclick="addQuestion()"></td><td></td></tr>
 	                            </tbody>
 	                            </table>
