@@ -4,12 +4,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
+        <g:set var="isAdmin" value="${Person.get(session['user']).isAdmin}"/>
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+            <g:if test="${isAdmin}">
+            	<span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+            </g:if>
         </div>
         <div class="body">
             <h1>${personInstance.name}</h1>
@@ -105,13 +108,14 @@
             <div class="buttons">
                 <g:form>
                     <g:hiddenField name="id" value="${personInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <g:if test="${(personInstance.id).equals(session['user'])}">
                     	<span class="button"><g:actionSubmit class="lock" action="changePassword" value="${message(code: 'default.button.changePassword.label', default: 'Change Password')}" /></span>
+                    	<span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     </g:if>
-                    <g:if test="${Person.get(session['user']).isAdmin}" }>
+                    <g:if test="${isAdmin}" }>
                     	<span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 	</g:if>
+                	<trinkets:fakeButton />
                 </g:form>
             </div>
         </div>
