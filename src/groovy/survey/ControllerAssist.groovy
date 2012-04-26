@@ -1,15 +1,19 @@
 package survey
 
 class ControllerAssist {
-
+	
 	//authentication strings
 	static final NO_PERMISSION_URL = '/nopermission'
 	static final COURSE_STRING = 'course'
 	static final USER_STRING = 'user'
 	static final PERSON_STRING = 'person'
-	static final LOGIN_STRING = 'login'
+	static final LOGIN_STRING = 'login'	
+	static final EMAIL_STRING = 'email'
+	static final PASSWORD_STRING = 'password'
 	
-	
+	//authentication maps
+	static final PERSON_LOGIN_MAP = [controller: PERSON_STRING, action: LOGIN_STRING]
+	static final PERSON_LOGIN_DELETED_MAP = [controller: PERSON_STRING, action: LOGIN_STRING, params: ['loginStatus': 'deleted']]
 	
 	//maps
 	static final FLUSH = [flush: true]
@@ -33,7 +37,6 @@ class ControllerAssist {
 	static final QUESTION_LABEL = 'question.label'
 	static final SURVEYASSIGNMENT_LABEL = 'surveyAssignment.label'
 	
-
 	//other strings
 	static final POST = 'POST'
 	static final DEFAULT_NOTFOUND_MESSAGE = 'default.not.found.message'

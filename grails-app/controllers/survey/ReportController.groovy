@@ -1,5 +1,4 @@
 package survey
-import survey.Survey
 
 class ReportController extends ControllerAssist {
 
