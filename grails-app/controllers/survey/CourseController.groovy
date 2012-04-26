@@ -61,14 +61,7 @@ class CourseController extends ControllerAssist {
         def courseInstance = Course.get(params.id)
         if (courseInstance) {
             if (params.version) {
-                def version = params.version.toLong()
-                if (courseInstance.version > version) {
-
-                    courseInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-						 [label] as Object[], 'Another user has updated this Course while you were editing')
-                    render(view: EDIT, model: courseMap(courseInstance))
-                    return
-                }
+                versionCheck(courseInstance, params.version, COURSE_LABEL, 'Course')
             }
             courseInstance.properties = params
             if (!courseInstance.hasErrors() && courseInstance.save(FLUSH)) {

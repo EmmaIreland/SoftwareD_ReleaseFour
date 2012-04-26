@@ -23,7 +23,7 @@ class PersonController extends ControllerAssist {
     def save = {
         def personInstance = new Person(params)
         if(params.password == params.confirm_password){
-            if (personInstance.save(flush)) {
+            if (personInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.created.message', personInstance.name)
                 redirect(action: SHOW, id: personInstance.id)
             } else {
@@ -58,18 +58,11 @@ class PersonController extends ControllerAssist {
         def personInstance = Person.get(params.id)
         if (personInstance) {
             if (params.version) {
-                def version = params.version.toLong()
-                if (personInstance.version > version) {
-                    personInstance.errors.rejectValue('version', 'default.optimistic.locking.failure',
-                        [makeMessage(PERSON_LABEL, personInstance.id)] as Object[], 
-                    'Another user has updated this Person while you were editing')
-                    render(view: EDIT, model: [personInstance: personInstance])
-                    return
-                }
+				versionCheck(personInstance, params.version, PERSON_LABEL, 'Person')
             }
             personInstance.name = params.name
             personInstance.email = params.email
-            if (!personInstance.hasErrors() && personInstance.save(flush)) {
+            if (!personInstance.hasErrors() && personInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', personInstance.toString())
                 redirect(action: SHOW, id: personInstance.id)
             }
@@ -90,7 +83,7 @@ class PersonController extends ControllerAssist {
 				authenticationService.logout()
 			}
             try {
-                personInstance.delete(flush)
+                personInstance.delete(FLUSH)
                 flash.message = makeMessage('default.deleted.message', personInstance.toString())
                 redirect(action: LIST)
             }
@@ -147,7 +140,7 @@ class PersonController extends ControllerAssist {
             if(params.old_password){
                 authenticationService.changePassword(params.old_password, params.password, personInstance)
             }
-            if (!personInstance.hasErrors() && personInstance.save(flush)) {
+            if (!personInstance.hasErrors() && personInstance.save(FLUSH)) {
                 flash.message = makeMessage('default.updated.message', 'Password')
                 redirect(action: EDIT, id: personInstance.id)
             }
