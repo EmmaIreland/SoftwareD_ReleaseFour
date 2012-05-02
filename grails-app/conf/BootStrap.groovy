@@ -18,6 +18,17 @@ class BootStrap {
                 password: defaultPassword, email: person[2]) }
             def enrollPerson = { person, course -> new Enrollment(person: person,
                 course: course).save(failOnError) }
+            def assignTeams = { teamNames, project ->
+                teamNames.each { name ->
+                     new Team(name: name, project: project).save(failOnError)
+                }
+                def people = Enrollment.findAllByCourse(project.course)*.person // can't do project.course.enrollments*.person ?
+                def teams = Team.findAllByProject(project) // can't do project.teams ?
+                def teamCount = teams.size()
+                people.eachWithIndex { person, index ->
+                    new Membership(team: teams[index % teamCount], member: person).save(failOnError)
+                }
+            }
             
             Person sid = new Person(name: 'Sid Anderson',
                                     password: 'shiboleet',
@@ -135,6 +146,20 @@ class BootStrap {
                                                   description: 'Students learn how to use many data structures available in the Java API.',
                                                   course: dataStructures,
                                                   dueDate: new Date().next()).save(failOnError)
+            assignTeams( [ 'Team List', 'Team Map', 'Team Tree', 'Team Array' ], javaCollections )
+            
+            def javaCollectionsQuestions = [
+                new ShortTextQuestion(prompt: 'Which data structure did you use the most?'),
+                new LongTextQuestion(prompt: 'Tell me about your experience with the Java documentation.'),
+                new LongTextQuestion(prompt: 'How could this lab have gone better?'),
+                new MultipleChoiceQuestion(prompt: 'How did you like your group?',
+                                           choices: ['I liked my group.', 'Neutral', 'I disliked my group.'])
+            ]
+            
+            new Survey(title: 'Java Collections Review',
+                       dueDate: new Date().next(),
+                       questions: javaCollectionsQuestions,
+                       project: javaCollections).save(failOnError)
         }
     }
 
