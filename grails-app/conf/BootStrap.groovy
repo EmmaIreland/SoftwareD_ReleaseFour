@@ -112,7 +112,7 @@ class BootStrap {
                 ['Lara', 'Segal', 'lara@segal.me'],
                 ['Marie', 'Rimbaud', 'marie@rimbaud.org'],
                 ['Vivian', 'Velvia', 'vivian@fuji.com'],
-                ['E', 'Land', 'eland@instant.org'],
+                ['Edwin', 'Land', 'eland@instant.org'],
                 ['Henri', 'Cartier-Bresson', 'henri@cartier-bresson.org'],
                 ['Pura', 'Cutten', 'pura@cutten.me'],
                 ['Lucille', 'Ricardo', 'lucy@ilovelucy.tv'],
@@ -152,7 +152,7 @@ class BootStrap {
                 new ShortTextQuestion(prompt: 'Which data structure did you use the most?'),
                 new LongTextQuestion(prompt: 'Tell me about your experience with the Java documentation.'),
                 new LongTextQuestion(prompt: 'How could this lab have gone better?'),
-                new MultipleChoiceQuestion(prompt: 'How did you like your group?',
+                new MultipleChoiceQuestion(prompt: 'How did you like your group members?',
                                            choices: ['I liked my group.', 'Neutral', 'I disliked my group.'])
             ]
             
